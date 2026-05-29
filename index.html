@@ -64,6 +64,12 @@ input[type=text]::placeholder{color:var(--t3)}
 .job-link{flex-shrink:0;padding:7px 14px;border-radius:8px;background:var(--ac);color:#fff;
   font-size:12px;font-weight:700;text-decoration:none;transition:.15s}
 .job-link:hover{opacity:.9}
+.job-del{flex-shrink:0;width:28px;height:28px;border-radius:8px;background:var(--s3);
+  border:1px solid var(--br2);color:var(--t3);font-size:12px;cursor:pointer;transition:.15s}
+.job-del:hover{background:var(--red);color:#fff;border-color:transparent}
+.clear-btn{font-size:11px;color:var(--t2);background:var(--s2);border:1px solid var(--br2);
+  border-radius:6px;padding:5px 11px;cursor:pointer;transition:.15s}
+.clear-btn:hover{background:var(--s3);color:var(--t1)}
 .empty{text-align:center;color:var(--t3);font-size:13px;padding:30px 0}
 .spin{display:inline-block;width:11px;height:11px;border:2px solid currentColor;border-right-color:transparent;
   border-radius:50%;animation:sp .7s linear infinite;vertical-align:-1px;margin-right:4px}
@@ -100,7 +106,10 @@ input[type=text]::placeholder{color:var(--t3)}
   <!-- 목록 -->
   <div class="list-head">
     <h2>분석 현황</h2>
-    <span class="refresh">5초마다 자동 갱신</span>
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="clear-btn" onclick="clearDone()">완료·실패 모두 삭제</button>
+      <span class="refresh">5초마다 자동 갱신</span>
+    </div>
   </div>
   <div id="list"><div class="empty">아직 요청이 없습니다.</div></div>
 
@@ -189,9 +198,26 @@ async function loadJobs(){
         </div>
         <span class="badge ${bc}">${bt}</span>
         ${link}
+        <button class="job-del" onclick="delJob(${j.id})" title="목록에서 삭제">✕</button>
       </div>`;
     }).join('');
   }catch(e){ /* 무시 */ }
+}
+
+async function delJob(id){
+  if(!confirm('이 항목을 목록에서 삭제할까요?')) return;
+  try{
+    await fetch(REST + "?id=eq." + id, { method:'DELETE', headers: HEADERS });
+    loadJobs();
+  }catch(e){ alert('삭제 실패: ' + e.message); }
+}
+
+async function clearDone(){
+  if(!confirm('완료·실패한 항목을 모두 삭제할까요? (진행중은 유지)')) return;
+  try{
+    await fetch(REST + "?status=in.(done,error)", { method:'DELETE', headers: HEADERS });
+    loadJobs();
+  }catch(e){ alert('삭제 실패: ' + e.message); }
 }
 
 loadJobs();
