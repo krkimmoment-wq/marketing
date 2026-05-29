@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>@bliss_note 릴스 분석 리포트</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070707;--s1:#111;--s2:#181818;--s3:#202020;--s4:#282828;
+  --br:#1e1e1e;--br2:#2c2c2c;
+  --t1:#f0f0f0;--t2:#8c8c8c;--t3:#4a4a4a;
+  --ac:#e1306c;
+  --gold:#f5c518;--silver:#b0b8c8;--bronze:#cd7f32;
+  --rg:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);
+  --r:14px;--rs:10px;--rxs:6px;
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Malgun Gothic',sans-serif;
+  background:var(--bg);color:var(--t1);line-height:1.5;font-size:14px;
+  -webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img,video{display:block;width:100%;height:100%;object-fit:cover}
+
+/* ── HEADER ── */
+.hdr{position:sticky;top:0;z-index:100;
+  background:rgba(7,7,7,.88);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--br);height:54px;
+  padding:0 32px;display:flex;align-items:center;justify-content:space-between}
+.hdr-l{display:flex;align-items:center;gap:10px}
+.hdr-dot{width:8px;height:8px;border-radius:50%;background:var(--rg)}
+.hdr-t{font-size:13px;font-weight:600;color:var(--t2)}
+.hdr-r{font-size:12px;color:var(--t3)}
+
+/* ── WRAP ── */
+.wrap{max-width:1200px;margin:0 auto;padding:44px 28px 80px}
+
+/* ── PROFILE ── */
+.pcard{display:flex;align-items:flex-start;gap:26px;
+  background:var(--s1);border:1px solid var(--br);border-radius:var(--r);
+  padding:28px 32px;margin-bottom:48px}
+.pring{flex-shrink:0;width:90px;height:90px;border-radius:50%;
+  background:var(--rg);padding:2.5px}
+.pp{width:100%;height:100%;border-radius:50%;object-fit:cover;
+  border:2.5px solid var(--s1)}
+.ppe{background:var(--s3);display:flex;align-items:center;justify-content:center;
+  font-size:28px;border:2.5px solid var(--s1)}
+.pb{flex:1;min-width:0}
+.pname{font-size:20px;font-weight:700;display:flex;align-items:center;gap:7px;margin-bottom:3px}
+.vbadge{width:17px;height:17px;flex-shrink:0}
+.phandle{font-size:13px;color:var(--t3);margin-bottom:16px}
+.pstats{display:flex;gap:26px;flex-wrap:wrap;margin-bottom:12px}
+.sv{font-size:18px;font-weight:700;line-height:1.15}
+.sl{font-size:10px;color:var(--t3);margin-top:1px;text-transform:uppercase;letter-spacing:.5px}
+.pbio{font-size:13px;color:var(--t2);line-height:1.75;max-width:520px}
+
+/* ── 집계 배너 ── */
+.stat-bar{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:48px}
+.stat-chip{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);
+  padding:14px 20px;flex:1;min-width:140px}
+.sc-l{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.sc-v{font-size:20px;font-weight:800}
+.sc-sub{font-size:11px;color:var(--t3);margin-top:3px}
+
+/* ── 섹션 헤더 ── */
+.sec{margin-bottom:56px}
+.sh{display:flex;align-items:baseline;gap:10px;
+  margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid var(--br)}
+.sh h2{font-size:17px;font-weight:700;letter-spacing:-.3px}
+.sh-sub{font-size:12px;color:var(--t3)}
+.sh-badge{margin-left:auto;font-size:11px;color:var(--t3);
+  background:var(--s3);padding:3px 10px;border-radius:20px;border:1px solid var(--br2)}
+
+/* ── 미디어 래퍼 ── */
+.mw{position:relative;overflow:hidden;background:var(--s3);border-radius:var(--rs)}
+.mw video,.mw img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mw video{object-fit:contain;background:#000}
+.badge{position:absolute;top:8px;right:8px;font-size:10px;font-weight:700;
+  letter-spacing:.4px;padding:3px 9px;border-radius:20px;pointer-events:none;z-index:2}
+.bg-reel{background:var(--rg);color:#fff}
+/* Outlier 배지 (좌상단) */
+.outlier{position:absolute;top:7px;left:7px;z-index:3;font-size:8.5px;font-weight:800;
+  padding:2px 6px;border-radius:14px;pointer-events:none;letter-spacing:.1px;
+  color:#fff;box-shadow:0 1px 5px rgba(0,0,0,.4)}
+.outlier.ol-big{font-size:9.5px;padding:2px 8px;top:8px;left:8px}
+.ol-up{background:#3b82f6}
+.ol-hot{background:#f59e0b}
+.ol-fire{background:linear-gradient(135deg,#ff0844,#ff6b35)}
+
+/* ── TOP 3 카드 ── */
+.t3-list{display:flex;flex-direction:column;gap:14px}
+.t3-card{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);
+  display:flex;overflow:hidden;position:relative;
+  transition:box-shadow .2s var(--ease)}
+.t3-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.55)}
+.t3-card.rank-gold  {border-color:rgba(245,197,24,.25)}
+.t3-card.rank-silver{border-color:rgba(176,184,200,.2)}
+.t3-card.rank-bronze{border-color:rgba(205,127,50,.2)}
+.t3-rank{
+  width:52px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;background:var(--s2);
+  border-right:1px solid var(--br);
+}
+.t3-media{width:150px;flex-shrink:0;align-self:stretch;position:relative}
+.t3-media .mw{position:absolute;inset:0;border-radius:0;aspect-ratio:unset}
+.t3-body{flex:1;padding:20px 24px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.t3-kpis{display:flex;gap:20px;flex-wrap:wrap}
+.kpi{display:flex;flex-direction:column;gap:2px}
+.kl{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.4px}
+.kv{font-size:22px;font-weight:800;line-height:1.1;letter-spacing:-.5px}
+.kv.plays{color:#a78bfa}
+.kv.er{color:var(--ac);font-size:18px}
+.t3-cap{font-size:13px;color:var(--t2);line-height:1.65;flex:1;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.t3-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;flex-wrap:wrap;gap:8px}
+.t3-date{font-size:11.5px;color:var(--t3)}
+.t3-btns{display:flex;gap:6px}
+.btn-orig,.btn-analysis{padding:7px 15px;border-radius:var(--rxs);
+  font-size:12px;font-weight:600;white-space:nowrap;
+  transition:opacity .15s,background .15s}
+.btn-orig{background:var(--s3);border:1px solid var(--br2);color:var(--t2)}
+.btn-orig:hover{background:var(--s4)}
+.btn-analysis{background:var(--ac);color:#fff;border:none}
+.btn-analysis:hover{opacity:.85}
+
+/* ── 나머지 12개 그리드 ── */
+.g-grid{display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+  gap:13px;align-items:start}
+.g-card{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);
+  overflow:hidden;position:relative;
+  transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+.g-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.5)}
+.g-card .mw{border-radius:0}
+.g-rank{position:absolute;top:8px;left:8px;z-index:3;
+  background:rgba(0,0,0,.65);backdrop-filter:blur(4px);
+  color:#fff;font-size:10px;font-weight:800;
+  padding:2px 8px;border-radius:10px}
+.g-foot{padding:9px 11px 11px}
+.g-metrics{display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  font-size:11px;margin-bottom:5px}
+.gm{color:var(--t2)}
+.gm.plays{color:#a78bfa;font-weight:700}
+.gm.likes{color:#ff4d6e}
+.gm.date{margin-left:auto;font-size:10.5px;color:var(--t3)}
+.g-cap{font-size:11px;color:var(--t3);line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+/* ── FOOTER ── */
+footer{text-align:center;padding:36px 24px;
+  color:var(--t3);font-size:11.5px;border-top:1px solid var(--br)}
+
+@media(max-width:640px){
+  .pcard{flex-direction:column;align-items:center;text-align:center}
+  .pstats{justify-content:center}
+  .t3-card{flex-direction:column}
+  .t3-rank{width:100%;height:40px;border-right:none;border-bottom:1px solid var(--br)}
+  .t3-media{width:100%;height:260px;position:relative}
+  .wrap{padding:24px 14px 60px}
+  .stat-bar{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-l">
+    <div class="hdr-dot"></div>
+    <span class="hdr-t">릴스 벤치마크 리포트</span>
+  </div>
+  <span class="hdr-r">최근 120일 기준 · 조회수 순 · 2026.05.29</span>
+</header>
+
+<main class="wrap">
+
+  <!-- 프로필 -->
+  <div class="pcard">
+    <div class="pring"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/bliss_note/media/profile.jpg" class="pp" alt=""></div>
+    <div class="pb">
+      <div class="pname">어썸블리스<svg class="vbadge" viewBox="0 0 22 22"><circle cx="11" cy="11" r="10" fill="#3797f0"/><path d="M7 11.5l2.8 2.8 5.2-5.2" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="phandle">@bliss_note</div>
+      <div class="pstats">
+        <div><div class="sv">7.6만</div><div class="sl">팔로워</div></div>
+        <div><div class="sv">508</div><div class="sl">팔로잉</div></div>
+        <div><div class="sv">1.0천</div><div class="sl">게시물</div></div>
+      </div>
+      <p class="pbio">기본이 최고의 효율을 지녔습니다 : &quot;기본력&quot;<br>잘못 진화한 몸을 다시 설계합니다 : &quot;진화력&quot;</p>
+    </div>
+  </div>
+
+  <!-- 집계 배너 -->
+  <div class="stat-bar">
+    <div class="stat-chip">
+      <div class="sc-l">분석 기간</div>
+      <div class="sc-v">최근 120일</div>
+      <div class="sc-sub">릴스 15개</div>
+    </div>
+    <div class="stat-chip">
+      <div class="sc-l">총 재생수</div>
+      <div class="sc-v">265.9만</div>
+      <div class="sc-sub">TOP 15 합계</div>
+    </div>
+    <div class="stat-chip">
+      <div class="sc-l">평균 재생수</div>
+      <div class="sc-v">17.7만</div>
+      <div class="sc-sub">릴스 1개당</div>
+    </div>
+    <div class="stat-chip">
+      <div class="sc-l">TOP1 재생수</div>
+      <div class="sc-v">132.0만</div>
+      <div class="sc-sub">팔로워의 1740%</div>
+    </div>
+  </div>
+
+  <!-- TOP 3 -->
+  <section class="sec">
+    <div class="sh">
+      <h2>조회수 TOP 3</h2>
+      <span class="sh-sub">최근 120일 릴스 · 재생수 기준</span>
+    </div>
+    <div class="t3-list"><article class="t3-card rank-gold">
+  <div class="t3-rank">🥇</div>
+  <div class="t3-media">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/bliss_note/media/DYEy8YUSl_C.mp4" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/bliss_note/media/DYEy8YUSl_C_thumb.jpg" controls preload="none" playsinline></video>
+      <span class="badge bg-reel">Reels</span>
+      <span class="outlier ol-fire ol-big">🔥 평소의 14.1배</span>
+    </div>
+  </div>
+  <div class="t3-body">
+    <div class="t3-kpis">
+      <div class="kpi">
+        <div class="kl">재생수</div>
+        <div class="kv plays">132.0만</div>
+      </div>
+      <div class="kpi">
+        <div class="kl">좋아요</div>
+        <div class="kv">1.8만</div>
+      </div>
+      <div class="kpi">
+        <div class="kl">댓글</div>
+        <div class="kv">153</div>
+      </div>
+      <div class="kpi"><div class="kl">참여율</div><div class="kv er">24.6%</div></div>
+    </div>
+    <p class="t3-cap">운동할 때 코로만 숨쉬면?  운동할 때 숨 쉬는 방법 하나로 체력, 퍼포먼스, 회복 속도까지 갈립니다.  입으로 헐떡이는 순간 산소는 많아도 근육은 오히려 질식합니다.  왜 코로 숨 쉬는 게 힘·지구력·코어 안정성까지 바꿔버리는지 이 영상에서 전부 설명했습니다.  ✔ 산소가 있는데도 빨리 지치는 이유 ✔ 코호흡이 운동 능…</p>
+    <div class="t3-foot">
+      <span class="t3-date">2026.05.08</span>
+      <div class="t3-btns">
+        <a href="https://www.instagram.com/p/DYEy8YUSl_C/" target="_blank" rel="noopener" class="btn-orig">원본 ↗</a>
+        <a href="bliss_note_analysis_1.html" class="btn-analysis">상세 분석 →</a>
+      </div>
+    </div>
+  </div>
+</article><article class="t3-card rank-silver">
+  <div class="t3-rank">🥈</div>
+  <div class="t3-media">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/bliss_note/media/DXbwFO8kt4U.mp4" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/bliss_note/media/DXbwFO8kt4U_thumb.jpg" controls preload="none" playsinline></video>
+      <span class="badge bg-reel">Reels</span>
+      <span class="outlier ol-up ol-big">↑ 평소의 1.9배</span>
+    </div>
+  </div>
+  <div class="t3-body">
+    <div class="t3-kpis">
+      <div class="kpi">
+        <div class="kl">재생수</div>
+        <div class="kv plays">17.8만</div>
+      </div>
+      <div class="kpi">
+        <div class="kl">좋아요</div>
+        <div class="kv">2.9천</div>
+      </div>
+      <div class="kpi">
+        <div class="kl">댓글</div>
+        <div class="kv">18</div>
+      </div>
+      <div class="kpi"><div class="kl">참여율</div><div class="kv er">3.9%</div></div>
+    </div>
+    <p class="t3-cap">툭 튀어나온 어깨, 사실 가슴이 문제일 수도 있습니다  가슴 운동, 등 운동 열심히 하는데 어깨가 자꾸 앞으로 튀어나온다?  그거… 어깨가 약한 게 아니라 속근육이 꺼진 상태일 가능성 큽니다.  회전근개 스위치 꺼지면 큰 근육이 대신 일합니다.  그 결과? 어깨가 회전해야 할 순간에 가슴이 대신 수축하면서 어깨가 앞으로 …</p>
+    <div class="t3-foot">
+      <span class="t3-date">2026.04.22</span>
+      <div class="t3-btns">
+        <a href="https://www.instagram.com/p/DXbwFO8kt4U/" target="_blank" rel="noopener" class="btn-orig">원본 ↗</a>
+        <a href="bliss_note_analysis_2.html" class="btn-analysis">상세 분석 →</a>
+      </div>
+    </div>
+  </div>
+</article><article class="t3-card rank-bronze">
+  <div class="t3-rank">🥉</div>
+  <div class="t3-media">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/bliss_note/media/DVX7oUDEuZF.mp4" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/bliss_note/media/DVX7oUDEuZF_thumb.jpg" controls preload="none" playsinline></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </div>
+  <div class="t3-body">
+    <div class="t3-kpis">
+      <div class="kpi">
+        <div class="kl">재생수</div>
+        <div class="kv plays">15.9만</div>
+      </div>
+      <div class="kpi">
+        <div class="kl">좋아요</div>
+        <div class="kv">847</div>
+      </div>
+      <div class="kpi">
+        <div class="kl">댓글</div>
+        <div class="kv">18</div>
+      </div>
+      <div class="kpi"><div class="kl">참여율</div><div class="kv er">1.1%</div></div>
+    </div>
+    <p class="t3-cap">헬스 기구는 어떤 택배로 어떻게 오는걸까?</p>
+    <div class="t3-foot">
+      <span class="t3-date">2026.03.02</span>
+      <div class="t3-btns">
+        <a href="https://www.instagram.com/p/DVX7oUDEuZF/" target="_blank" rel="noopener" class="btn-orig">원본 ↗</a>
+        <a href="bliss_note_analysis_3.html" class="btn-analysis">상세 분석 →</a>
+      </div>
+    </div>
+  </div>
+</article></div>
+  </section>
+
+  <!-- 나머지 12개 -->
+  <section class="sec">
+    <div class="sh">
+      <h2>TOP 4 – 15</h2>
+      <span class="sh-sub">재생수 순</span>
+      <span class="sh-badge">12개</span>
+    </div>
+    <div class="g-grid"><div class="g-card">
+  <div class="g-rank">#4</div>
+  <a href="https://www.instagram.com/p/DW6MU-jEu1J/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-bos5-1.cdninstagram.com/o1/v/t16/f2/m86/AQMG61jDu5nNuGvnybdiEbU3Qpps_EOgM2RAx9U5eNF0N_G0gl_468oETyf9S_Wiww-BZJAJ6xNTadlszo1nSriO2-nql91dNUwjQss.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=111&amp;vs=946816544779636_130855949&amp;_nc_vs=HBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC82RDQ5ODQzNEZBOTFDMUZGOEJDRjkzRDA1RDY4RUJBNl92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyL0Q2NDU4MkQ3OUZBNzgxQTE4QjcwODRFNDQ1QUEyMzhBX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmwoPazeSS0T8VAigCQzMsF0BZLul41P30GBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&amp;_nc_rid=ada2e312f1&amp;ccb=9-4&amp;oh=00_Af4V45VLgoaQcmklqp9Tluz4WM0UJgHQo3ouXH2cXuD5PA&amp;oe=6A1AC317&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/bliss_note/media/DW6MU-jEu1J_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 14.4만</span>
+      <span class="gm likes">♥ 1.7천</span>
+      <span class="gm cmt">💬 9</span>
+      <span class="gm date">04.09</span>
+    </div>
+    <p class="g-cap">전방경사, “장요근이 왜 자꾸 뻣뻣해지는 걸까요?”  늘려서 풀어도 다시 돌아오는 이유,  간단합니다.  쓰레기통에서 냄새 난다고 페브리즈만 뿌리는 겁니다.  냄새는 잠깐 사라지지만 쓰레기를 안 치우면 다시 나죠.  장요근도 똑같습니…</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#5</div>
+  <a href="https://www.instagram.com/p/DWOjS5JkiRf/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://instagram.frst1-1.fna.fbcdn.net/o1/v/t16/f2/m69/AQOoL9jwR9OdGD1KhqAbL35_5R-k4qjsoxCNfJ1OiK2oc8VMP_g5xUHVEhuW56PlvXtNGY4dnsZ-Lk7pUlD9umFU.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=102&amp;vs=1667746034222076_3887187281&amp;_nc_vs=HBksFQIYOnBhc3N0aHJvdWdoX2V2ZXJzdG9yZS9HSVdxLWlZajF6bl9ra2tGQUtJbTFzWE5FaG9nYnNwVEFRQUYVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyLzUzNEQ0NzgxQkUyOUE4MzBBOEZGNEI5MjE1MzZBQkFDX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmwrmW4dnqzz8VAigCQzMsF0BPYYk3S8aoGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&amp;_nc_rid=d47e2c02c3&amp;ccb=9-4&amp;oh=00_Af5_32kBPKcjY8suk8AiM0ySla0tbGQngQuLsgU_twXm3A&amp;oe=6A1AB910&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/bliss_note/media/DWOjS5JkiRf_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 13.5만</span>
+      <span class="gm likes">♥ 1.4천</span>
+      <span class="gm cmt">💬 5</span>
+      <span class="gm date">03.23</span>
+    </div>
+    <p class="g-cap">스트레칭으로 안되던 어깨 문제를 한번에 해결한 방법  등 뒤로 손 안 닿는 분들? 🙋‍♂️ 단순 스트레칭만 하면 금방 리셋되는 이유가 여기 있었습니다!  단순히 유연성 문제가 아니라 &#x27;어깨 높낮이&#x27;와 &#x27;흉추 정렬&#x27;이 핵심이었네요. 1…</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#6</div>
+  <a href="https://www.instagram.com/p/DUsbYmiEqGs/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-dfw5-2.cdninstagram.com/o1/v/t16/f2/m69/AQOs5KuMO2uNPQJcc9HNwdWVzXGfUsmjdbDrf_CbBQkT8VwrNXruOI3GkkyP3TCVeElv9YoRYvRuJldO6kPmVCNt.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=104&amp;vs=1975159443353431_2531683775&amp;_nc_vs=HBksFQIYOnBhc3N0aHJvdWdoX2V2ZXJzdG9yZS9HTG1Gc2lWZEQ1NUllYUpiQVBIVDducXNpVXRjYnNwVEFRQUYVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyLzM3NDQzMjVFQjVCQTA5MkI3Q0NDOTExMjBCNDlGQjlBX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmwuCtnvr8zD8VAigCQzMsF0BQl2yLQ5WBGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&amp;_nc_rid=131f42ea1f&amp;ccb=9-4&amp;oh=00_Af4nKP9FZ7exkH6FSVeO-4R0ZsMm9P3hUjPaSwCM_6Yl_g&amp;oe=6A1AD33E&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/bliss_note/media/DUsbYmiEqGs_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 11.1만</span>
+      <span class="gm likes">♥ 1.4천</span>
+      <span class="gm cmt">💬 599</span>
+      <span class="gm date">02.13</span>
+    </div>
+    <p class="g-cap">운동을 2시간씩 하는데… 왜 더 피곤해질까요? “체력”을 유산소만으로 착각하면 답이 안 나옵니다.  체력 = 심폐지구력 + 근력/근지구력 + 유연성(가동범위) 이 3개가 같이 올라가야 덜 지치고, 회복도 빨라집니다.  ▶ 체력 비약적…</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#7</div>
+  <a href="https://www.instagram.com/p/DUVfa1HEn8j/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-den2-1.cdninstagram.com/o1/v/t16/f2/m86/AQNKhMo1pAL2RWx2ZPOnnQb3vxnQcdeyqxwPP7Gbq2I989Rk-eVmst9cqr16HcqOQbNlyN1kGu9pDMLSsi7YTjsw6r5u-TkTxB_Hu48.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=101&amp;vs=1902595871133654_3822286517&amp;_nc_vs=HBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC80MzQ0OTgwMjdERDVFQkUzMjI1MDgxRDhDRDM1QzBBRF92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyL0Y4NEMxQTJCM0JGOTY1Q0JERDFCOEFCOTVCMDJBOEI5X2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmwsXN%2FK%2B7zD8VAigCQzMsF0BalbItDlYEGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&amp;_nc_rid=f59b364da3&amp;ccb=9-4&amp;oh=00_Af6GSx5B7LIu_c0TsTDaqMG9beY4kKIJuSGuIK2LR9Oycg&amp;oe=6A1ADFFD&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/bliss_note/media/DUVfa1HEn8j_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 10.8만</span>
+      <span class="gm likes">♥ 1.1천</span>
+      <span class="gm cmt">💬 37</span>
+      <span class="gm date">02.04</span>
+    </div>
+    <p class="g-cap">팔이 안 올라가는 이유, 어깨가 뻣뻣해서가 아닐 수도 있습니다.  ✔ 한쪽 승모근만 늘 뻐근하고 ✔ 어깨 높이가 좌우 다르고 ✔ 스트레칭은 잠깐 좋아졌다가 바로 리셋된다면  문제는 어깨가 아니라 몸의 시스템일 가능성이 큽니다.  우리…</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#8</div>
+  <a href="https://www.instagram.com/p/DVGTW8EknET/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-bos5-1.cdninstagram.com/o1/v/t16/f2/m69/AQNj32dDC8ZiRTokRTwKqYwKBOZAGrjiD4QDa8jsDOCCnJt9Mm-Q2juFLJZGM_SsTOZXLqh3zFv0aiQuA03OUxzM.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=103&amp;vs=1111191407772304_674217263&amp;_nc_vs=HBksFQIYOnBhc3N0aHJvdWdoX2V2ZXJzdG9yZS9HQ3cwLXlYMng3bUIxYjVmQU5RcWRhNEdQWEJ6YnNwVEFRQUYVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyLzgzNDAzNERBMzg4N0Q4QjAyMTIwNDhFOTkzRTkwM0EwX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmwqWlkeXOzT8VAigCQzMsF0BRe%2Bdsi0OWGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&amp;_nc_rid=0d5e4d476c&amp;ccb=9-4&amp;oh=00_Af521ah5OFJmVCkTp9hTafT9-LBeXV1xOdDH1tt5LT_Kig&amp;oe=6A1ACB0E&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/bliss_note/media/DVGTW8EknET_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 10.1만</span>
+      <span class="gm likes">♥ 1.2천</span>
+      <span class="gm cmt">💬 11</span>
+      <span class="gm date">02.23</span>
+    </div>
+    <p class="g-cap">어깨 문제 원인은 의외로 이겁니다(알면 상위 1%..)  #어깨비대칭 #횡격막호흡 #자세교정 #어깨통증 #호흡운동  거울을 보면 한쪽 어깨만 더 높아 보이는 이유, 승모근이 아니라 횡격막 때문일 수 있습니다.  우리 몸은 원래 비대칭…</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#9</div>
+  <a href="https://www.instagram.com/p/DXoBMfCkksZ/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-atl3-2.cdninstagram.com/o1/v/t16/f2/m86/AQNpfLwABiZwINAMBX--DFkK9azqsEf-UGiahOUTiPBb7_tOGYVMBmepnH_LTyzXCJJmKM3md0nRYCGzp9yPUCI161r1e_i78m1Zf74.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=104&amp;vs=1613691533187083_113653818&amp;_nc_vs=HBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC8xMTQ1MURCQUQ4Q0M3NzQwQ0VDMkFGNjc0RTQxNDc5Ql92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyLzUwNEQwRkU5NkE0RDlDNDIyOThFRTAwNkEyRkY2OTg4X2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmwqzL74i%2B0j8VAigCQzMsF0BOHO2RaHKwGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&amp;_nc_rid=bdcd52d08e&amp;ccb=9-4&amp;oh=00_Af5Nqm18Z_jpQo81KrL_ZXgcfsKf3rw_t8OBrPb_SBIsNg&amp;oe=6A1AD4F6&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/bliss_note/media/DXoBMfCkksZ_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 9.4만</span>
+      <span class="gm likes">♥ 700</span>
+      <span class="gm cmt">💬 6</span>
+      <span class="gm date">04.27</span>
+    </div>
+    <p class="g-cap">체지방 타는 ‘순서’를 앞당기는 놀라운 비밀  먹고 싶은 거 다 먹는데 왜 어떤 사람은 살이 안 찔까?  그건 의지가 아니라 에너지 사용 순서의 차이입니다.  우리 몸은 👉 혈당 → 근육 글리코겐 → 체지방 이 순서로 에너지를 씁니다…</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#10</div>
+  <a href="https://www.instagram.com/p/DVqAsbyEm2I/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-iad6-1.cdninstagram.com/o1/v/t16/f2/m69/AQOZynL5CAL6xfPvCrckHYaaY5j95LMIBXGQkEHjpvi7HXdjqIsE0LjyobTZ4cZR9ku3RVhFVoaJwV8OJXA3-bPn.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=100&amp;vs=2019663995649571_3797856301&amp;_nc_vs=HBksFQIYOnBhc3N0aHJvdWdoX2V2ZXJzdG9yZS9HSDV2dVNZVVQwN19OQndIQVBVWjBmYlZKOEJZYnNwVEFRQUYVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyL0Y5NEI0MTBFMDY2RDQ2OTE1QzdGRTUzRTJCREMwMDlCX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmwvKni5bUzj8VAigCQzMsF0BQEwIMSbpeGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&amp;_nc_rid=59b6019456&amp;ccb=9-4&amp;oh=00_Af6T5YQME2NaGh3xthyGbjl6_jdq_2eInFaaFEzU_qf3Kw&amp;oe=6A1AAFE0&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/bliss_note/media/DVqAsbyEm2I_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 7.7만</span>
+      <span class="gm likes">♥ 868</span>
+      <span class="gm cmt">💬 229</span>
+      <span class="gm date">03.09</span>
+    </div>
+    <p class="g-cap">헬스 열심히 해도 힘이 안 세지는 진짜 이유?!  헬스는 열심히 하는데… 왜 현실 힘은 그대로 약할까요? “근육이 커졌는데도 택배 상자 하나가 버겁다”  이 영상에서 말하는 핵심은 근육의 ‘부피’만 키우는 운동과 진짜 ‘힘’이 쌓이는…</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#11</div>
+  <a href="https://www.instagram.com/p/DUaLNuuktWg/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-lga3-1.cdninstagram.com/o1/v/t16/f2/m69/AQP-ssfgz-qj1gRSb3Cv0s9PrZAZp98AF7v-e9i3rCnBIIvA5tdRvUcEcrhAbN2oDnyPLG59bL1oej949xuuTo3u.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=103&amp;vs=3253389148171812_4064851642&amp;_nc_vs=HBksFQIYOnBhc3N0aHJvdWdoX2V2ZXJzdG9yZS9HRXNLWkNWRktKRVlESU1FQUVlNWFKcDhBWUZnYnNwVEFRQUYVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyL0Q4NDZDRjBCOTQyMjdCOUEzOEUyQzc2MkJGNTUwM0EyX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmwqW5453IzD8VAigCQzMsF0BOHO2RaHKwGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&amp;_nc_rid=69720b22c4&amp;ccb=9-4&amp;oh=00_Af6EMPtuqqJ2iCu9h41Ai-3xWZz3wv1VW_9k1fZc2Af4fg&amp;oe=6A1AE0BE&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/bliss_note/media/DUaLNuuktWg_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 5.5만</span>
+      <span class="gm likes">♥ 338</span>
+      <span class="gm cmt">💬 32</span>
+      <span class="gm date">02.06</span>
+    </div>
+    <p class="g-cap">체지방 타는 ‘순서’를 앞당기는 놀라운 비밀  먹고 싶은 거 다 먹는데 왜 어떤 사람은 살이 안 찔까?  그건 의지가 아니라 에너지 사용 순서의 차이입니다.  우리 몸은 👉 혈당 → 근육 글리코겐 → 체지방 이 순서로 에너지를 씁니다…</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#12</div>
+  <a href="https://www.instagram.com/p/DWBb2XeEm4o/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-sjc6-1.cdninstagram.com/o1/v/t16/f2/m69/AQP7qxila6UpA7x89owUUeGsCrnMH2_ibhW5EkkTf8F9YdhMFvp2oCRFYCXawbFLSwJdAGufaJ6FM5KDhonDB401.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=109&amp;vs=1123866983198191_3882469110&amp;_nc_vs=HBksFQIYOnBhc3N0aHJvdWdoX2V2ZXJzdG9yZS9HTzF4ekNicFNucFNwRk1FQUlHdTczNkQ0cG84YnNwVEFRQUYVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyL0Y2NDBGRTY0NEYyMTk4MjYxQTJENEQ3NTEyQzMwREE2X2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmwvjz6dGwzz8VAigCQzMsF0BOHO2RaHKwGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&amp;_nc_rid=f87744d4cf&amp;ccb=9-4&amp;oh=00_Af7_qlMSpZVO3OYqkjuXWElmBWlKCCTI4c5Jm2yZ_GfYkQ&amp;oe=6A1ADD32&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/bliss_note/media/DWBb2XeEm4o_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 4.9만</span>
+      <span class="gm likes">♥ 745</span>
+      <span class="gm cmt">💬 13</span>
+      <span class="gm date">03.18</span>
+    </div>
+    <p class="g-cap">90%는 평생 모르고 사는 가장 놀라운 근육  가슴이 꽉 막힌 느낌, 숨이 깊게 안 쉬어지고 목·어깨가 항상 긴장돼 있다면 👉 자세 문제가 아니라 ‘호흡’ 문제일 수 있습니다.  우리 몸의 호흡 핵심 근육인 횡격막이 제대로 작동하지 …</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#13</div>
+  <a href="https://www.instagram.com/p/DXJd_WZksqY/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-atl3-3.cdninstagram.com/o1/v/t16/f2/m86/AQMdFnIA4PntwurHJWh9vVH7lZaNDaVs9P754XDpQZl8RVeJ_ZdPeVCXIADIYTXegbax_qTjqr3zqqCtxvX4gBk3jfOnThEjesqzE74.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=108&amp;vs=4449246515298846_487272338&amp;_nc_vs=HBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC80OTQ3OUZGRTZCN0VBNUU0QzJGNEFGNTYyQUY1OTVBN192aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyL0I4NDYyNzgyMzhCMTlENzI0RjJGOTAwQjk0Q0U1MkEyX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmwtHjqdXI0T8VAigCQzMsF0BO6fvnbItEGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&amp;_nc_rid=d090d1f4a8&amp;ccb=9-4&amp;oh=00_Af6btkeb8Mg8jpDlI4-C3AukWASjM0q-Mg8RNUybCZcOzA&amp;oe=6A1ABF1F&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/bliss_note/media/DXJd_WZksqY_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 4.9만</span>
+      <span class="gm likes">♥ 815</span>
+      <span class="gm cmt">💬 2</span>
+      <span class="gm date">04.15</span>
+    </div>
+    <p class="g-cap">근육이 아무리 커도 힘이 약하다면...</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#14</div>
+  <a href="https://www.instagram.com/p/DVGXxZhkpMh/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-lga3-2.cdninstagram.com/o1/v/t16/f2/m69/AQOcRnJ73DGC1FbIlZFnW0dwuAPfUhw8xrGLdzd4-QQYeA5Pbus6xjgbJCxNot3S-4s51u1TxlH-638jSrGPamHF.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=101&amp;vs=4431848030469010_2677515473&amp;_nc_vs=HBksFQIYOnBhc3N0aHJvdWdoX2V2ZXJzdG9yZS9HSlhSSUNhS1F3SGlQYnNDQU9lT0k0elRjVTFQYnNwVEFRQUYVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyL0FCNEExQkIxN0ZENEM1QUY3NTk4MjExNjE2M0JBMEI0X2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmwuKAl%2FzOzT8VAigCQzMsF0BQbtkWhysCGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&amp;_nc_rid=fc6bdd772a&amp;ccb=9-4&amp;oh=00_Af5nmkg1K22lGVquCKIVBVfidJlpPDd4vLDUi4LpBeVN4g&amp;oe=6A1AC23B&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/bliss_note/media/DVGXxZhkpMh_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 4.0만</span>
+      <span class="gm likes">♥ 253</span>
+      <span class="gm cmt">💬 277</span>
+      <span class="gm date">02.23</span>
+    </div>
+    <p class="g-cap">신발이 발을 보호한다고 믿지만, 아이러니하게 발의 기능을 대신하면서 아치는 무너지고 발가락은 점점 좁아집니다.  맨발 운동이 좋은 이유는 발의 감각과 기능이 다시 살아나기 때문입니다.  하지만 갑자기 맨발로 웨이트를 하면 발바닥, 종…</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#15</div>
+  <a href="https://www.instagram.com/p/DWD-dj2ku78/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-mia3-3.cdninstagram.com/o1/v/t16/f2/m69/AQN_MgNu8I_w9v1CGhDeIg_MHDyY4dWVhyHy5CC-zhrp_rpVo2kCtEa1u21cbfV6Vhmey_xu9J5_gKtx7wGl_wqO.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=109&amp;vs=676532838885142_1495604389&amp;_nc_vs=HBksFQIYOnBhc3N0aHJvdWdoX2V2ZXJzdG9yZS9HQURyX1NZN05kYkhtX3NEQU1IQlBCbjQ5UXNJYnNwVEFRQUYVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyLzcxNDhFQkVGMEI1RDFGQzEwNEVGODRCRkFGNDg1OEFBX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmwqqq7ZC7zz8VAigCQzMsF0BHYgxJul41GBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&amp;_nc_rid=be9190eced&amp;ccb=9-4&amp;oh=00_Af7T_DUuWIV4rQpaZXFsykb6wYBPqWsqhCz3xqivSMjjJA&amp;oe=6A1ACD6F&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/bliss_note/media/DWD-dj2ku78_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 3.9만</span>
+      <span class="gm likes">♥ 601</span>
+      <span class="gm cmt">💬 6</span>
+      <span class="gm date">03.19</span>
+    </div>
+    <p class="g-cap">운동이 인생을 바꾸는 진짜 이유  운동은 단순히 몸을 바꾸는 게 아닙니다. 고통을 견디는 능력, 즉 “역치”를 바꾸는 과정입니다.  힘들어서 포기하던 일도 운동을 통해 버틸 수 있게 됩니다.  다이어트 방법은 넘쳐나지만 “고통을 견디…</p>
+  </div>
+</div></div>
+  </section>
+
+</main>
+
+<footer>@bliss_note · 2026.05.29 생성 · 최근 120일 릴스 기준 · 조회수 순</footer>
+
+</body>
+</html>
