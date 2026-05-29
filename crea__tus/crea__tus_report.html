@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>@crea__tus 릴스 분석 리포트</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070707;--s1:#111;--s2:#181818;--s3:#202020;--s4:#282828;
+  --br:#1e1e1e;--br2:#2c2c2c;
+  --t1:#f0f0f0;--t2:#8c8c8c;--t3:#4a4a4a;
+  --ac:#e1306c;
+  --gold:#f5c518;--silver:#b0b8c8;--bronze:#cd7f32;
+  --rg:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);
+  --r:14px;--rs:10px;--rxs:6px;
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Malgun Gothic',sans-serif;
+  background:var(--bg);color:var(--t1);line-height:1.5;font-size:14px;
+  -webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img,video{display:block;width:100%;height:100%;object-fit:cover}
+
+/* ── HEADER ── */
+.hdr{position:sticky;top:0;z-index:100;
+  background:rgba(7,7,7,.88);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--br);height:54px;
+  padding:0 32px;display:flex;align-items:center;justify-content:space-between}
+.hdr-l{display:flex;align-items:center;gap:10px}
+.hdr-dot{width:8px;height:8px;border-radius:50%;background:var(--rg)}
+.hdr-t{font-size:13px;font-weight:600;color:var(--t2)}
+.hdr-r{font-size:12px;color:var(--t3)}
+
+/* ── WRAP ── */
+.wrap{max-width:1200px;margin:0 auto;padding:44px 28px 80px}
+
+/* ── PROFILE ── */
+.pcard{display:flex;align-items:flex-start;gap:26px;
+  background:var(--s1);border:1px solid var(--br);border-radius:var(--r);
+  padding:28px 32px;margin-bottom:48px}
+.pring{flex-shrink:0;width:90px;height:90px;border-radius:50%;
+  background:var(--rg);padding:2.5px}
+.pp{width:100%;height:100%;border-radius:50%;object-fit:cover;
+  border:2.5px solid var(--s1)}
+.ppe{background:var(--s3);display:flex;align-items:center;justify-content:center;
+  font-size:28px;border:2.5px solid var(--s1)}
+.pb{flex:1;min-width:0}
+.pname{font-size:20px;font-weight:700;display:flex;align-items:center;gap:7px;margin-bottom:3px}
+.vbadge{width:17px;height:17px;flex-shrink:0}
+.phandle{font-size:13px;color:var(--t3);margin-bottom:16px}
+.pstats{display:flex;gap:26px;flex-wrap:wrap;margin-bottom:12px}
+.sv{font-size:18px;font-weight:700;line-height:1.15}
+.sl{font-size:10px;color:var(--t3);margin-top:1px;text-transform:uppercase;letter-spacing:.5px}
+.pbio{font-size:13px;color:var(--t2);line-height:1.75;max-width:520px}
+
+/* ── 집계 배너 ── */
+.stat-bar{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:48px}
+.stat-chip{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);
+  padding:14px 20px;flex:1;min-width:140px}
+.sc-l{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.sc-v{font-size:20px;font-weight:800}
+.sc-sub{font-size:11px;color:var(--t3);margin-top:3px}
+
+/* ── 섹션 헤더 ── */
+.sec{margin-bottom:56px}
+.sh{display:flex;align-items:baseline;gap:10px;
+  margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid var(--br)}
+.sh h2{font-size:17px;font-weight:700;letter-spacing:-.3px}
+.sh-sub{font-size:12px;color:var(--t3)}
+.sh-badge{margin-left:auto;font-size:11px;color:var(--t3);
+  background:var(--s3);padding:3px 10px;border-radius:20px;border:1px solid var(--br2)}
+
+/* ── 미디어 래퍼 ── */
+.mw{position:relative;overflow:hidden;background:var(--s3);border-radius:var(--rs)}
+.mw video,.mw img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mw video{object-fit:contain;background:#000}
+.badge{position:absolute;top:8px;right:8px;font-size:10px;font-weight:700;
+  letter-spacing:.4px;padding:3px 9px;border-radius:20px;pointer-events:none;z-index:2}
+.bg-reel{background:var(--rg);color:#fff}
+/* Outlier 배지 (좌상단) */
+.outlier{position:absolute;top:7px;left:7px;z-index:3;font-size:8.5px;font-weight:800;
+  padding:2px 6px;border-radius:14px;pointer-events:none;letter-spacing:.1px;
+  color:#fff;box-shadow:0 1px 5px rgba(0,0,0,.4)}
+.outlier.ol-big{font-size:9.5px;padding:2px 8px;top:8px;left:8px}
+.ol-up{background:#3b82f6}
+.ol-hot{background:#f59e0b}
+.ol-fire{background:linear-gradient(135deg,#ff0844,#ff6b35)}
+
+/* ── TOP 3 카드 ── */
+.t3-list{display:flex;flex-direction:column;gap:14px}
+.t3-card{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);
+  display:flex;overflow:hidden;position:relative;
+  transition:box-shadow .2s var(--ease)}
+.t3-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.55)}
+.t3-card.rank-gold  {border-color:rgba(245,197,24,.25)}
+.t3-card.rank-silver{border-color:rgba(176,184,200,.2)}
+.t3-card.rank-bronze{border-color:rgba(205,127,50,.2)}
+.t3-rank{
+  width:52px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;background:var(--s2);
+  border-right:1px solid var(--br);
+}
+.t3-media{width:150px;flex-shrink:0;align-self:stretch;position:relative}
+.t3-media .mw{position:absolute;inset:0;border-radius:0;aspect-ratio:unset}
+.t3-body{flex:1;padding:20px 24px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.t3-kpis{display:flex;gap:20px;flex-wrap:wrap}
+.kpi{display:flex;flex-direction:column;gap:2px}
+.kl{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.4px}
+.kv{font-size:22px;font-weight:800;line-height:1.1;letter-spacing:-.5px}
+.kv.plays{color:#a78bfa}
+.kv.er{color:var(--ac);font-size:18px}
+.t3-cap{font-size:13px;color:var(--t2);line-height:1.65;flex:1;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.t3-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;flex-wrap:wrap;gap:8px}
+.t3-date{font-size:11.5px;color:var(--t3)}
+.t3-btns{display:flex;gap:6px}
+.btn-orig,.btn-analysis{padding:7px 15px;border-radius:var(--rxs);
+  font-size:12px;font-weight:600;white-space:nowrap;
+  transition:opacity .15s,background .15s}
+.btn-orig{background:var(--s3);border:1px solid var(--br2);color:var(--t2)}
+.btn-orig:hover{background:var(--s4)}
+.btn-analysis{background:var(--ac);color:#fff;border:none}
+.btn-analysis:hover{opacity:.85}
+
+/* ── 나머지 12개 그리드 ── */
+.g-grid{display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+  gap:13px;align-items:start}
+.g-card{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);
+  overflow:hidden;position:relative;
+  transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+.g-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.5)}
+.g-card .mw{border-radius:0}
+.g-rank{position:absolute;top:8px;left:8px;z-index:3;
+  background:rgba(0,0,0,.65);backdrop-filter:blur(4px);
+  color:#fff;font-size:10px;font-weight:800;
+  padding:2px 8px;border-radius:10px}
+.g-foot{padding:9px 11px 11px}
+.g-metrics{display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  font-size:11px;margin-bottom:5px}
+.gm{color:var(--t2)}
+.gm.plays{color:#a78bfa;font-weight:700}
+.gm.likes{color:#ff4d6e}
+.gm.date{margin-left:auto;font-size:10.5px;color:var(--t3)}
+.g-cap{font-size:11px;color:var(--t3);line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+/* ── FOOTER ── */
+footer{text-align:center;padding:36px 24px;
+  color:var(--t3);font-size:11.5px;border-top:1px solid var(--br)}
+
+@media(max-width:640px){
+  .pcard{flex-direction:column;align-items:center;text-align:center}
+  .pstats{justify-content:center}
+  .t3-card{flex-direction:column}
+  .t3-rank{width:100%;height:40px;border-right:none;border-bottom:1px solid var(--br)}
+  .t3-media{width:100%;height:260px;position:relative}
+  .wrap{padding:24px 14px 60px}
+  .stat-bar{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-l">
+    <div class="hdr-dot"></div>
+    <span class="hdr-t">릴스 벤치마크 리포트</span>
+  </div>
+  <span class="hdr-r">최근 6개월 기준 · 조회수 순 · 2026.05.29</span>
+</header>
+
+<main class="wrap">
+
+  <!-- 프로필 -->
+  <div class="pcard">
+    <div class="pring"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/crea__tus/media/profile.jpg" class="pp" alt=""></div>
+    <div class="pb">
+      <div class="pname">크리투스 이경현<svg class="vbadge" viewBox="0 0 22 22"><circle cx="11" cy="11" r="10" fill="#3797f0"/><path d="M7 11.5l2.8 2.8 5.2-5.2" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="phandle">@crea__tus</div>
+      <div class="pstats">
+        <div><div class="sv">18.2만</div><div class="sl">팔로워</div></div>
+        <div><div class="sv">1.3천</div><div class="sl">팔로잉</div></div>
+        <div><div class="sv">209</div><div class="sl">게시물</div></div>
+      </div>
+      <p class="pbio">👾크리에이터가 돈 벌게 해주는 팀(누적 수강생 43,887명)<br>🧞 조회수가 매출로 이어지는 크리에이터로 만들어드립니다.<br>👇 어떻게 시작할 지 모르겠으면 [매주 월요일 7시에 라이브]에서 공부해요👇</p>
+    </div>
+  </div>
+
+  <!-- 집계 배너 -->
+  <div class="stat-bar">
+    <div class="stat-chip">
+      <div class="sc-l">분석 기간</div>
+      <div class="sc-v">최근 6개월</div>
+      <div class="sc-sub">릴스 15개</div>
+    </div>
+    <div class="stat-chip">
+      <div class="sc-l">총 재생수</div>
+      <div class="sc-v">195.4만</div>
+      <div class="sc-sub">TOP 15 합계</div>
+    </div>
+    <div class="stat-chip">
+      <div class="sc-l">평균 재생수</div>
+      <div class="sc-v">13.0만</div>
+      <div class="sc-sub">릴스 1개당</div>
+    </div>
+    <div class="stat-chip">
+      <div class="sc-l">TOP1 재생수</div>
+      <div class="sc-v">37.9만</div>
+      <div class="sc-sub">팔로워의 208%</div>
+    </div>
+  </div>
+
+  <!-- TOP 3 -->
+  <section class="sec">
+    <div class="sh">
+      <h2>조회수 TOP 3</h2>
+      <span class="sh-sub">최근 6개월 릴스 · 재생수 기준</span>
+    </div>
+    <div class="t3-list"><article class="t3-card rank-gold">
+  <div class="t3-rank">🥇</div>
+  <div class="t3-media">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/crea__tus/media/DTZvmxHAAc3.mp4" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/crea__tus/media/DTZvmxHAAc3_thumb.jpg" controls preload="none" playsinline></video>
+      <span class="badge bg-reel">Reels</span>
+      <span class="outlier ol-fire ol-big">🔥 평소의 6.6배</span>
+    </div>
+  </div>
+  <div class="t3-body">
+    <div class="t3-kpis">
+      <div class="kpi">
+        <div class="kl">재생수</div>
+        <div class="kv plays">37.9만</div>
+      </div>
+      <div class="kpi">
+        <div class="kl">좋아요</div>
+        <div class="kv">3.5천</div>
+      </div>
+      <div class="kpi">
+        <div class="kl">댓글</div>
+        <div class="kv">2.1천</div>
+      </div>
+      <div class="kpi"><div class="kl">참여율</div><div class="kv er">3.1%</div></div>
+    </div>
+    <p class="t3-cap">이제 누가 작정하고 속이면 100% 당함 #광고  따뜻한 댓글 하나 남겨주시면 사용법과 프롬프트 정리본 보내드릴게요!   “나는 보이스 피싱 안 당한다” “로맨스 스캠은 바보들이나 당하는 거 아니야?”  이런 생각을 하는 것 자체가 엄청난 위험에 노출되어있는 거라고 생각해요.   특히 이번 기술을 쓰면서 개인적으로 들었던…</p>
+    <div class="t3-foot">
+      <span class="t3-date">2026.01.12</span>
+      <div class="t3-btns">
+        <a href="https://www.instagram.com/p/DTZvmxHAAc3/" target="_blank" rel="noopener" class="btn-orig">원본 ↗</a>
+        <a href="crea__tus_analysis_1.html" class="btn-analysis">상세 분석 →</a>
+      </div>
+    </div>
+  </div>
+</article><article class="t3-card rank-silver">
+  <div class="t3-rank">🥈</div>
+  <div class="t3-media">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/crea__tus/media/DTP0H7zk1Tp.mp4" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/crea__tus/media/DTP0H7zk1Tp_thumb.jpg" controls preload="none" playsinline></video>
+      <span class="badge bg-reel">Reels</span>
+      <span class="outlier ol-hot ol-big">⚡ 평소의 3.7배</span>
+    </div>
+  </div>
+  <div class="t3-body">
+    <div class="t3-kpis">
+      <div class="kpi">
+        <div class="kl">재생수</div>
+        <div class="kv plays">21.2만</div>
+      </div>
+      <div class="kpi">
+        <div class="kl">좋아요</div>
+        <div class="kv">985</div>
+      </div>
+      <div class="kpi">
+        <div class="kl">댓글</div>
+        <div class="kv">50</div>
+      </div>
+      <div class="kpi"><div class="kl">참여율</div><div class="kv er">0.6%</div></div>
+    </div>
+    <p class="t3-cap">맞팔선팔 제발 하지 마세요🤯  아직도 서로 맞팔하는 품앗이 톡방이 있던데 그런 거 하면 알고리즘 망가져서 계정 새로 만들어야해요.  팔로워 수가 많다고 알고리즘을 타는 게 아니에요.  알고리즘의 가장 기본은 팔로워들이 내 영상을 끝까지 보고, 저장/공유하면 그 때 팔로워가 아닌 사람들에게까지 영상이 노출되면서 영상이 터지…</p>
+    <div class="t3-foot">
+      <span class="t3-date">2026.01.08</span>
+      <div class="t3-btns">
+        <a href="https://www.instagram.com/p/DTP0H7zk1Tp/" target="_blank" rel="noopener" class="btn-orig">원본 ↗</a>
+        <a href="crea__tus_analysis_2.html" class="btn-analysis">상세 분석 →</a>
+      </div>
+    </div>
+  </div>
+</article><article class="t3-card rank-bronze">
+  <div class="t3-rank">🥉</div>
+  <div class="t3-media">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/crea__tus/media/DWow82XkyRU.mp4" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/crea__tus/media/DWow82XkyRU_thumb.jpg" controls preload="none" playsinline></video>
+      <span class="badge bg-reel">Reels</span>
+      <span class="outlier ol-hot ol-big">⚡ 평소의 3.0배</span>
+    </div>
+  </div>
+  <div class="t3-body">
+    <div class="t3-kpis">
+      <div class="kpi">
+        <div class="kl">재생수</div>
+        <div class="kv plays">17.2만</div>
+      </div>
+      <div class="kpi">
+        <div class="kl">좋아요</div>
+        <div class="kv">2.9천</div>
+      </div>
+      <div class="kpi">
+        <div class="kl">댓글</div>
+        <div class="kv">64</div>
+      </div>
+      <div class="kpi"><div class="kl">참여율</div><div class="kv er">1.6%</div></div>
+    </div>
+    <p class="t3-cap">🚨인스타 CEO가 직접 밝힌 성장 치트키 TOP5  영어라 놓치셨던 분들을 위해 핵심만 요약했습니다  1️⃣ 몰아서 찍기: 하루 날 잡고 옷/안경 바꿔가며 3~4개씩 촬영하기 2️⃣ 자막은 무조건: 시청자 절반은 소리를 끄고 봅니다. 자막 없으면 다 넘겨요 3️⃣ 알고리즘 우선순위: 1순위는 무조건 ’공유‘ (공유&gt;시청시…</p>
+    <div class="t3-foot">
+      <span class="t3-date">2026.04.02</span>
+      <div class="t3-btns">
+        <a href="https://www.instagram.com/p/DWow82XkyRU/" target="_blank" rel="noopener" class="btn-orig">원본 ↗</a>
+        <a href="crea__tus_analysis_3.html" class="btn-analysis">상세 분석 →</a>
+      </div>
+    </div>
+  </div>
+</article></div>
+  </section>
+
+  <!-- 나머지 12개 -->
+  <section class="sec">
+    <div class="sh">
+      <h2>TOP 4 – 15</h2>
+      <span class="sh-sub">재생수 순</span>
+      <span class="sh-badge">12개</span>
+    </div>
+    <div class="g-grid"><div class="g-card">
+  <div class="g-rank">#4</div>
+  <a href="https://www.instagram.com/p/DU_RLE-E91-/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-lga3-1.cdninstagram.com/o1/v/t16/f2/m69/AQPIrTmZK6gI7XzUq3qAyyIh-nVV7dNbNa80420oiaaVks5Aris_SgeZPsiCmcirmunxvteQ_MC9HomJDMgUdBDM.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=109&amp;vs=923632303608323_164517246&amp;_nc_vs=HBksFQIYOnBhc3N0aHJvdWdoX2V2ZXJzdG9yZS9HREg1S0NhVXpxTWlpSFVIQUZXUDJTcThoYThNYnNwVEFRQUYVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyL0MzNEU0QzFDQTYyMUE4QjBDQjY5MjE0Q0UwOEQ2MEJCX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmlJ6Wps%2Fh4T8VAigCQzMsF0BGGZmZmZmaGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&amp;_nc_rid=f75910ddfe&amp;ccb=9-4&amp;oh=00_Af7m_KmeMefzG16auq-sxRcA_015nanNZs9_uEGdjB3lxA&amp;oe=6A1B184A&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/crea__tus/media/DU_RLE-E91-_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      <span class="outlier ol-up ">↑ 평소의 2.8배</span>
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 15.7만</span>
+      <span class="gm likes">♥ 1.6천</span>
+      <span class="gm cmt">💬 80</span>
+      <span class="gm date">02.20</span>
+    </div>
+    <p class="g-cap">인스타 열심히 하는 친구 주변에 있으면 꼭 해주세요.  그리고 이거 보고 했다고 생색 내세요.  엄~~청 고마워할겁니다 😗  그리고 2/23 월요일 천원특강 소개해주면 인생의 귀인이 되실 수 있을거에요.  🚀신청은 프로필 링크에서 하…</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#5</div>
+  <a href="https://www.instagram.com/p/DU8EqVgk_q8/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-mia3-2.cdninstagram.com/o1/v/t16/f2/m69/AQNG4ZprK-iWFDLxMlNHgPYplpuNOI2D28ByifHfmD1G1oO4XsFYoAxmfS-xUGCZBMHBl2JLJIfSCDyocBQhebfe.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=103&amp;vs=2698369857206598_1684855625&amp;_nc_vs=HBksFQIYOnBhc3N0aHJvdWdoX2V2ZXJzdG9yZS9HSTZCQlNZcEtDbVdnYmdIQUZQbkdTcE5RbXBYYnNwVEFRQUYVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyL0I5NEU4NUFGMjFGNzVGNzVDOEI1MjU2MTE5MEZFQTkxX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmlPzVkIrV4T8VAigCQzMsF0BJIgxJul41GBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&amp;_nc_rid=f86e993402&amp;ccb=9-4&amp;oh=00_Af54Ughvvv3zoOcqFxFddPw9QXuiCslauaYE58YjO3nFkg&amp;oe=6A1B4175&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/crea__tus/media/DU8EqVgk_q8_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      <span class="outlier ol-up ">↑ 평소의 2.3배</span>
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 13.3만</span>
+      <span class="gm likes">♥ 2.3천</span>
+      <span class="gm cmt">💬 91</span>
+      <span class="gm date">02.19</span>
+    </div>
+    <p class="g-cap">간절한 사람들에게 닿을 영상  6년 전 저는 돈이 없어서 낮에는 사업을 하고, 밤에는 배달의 민족 배달 알바를 하는 삶을 살았어요.  학교에서 지원해준 사무실에서 먹고 자며 지냈지만, 화장실에선 찬물밖에 안 나와서 샤워를 하려고 아침…</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#6</div>
+  <a href="https://www.instagram.com/p/DYmWIufT85k/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-mia5-1.cdninstagram.com/o1/v/t16/f2/m86/AQM1D91oYqRLvcZgy2FyghtVVnqMGhi20RMUhn3DSjp80jUH1wvqP58xs9EIeQqp038sl1a0ylwNT5AALDW_xbmKe_FeERubuGwWsa8.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=104&amp;vs=976714651932527_214734192&amp;_nc_vs=HBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC8wNDQ2N0IyQUFENjU4MDEyOThBQUU5QTcyNjQ4NUU5NF92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyLzUzNEE5NDI3NDk1MzBDNzAxQkU0ODQyQTlFNTlEQUIzX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmrMOH2OLOoAUVAigCQzMsF0BFXdLxqfvnGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&amp;_nc_rid=564b3d4409&amp;ccb=9-4&amp;oh=00_Af7uCoQ85Dad_M5sgkC5t0rrgPIrW1PMJ4sr7TpXhD-AEA&amp;oe=6A1B36AF&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/crea__tus/media/DYmWIufT85k_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      <span class="outlier ol-up ">↑ 평소의 2.2배</span>
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 12.4만</span>
+      <span class="gm likes">♥ 1.4천</span>
+      <span class="gm cmt">💬 106</span>
+      <span class="gm date">05.21</span>
+    </div>
+    <p class="g-cap">내가 카리나…?💙  따뜻한 댓글 하나 남겨주시면 튜토리얼 보내드릴게요!  해외에서는 이 기술을 돈 받고 팔더라구요. 어렵지 않으니까 이번 기회에 배워가십쇼!  📌 ‘AI 얼굴 바꾸기’ 1분 컷 가이드! 1. 내 상반신 영상 스크린샷 …</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#7</div>
+  <a href="https://www.instagram.com/p/DS6umbuACWn/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-iad3-1.cdninstagram.com/o1/v/t16/f2/m86/AQPDvMK8SvOX_8xxfiJbfJw_kGvE9PjbDmx82zsP1D07kjuICbMd7_hB2KaJ6m71zT09LDFCdj82SXpzxWTVvJCmeISf-PhHK96MYRc.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=108&amp;vs=1385373729926214_1287258977&amp;_nc_vs=HBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC8zMjQzMjg5OTI2NjlBQTQ4NkEyQjg3MUQwQ0YzQzI5Q192aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYOnBhc3N0aHJvdWdoX2V2ZXJzdG9yZS9HSTJETnlUOS10dXVubDhGQUM2T2VHX3NmbWdGYnN0VEFRQUYVAgLIARIAKAAYABsAFQAAJpTc2b%2Bgud4%2FFQIoAkMzLBdAS7ul41P3zxgSZGFzaF9iYXNlbGluZV8xX3YxEQB1%2FgdllqkBAA%3D%3D&amp;_nc_rid=2f6473b7a1&amp;ccb=9-4&amp;oh=00_Af7be1YhlkKasr6b9mh-iP8kHuaqhcJ58jOvYBLj8r8zdA&amp;oe=6A1B231B&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/crea__tus/media/DS6umbuACWn_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      <span class="outlier ol-up ">↑ 평소의 2.0배</span>
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 11.6만</span>
+      <span class="gm likes">♥ 1.4천</span>
+      <span class="gm cmt">💬 552</span>
+      <span class="gm date">12.31</span>
+    </div>
+    <p class="g-cap">용도별 최적의 Ai 총정리🔥 #제작지원  📌각 AI마다 사용법 - Seedance : 다양한 각도에서 촬영된 기법 적용하기에 최적화  - Kling Ai 2.6 : 액션부터 감정연기까지 가능  - Veo 3.1 : 영상에 어울리는 음…</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#8</div>
+  <a href="https://www.instagram.com/p/DYFO32nTBdy/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-dfw6-1.cdninstagram.com/o1/v/t16/f2/m86/AQMV3xRTwIapkEXaxM-o5zdSkdWNUXgAH3uxF4EHcEhyTemorVBExZokeo3XQFycBlWVObFzmPkveXll1hAWlbDknAPJs8O3kFzaV38.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=103&amp;vs=1336660751614597_3316519349&amp;_nc_vs=HBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC9GNzREQjk1NEQzNzI5Qjc1RTU0MkFERDI0NzU4QzJBRV92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyL0NBNEY0NjBGMTc0NjU4QzhFRUJDQkQzMjFEMjlEQ0I4X2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmxJiiiNK1xAUVAigCQzMsF0BCbtkWhysCGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&amp;_nc_rid=ef88247d67&amp;ccb=9-4&amp;oh=00_Af4FYU0msXXRQ9Rk1Dvcxqx8sIZQLFShkZzUjRQbnMJ0_w&amp;oe=6A1B130D&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/crea__tus/media/DYFO32nTBdy_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      <span class="outlier ol-up ">↑ 평소의 2.0배</span>
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 11.2만</span>
+      <span class="gm likes">♥ 1.1천</span>
+      <span class="gm cmt">💬 33</span>
+      <span class="gm date">05.08</span>
+    </div>
+    <p class="g-cap">인스타 0명에서 1만 명, 이 영상 하나로 끝내세요! 🚀  제가 만약 처음부터 다시 시작한다면, �무작정 열심히 하는 대신 ’이 단계‘를 따를 겁니다.  지금 바로 [저장]하고 단계별로 따라오세요🔥  📍 0~5,000명: 문제 해결에…</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#9</div>
+  <a href="https://www.instagram.com/p/DW2cd-5k913/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-iad3-2.cdninstagram.com/o1/v/t16/f2/m86/AQNyXtBsIoJsRdsPNrhJzjkpJU85_QJP42m0_yDzG8MHRQ2zxCN1WsTDRNwTa1BtIYkXseeS4FHOKiJJtmqajgir5FqVgKrz7CRu5jo.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=111&amp;vs=878489028545706_267728761&amp;_nc_vs=HBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC85NDRGMTNEQTdGNUQ5N0MwNTI1MTA2QzFFREVGNjFCRF92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyLzhENDlFRDk4MUMzQTQ4QkI3Q0E3NkUxNzAxQkNGRkI2X2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmlP7A7%2BKA5j8VAigCQzMsF0BHLtkWhysCGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&amp;_nc_rid=a1449b0a62&amp;ccb=9-4&amp;oh=00_Af5MC5Us1M-MuOFe05GrBI96LDCUTx4GIJFwd_UZ3tQRyQ&amp;oe=6A1B11B6&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/crea__tus/media/DW2cd-5k913_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 8.8만</span>
+      <span class="gm likes">♥ 970</span>
+      <span class="gm cmt">💬 121</span>
+      <span class="gm date">04.08</span>
+    </div>
+    <p class="g-cap">상위 1%는 이미 하고 있는 [AI 환승 전략]💡 요즘 GPT보다 클로드가 더 핫한 거 다들 아시죠?  근데 무작정 옮긴다고 다가 아닙니다.  AI가 나를 완벽하게 알고 있어야 100% 성능이 나오거든요.  ✅ 실패 없는 AI 환승 …</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#10</div>
+  <a href="https://www.instagram.com/p/DTxxLzbkx58/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-atl3-2.cdninstagram.com/o1/v/t16/f2/m86/AQN20S_KCyvWl7JZlt5RAw5-vLPGTgt1xjqWm-8zTH_S-CwumnbyxClrrXzZ0ESCQodnvb3wfpbGwAPIJaIOyGjXGjhjm1R9Wtcjh-E.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=100&amp;vs=1852445188779085_3967135434&amp;_nc_vs=HBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC84QTQ5OTRCODRCRjQxNjY4OTI1RDQ2MjVDMDgzMkE5NF92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyLzI2NDEwMTZDNjE2RUQzREEzRUZBMjExMTNDRDE4NUI1X2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmlObEgeTP3z8VAigCQzMsF0A4szMzMzMzGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2WWqQEA&amp;_nc_rid=dcc17a2c03&amp;ccb=9-4&amp;oh=00_Af4ASHbAiQveTNlF9mgCP-5RknNPZNXxsf8FmD9ktTxmAA&amp;oe=6A1B1B47&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/crea__tus/media/DTxxLzbkx58_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 8.5만</span>
+      <span class="gm likes">♥ 742</span>
+      <span class="gm cmt">💬 41</span>
+      <span class="gm date">01.21</span>
+    </div>
+    <p class="g-cap">1일 1릴스 제발 멈춰🥲  ”무조건 매일 올려야 떡상한다“는 소문 때문에 숙제하듯 쫓기면서 릴스 올리시는 분들 계실 거예요.  저도 처음에 그랬거든요. 근데 계속하다 보니 확실히 알겠더라고요. 억지로 채우는 1일 1릴스는 오히려 독이…</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#11</div>
+  <a href="https://www.instagram.com/p/DT9r21_gPWN/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-sea1-1.cdninstagram.com/o1/v/t16/f2/m86/AQOhmatxRaW1hc6kLlWPA4tCcMxucYn_VsSYcfzwpRbKqXHSn271vj3TJGAvvaxz0V6cYPAD35gp-5uysqQ_vGq1lW4gErLuclmOXVY.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=106&amp;vs=2384114788736246_1516573610&amp;_nc_vs=HBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC9ERDQwRjBBN0FDRTFGRjQxRjM1OUY0NzI2Rjk4NzI5QV92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyLzZCNDcyOUI5REE2NzBDMzRERDU0QTUyMTk1NjU0Qjk1X2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmlP241rP43z8VAigCQzMsF0BUhDlYEGJOGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2WWqQEA&amp;_nc_rid=8335c60a8e&amp;ccb=9-4&amp;oh=00_Af5p9NoV5X3L65lkdRxGO6xyfg7C5OwOH8_uL6G2nMCIvQ&amp;oe=6A1B2D63&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/crea__tus/media/DT9r21_gPWN_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 8.4만</span>
+      <span class="gm likes">♥ 1.1천</span>
+      <span class="gm cmt">💬 22</span>
+      <span class="gm date">01.26</span>
+    </div>
+    <p class="g-cap">9일차, 릴스 편집은 이것만 지키면 됩니다🔥  복잡한 프로그램? 화려한 효과? 다 필요 없습니다.  딱 6가지만 기억하세요.  ✅ 1. 어플은 ‘캡컷(CapCut)’ 하나면 끝 배경 제거부터 요즘 유행하는 AI 목소리(애덤)까지, 릴…</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#12</div>
+  <a href="https://www.instagram.com/p/DXMhi7kE4_y/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-lga3-3.cdninstagram.com/o1/v/t16/f2/m86/AQPi7Kg1m8qsc7N0xVxA5KB-GxYe3DJssaLoCGel9e0vdZpcuP-2xQDOyZ8ZhJ_48G3SavesBFUycwQ1U-iorfpgMDrHEn79D8L6sjE.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=108&amp;vs=1944104509831614_233553585&amp;_nc_vs=HBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC9CRDQxMEFENUE1MzIyODI3QUMyQUFFNTdDODU4QTNBMl92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyLzg1NDgwRDg3RDZBMDZEMkEyQkJBRkU0M0VEMjYzMUI2X2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmlOqk87Xd5j8VAigCQzMsF0BCs5WBBiTdGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&amp;_nc_rid=88ed7d793d&amp;ccb=9-4&amp;oh=00_Af61uv9Cr9cXyCxF3MFx37ZjEjFfQRS712Cm8Td3JPVtKg&amp;oe=6A1B15E7&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/crea__tus/media/DXMhi7kE4_y_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 8.2만</span>
+      <span class="gm likes">♥ 701</span>
+      <span class="gm cmt">💬 48</span>
+      <span class="gm date">04.16</span>
+    </div>
+    <p class="g-cap">공구로 연매출이 200억을 넘는 경우도 봤어요😲  수많은 크리에이터를 분석해서 월 1억 매출내는 크리에이터들의 공구 루틴을 총정리해봤습니다.  단순히 상품을 올리는 게 아니라, 2주 전부터 설계된 콘텐츠 루틴이 핵심입니다.(사실 그에…</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#13</div>
+  <a href="https://www.instagram.com/p/DYZgyyUhiIW/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://instagram.fsac1-1.fna.fbcdn.net/o1/v/t16/f2/m86/AQMOnt37CYY9_Wbn_vR_rMXbExOgBeymhlBW9wZJkpsiKowj21ZcijDwyoumiqY3j89DpeskuM3nf_66BPgoyHZVpDUoxESrI9gq5ls.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=111&amp;vs=2014432269143755_1538389460&amp;_nc_vs=HBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC82RjQxRDVFRkQ2QUY1QzM4RUIyQUZBMERGQ0Y3NjRBNl92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyL0FFNDQxNjc3MzRBNDJBNDY5ODI3M0UzODg4ODEyOEIyX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmnuLJ0969gAQVAigCQzMsF0BSUQYk3S8bGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&amp;_nc_rid=bc063c2c18&amp;ccb=9-4&amp;oh=00_Af7WZhFC3J9aFsiSVORn24DH3kw_pyjoGtepZwG5vsgyxg&amp;oe=6A1B1B51&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/crea__tus/media/DYZgyyUhiIW_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 7.8만</span>
+      <span class="gm likes">♥ 652</span>
+      <span class="gm cmt">💬 15</span>
+      <span class="gm date">05.16</span>
+    </div>
+    <p class="g-cap">내 광고 단가 2배 올리는 법 알려드릴게요🚀  1️⃣ 팔로워 수보다 중요한 건 ’평균 조회수‘ 단순 숫자에 집행하지 마세요.  잘 기획된 영상 하나가 계정의 가치를 결정합니다.  주 1회라도 퀄리티 있는 영상을 터뜨리는 게 핵심!  …</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#14</div>
+  <a href="https://www.instagram.com/p/DUfyczTk1VS/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-iad3-1.cdninstagram.com/o1/v/t16/f2/m69/AQNwx8bN5K77lILsakFTU5XiGTT7VWy6q51URfvKBDHUtSVClvxKCR0DKE5Vbx0C6VESCNftrlVeH9-7BCXAQlG8.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=104&amp;vs=1544832403272403_1615174747&amp;_nc_vs=HBksFQIYOnBhc3N0aHJvdWdoX2V2ZXJzdG9yZS9HTGZYYmlXNE5FVllxV2NFQU1BN2Y2MnBwb0lpYnNwVEFRQUYVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyLzNFNDJDQzAxN0EzNERDNTBGNDgwQzM0MUQzQTQxOEFEX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmlPGJ29jq4D8VAigCQzMsF0BZqp%2B%2Bdsi0GBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&amp;_nc_rid=0f77573400&amp;ccb=9-4&amp;oh=00_Af4zVYOgcifORYN7jdS1r5RMKfo52LXtxUSCemgMri9lnA&amp;oe=6A1B2633&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/crea__tus/media/DUfyczTk1VS_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 6.7만</span>
+      <span class="gm likes">♥ 674</span>
+      <span class="gm cmt">💬 128</span>
+      <span class="gm date">02.08</span>
+    </div>
+    <p class="g-cap">”월 5천버는 계정 접고 취직하고 싶어요.“ 얼마 전 실제로 받은 연락입니다.  배부른 소리 같지만, 생각보다 많은 분들이 돈을 벌어도 행복하지 않다며 포기합니다.  지난 10일간의 릴스 시리즈, 마지막은 기술보다 중요한 ’멘탈 관리…</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#15</div>
+  <a href="https://www.instagram.com/p/DSqAvT3k4Oy/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://instagram.flas1-2.fna.fbcdn.net/o1/v/t16/f2/m86/AQP67Dj-EUZIlDTZogfMY1STZjx_F1Qp_otmvlLm2KRCXfCMaCnK6qecWnBLiEvo_Hy66E7uzu7pmtW9bm9TnjTWY9n5iV8LVHt8D_s.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=103&amp;vs=1930755810865745_1744353780&amp;_nc_vs=HBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC8zNjRFOTc4NUUwRkM5OUI2NTA2MDcxNjRFRDFCMDk5MV92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYOnBhc3N0aHJvdWdoX2V2ZXJzdG9yZS9HSzVnQlNTY2U3amZSck1PQUVfbWRKYkRIMGR3YnN0VEFRQUYVAgLIARIAKAAYABsAFQAAJpS7mIKojd4%2FFQIoAkMzLBdAPiIMSbpeNRgSZGFzaF9iYXNlbGluZV8xX3YxEQB1%2FgdllqkBAA%3D%3D&amp;_nc_rid=a07ebbf256&amp;ccb=9-4&amp;oh=00_Af7ZB1rqsA9JxYEqpxI3Vg9l4Yx4BQQyxYV-oFuLx6bAYw&amp;oe=6A1B2CEA&amp;_nc_sid=10d13b" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/crea__tus/media/DSqAvT3k4Oy_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 6.5만</span>
+      <span class="gm likes">♥ 500</span>
+      <span class="gm cmt">💬 26</span>
+      <span class="gm date">12.24</span>
+    </div>
+    <p class="g-cap">크리스마스 이브에 나홀로 멍 때리기 챌린지🎄  영하 날씨에 호기롭게 밖에서 시작했는데 불이 생각보다 빨리꺼져서 당황했지만 😳  집중력 떨어진 분들한테 강추  [챌린지 조건]  - 말 안하기 - 폰 안보기 - 음악 안 듣기</p>
+  </div>
+</div></div>
+  </section>
+
+</main>
+
+<footer>@crea__tus · 2026.05.29 생성 · 최근 6개월 릴스 기준 · 조회수 순</footer>
+
+</body>
+</html>
