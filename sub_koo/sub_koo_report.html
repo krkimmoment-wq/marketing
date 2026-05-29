@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>@sub_koo 릴스 분석 리포트</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070707;--s1:#111;--s2:#181818;--s3:#202020;--s4:#282828;
+  --br:#1e1e1e;--br2:#2c2c2c;
+  --t1:#f0f0f0;--t2:#8c8c8c;--t3:#4a4a4a;
+  --ac:#e1306c;
+  --gold:#f5c518;--silver:#b0b8c8;--bronze:#cd7f32;
+  --rg:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);
+  --r:14px;--rs:10px;--rxs:6px;
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Malgun Gothic',sans-serif;
+  background:var(--bg);color:var(--t1);line-height:1.5;font-size:14px;
+  -webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img,video{display:block;width:100%;height:100%;object-fit:cover}
+
+/* ── HEADER ── */
+.hdr{position:sticky;top:0;z-index:100;
+  background:rgba(7,7,7,.88);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--br);height:54px;
+  padding:0 32px;display:flex;align-items:center;justify-content:space-between}
+.hdr-l{display:flex;align-items:center;gap:10px}
+.hdr-dot{width:8px;height:8px;border-radius:50%;background:var(--rg)}
+.hdr-t{font-size:13px;font-weight:600;color:var(--t2)}
+.hdr-r{font-size:12px;color:var(--t3)}
+
+/* ── WRAP ── */
+.wrap{max-width:1200px;margin:0 auto;padding:44px 28px 80px}
+
+/* ── PROFILE ── */
+.pcard{display:flex;align-items:flex-start;gap:26px;
+  background:var(--s1);border:1px solid var(--br);border-radius:var(--r);
+  padding:28px 32px;margin-bottom:48px}
+.pring{flex-shrink:0;width:90px;height:90px;border-radius:50%;
+  background:var(--rg);padding:2.5px}
+.pp{width:100%;height:100%;border-radius:50%;object-fit:cover;
+  border:2.5px solid var(--s1)}
+.ppe{background:var(--s3);display:flex;align-items:center;justify-content:center;
+  font-size:28px;border:2.5px solid var(--s1)}
+.pb{flex:1;min-width:0}
+.pname{font-size:20px;font-weight:700;display:flex;align-items:center;gap:7px;margin-bottom:3px}
+.vbadge{width:17px;height:17px;flex-shrink:0}
+.phandle{font-size:13px;color:var(--t3);margin-bottom:16px}
+.pstats{display:flex;gap:26px;flex-wrap:wrap;margin-bottom:12px}
+.sv{font-size:18px;font-weight:700;line-height:1.15}
+.sl{font-size:10px;color:var(--t3);margin-top:1px;text-transform:uppercase;letter-spacing:.5px}
+.pbio{font-size:13px;color:var(--t2);line-height:1.75;max-width:520px}
+
+/* ── 집계 배너 ── */
+.stat-bar{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:48px}
+.stat-chip{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);
+  padding:14px 20px;flex:1;min-width:140px}
+.sc-l{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.sc-v{font-size:20px;font-weight:800}
+.sc-sub{font-size:11px;color:var(--t3);margin-top:3px}
+
+/* ── 섹션 헤더 ── */
+.sec{margin-bottom:56px}
+.sh{display:flex;align-items:baseline;gap:10px;
+  margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid var(--br)}
+.sh h2{font-size:17px;font-weight:700;letter-spacing:-.3px}
+.sh-sub{font-size:12px;color:var(--t3)}
+.sh-badge{margin-left:auto;font-size:11px;color:var(--t3);
+  background:var(--s3);padding:3px 10px;border-radius:20px;border:1px solid var(--br2)}
+
+/* ── 미디어 래퍼 ── */
+.mw{position:relative;overflow:hidden;background:var(--s3);border-radius:var(--rs)}
+.mw video,.mw img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mw video{object-fit:contain;background:#000}
+.badge{position:absolute;top:8px;right:8px;font-size:10px;font-weight:700;
+  letter-spacing:.4px;padding:3px 9px;border-radius:20px;pointer-events:none;z-index:2}
+.bg-reel{background:var(--rg);color:#fff}
+/* Outlier 배지 (좌상단) */
+.outlier{position:absolute;top:7px;left:7px;z-index:3;font-size:8.5px;font-weight:800;
+  padding:2px 6px;border-radius:14px;pointer-events:none;letter-spacing:.1px;
+  color:#fff;box-shadow:0 1px 5px rgba(0,0,0,.4)}
+.outlier.ol-big{font-size:9.5px;padding:2px 8px;top:8px;left:8px}
+.ol-up{background:#3b82f6}
+.ol-hot{background:#f59e0b}
+.ol-fire{background:linear-gradient(135deg,#ff0844,#ff6b35)}
+
+/* ── TOP 3 카드 ── */
+.t3-list{display:flex;flex-direction:column;gap:14px}
+.t3-card{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);
+  display:flex;overflow:hidden;position:relative;
+  transition:box-shadow .2s var(--ease)}
+.t3-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.55)}
+.t3-card.rank-gold  {border-color:rgba(245,197,24,.25)}
+.t3-card.rank-silver{border-color:rgba(176,184,200,.2)}
+.t3-card.rank-bronze{border-color:rgba(205,127,50,.2)}
+.t3-rank{
+  width:52px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;background:var(--s2);
+  border-right:1px solid var(--br);
+}
+.t3-media{width:150px;flex-shrink:0;align-self:stretch;position:relative}
+.t3-media .mw{position:absolute;inset:0;border-radius:0;aspect-ratio:unset}
+.t3-body{flex:1;padding:20px 24px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.t3-kpis{display:flex;gap:20px;flex-wrap:wrap}
+.kpi{display:flex;flex-direction:column;gap:2px}
+.kl{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.4px}
+.kv{font-size:22px;font-weight:800;line-height:1.1;letter-spacing:-.5px}
+.kv.plays{color:#a78bfa}
+.kv.er{color:var(--ac);font-size:18px}
+.t3-cap{font-size:13px;color:var(--t2);line-height:1.65;flex:1;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.t3-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;flex-wrap:wrap;gap:8px}
+.t3-date{font-size:11.5px;color:var(--t3)}
+.t3-btns{display:flex;gap:6px}
+.btn-orig,.btn-analysis{padding:7px 15px;border-radius:var(--rxs);
+  font-size:12px;font-weight:600;white-space:nowrap;
+  transition:opacity .15s,background .15s}
+.btn-orig{background:var(--s3);border:1px solid var(--br2);color:var(--t2)}
+.btn-orig:hover{background:var(--s4)}
+.btn-analysis{background:var(--ac);color:#fff;border:none}
+.btn-analysis:hover{opacity:.85}
+
+/* ── 나머지 12개 그리드 ── */
+.g-grid{display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+  gap:13px;align-items:start}
+.g-card{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);
+  overflow:hidden;position:relative;
+  transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+.g-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.5)}
+.g-card .mw{border-radius:0}
+.g-rank{position:absolute;top:8px;left:8px;z-index:3;
+  background:rgba(0,0,0,.65);backdrop-filter:blur(4px);
+  color:#fff;font-size:10px;font-weight:800;
+  padding:2px 8px;border-radius:10px}
+.g-foot{padding:9px 11px 11px}
+.g-metrics{display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  font-size:11px;margin-bottom:5px}
+.gm{color:var(--t2)}
+.gm.plays{color:#a78bfa;font-weight:700}
+.gm.likes{color:#ff4d6e}
+.gm.date{margin-left:auto;font-size:10.5px;color:var(--t3)}
+.g-cap{font-size:11px;color:var(--t3);line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+/* ── FOOTER ── */
+footer{text-align:center;padding:36px 24px;
+  color:var(--t3);font-size:11.5px;border-top:1px solid var(--br)}
+
+@media(max-width:640px){
+  .pcard{flex-direction:column;align-items:center;text-align:center}
+  .pstats{justify-content:center}
+  .t3-card{flex-direction:column}
+  .t3-rank{width:100%;height:40px;border-right:none;border-bottom:1px solid var(--br)}
+  .t3-media{width:100%;height:260px;position:relative}
+  .wrap{padding:24px 14px 60px}
+  .stat-bar{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-l">
+    <div class="hdr-dot"></div>
+    <span class="hdr-t">릴스 벤치마크 리포트</span>
+  </div>
+  <span class="hdr-r">최근 120일 기준 · 조회수 순 · 2026.05.29</span>
+</header>
+
+<main class="wrap">
+
+  <!-- 프로필 -->
+  <div class="pcard">
+    <div class="pring"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/profile.jpg" class="pp" alt=""></div>
+    <div class="pb">
+      <div class="pname">섭쿠_어려운걸 쉽게 알려주는 사람</div>
+      <div class="phandle">@sub_koo</div>
+      <div class="pstats">
+        <div><div class="sv">19.9만</div><div class="sl">팔로워</div></div>
+        <div><div class="sv">2.2천</div><div class="sl">팔로잉</div></div>
+        <div><div class="sv">394</div><div class="sl">게시물</div></div>
+      </div>
+      <p class="pbio">💡왓섭쿠 ‘설명천재의 운동강의‘<br>- 22서울 Npc 내추럴 피지크 전체1위🥇 외 10+🏅<br>“도망친 곳에 낙원은 없다”<br>코일링코어 교육, 전파자<br>subkoolee@gmail.com</p>
+    </div>
+  </div>
+
+  <!-- 집계 배너 -->
+  <div class="stat-bar">
+    <div class="stat-chip">
+      <div class="sc-l">분석 기간</div>
+      <div class="sc-v">최근 120일</div>
+      <div class="sc-sub">릴스 13개</div>
+    </div>
+    <div class="stat-chip">
+      <div class="sc-l">총 재생수</div>
+      <div class="sc-v">504.9만</div>
+      <div class="sc-sub">TOP 15 합계</div>
+    </div>
+    <div class="stat-chip">
+      <div class="sc-l">평균 재생수</div>
+      <div class="sc-v">38.8만</div>
+      <div class="sc-sub">릴스 1개당</div>
+    </div>
+    <div class="stat-chip">
+      <div class="sc-l">TOP1 재생수</div>
+      <div class="sc-v">80.2만</div>
+      <div class="sc-sub">팔로워의 402%</div>
+    </div>
+  </div>
+
+  <!-- TOP 3 -->
+  <section class="sec">
+    <div class="sh">
+      <h2>조회수 TOP 3</h2>
+      <span class="sh-sub">최근 120일 릴스 · 재생수 기준</span>
+    </div>
+    <div class="t3-list"><article class="t3-card rank-gold">
+  <div class="t3-rank">🥇</div>
+  <div class="t3-media">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DUF8FnXERW7.mp4" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DUF8FnXERW7_thumb.jpg" controls preload="none" playsinline></video>
+      <span class="badge bg-reel">Reels</span>
+      <span class="outlier ol-hot ol-big">⚡ 평소의 4.2배</span>
+    </div>
+  </div>
+  <div class="t3-body">
+    <div class="t3-kpis">
+      <div class="kpi">
+        <div class="kl">재생수</div>
+        <div class="kv plays">80.2만</div>
+      </div>
+      <div class="kpi">
+        <div class="kl">좋아요</div>
+        <div class="kv">1.3만</div>
+      </div>
+      <div class="kpi">
+        <div class="kl">댓글</div>
+        <div class="kv">129</div>
+      </div>
+      <div class="kpi"><div class="kl">참여율</div><div class="kv er">6.4%</div></div>
+    </div>
+    <p class="t3-cap">🔴데드를 하면 무조건 디스크 터집니다  라는 말이 유행했던 적이 있습니다  그리고 동시에  데드리프트는 전국민이 다 아는  허리 강화운동이기도 합니다   음 ...헷갈리네요 그럼 데드는   ✅좋은걸까요? 🔴나쁜걸까요?  이 질문이 가장 무섭습니다  선택을 강요하며 더 중요한걸 잊게 만들거든요  🌀데드는 좋지도 나쁘지도 않…</p>
+    <div class="t3-foot">
+      <span class="t3-date">2026.01.29</span>
+      <div class="t3-btns">
+        <a href="https://www.instagram.com/p/DUF8FnXERW7/" target="_blank" rel="noopener" class="btn-orig">원본 ↗</a>
+        <a href="sub_koo_analysis_1.html" class="btn-analysis">상세 분석 →</a>
+      </div>
+    </div>
+  </div>
+</article><article class="t3-card rank-silver">
+  <div class="t3-rank">🥈</div>
+  <div class="t3-media">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DYg8hPXRqco.mp4" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DYg8hPXRqco_thumb.jpg" controls preload="none" playsinline></video>
+      <span class="badge bg-reel">Reels</span>
+      <span class="outlier ol-hot ol-big">⚡ 평소의 4.0배</span>
+    </div>
+  </div>
+  <div class="t3-body">
+    <div class="t3-kpis">
+      <div class="kpi">
+        <div class="kl">재생수</div>
+        <div class="kv plays">76.2만</div>
+      </div>
+      <div class="kpi">
+        <div class="kl">좋아요</div>
+        <div class="kv">2.1천</div>
+      </div>
+      <div class="kpi">
+        <div class="kl">댓글</div>
+        <div class="kv">45</div>
+      </div>
+      <div class="kpi"><div class="kl">참여율</div><div class="kv er">1.1%</div></div>
+    </div>
+    <p class="t3-cap">마지막에 죽을뻔..  영상에 안나온 꿀팁   1.  발보폭  - 시선은 스쿼트를 할때 보단 약간 아래로 두어도 됩니다  - 그렇다고 너무 좁게 할필요는 없습니다   2. 피부견착 -  너무 아프다면 옷위로 눌러서 아래로 당겨 견착해주세요 - 그래서 바벨 가운데 오돌토돌한 널링이 있습니다  📌1,2번을 잘했는지 확인하는법 …</p>
+    <div class="t3-foot">
+      <span class="t3-date">2026.05.19</span>
+      <div class="t3-btns">
+        <a href="https://www.instagram.com/p/DYg8hPXRqco/" target="_blank" rel="noopener" class="btn-orig">원본 ↗</a>
+        <a href="sub_koo_analysis_2.html" class="btn-analysis">상세 분석 →</a>
+      </div>
+    </div>
+  </div>
+</article><article class="t3-card rank-bronze">
+  <div class="t3-rank">🥉</div>
+  <div class="t3-media">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DXHTl9TkSyJ.mp4" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DXHTl9TkSyJ_thumb.jpg" controls preload="none" playsinline></video>
+      <span class="badge bg-reel">Reels</span>
+      <span class="outlier ol-hot ol-big">⚡ 평소의 3.3배</span>
+    </div>
+  </div>
+  <div class="t3-body">
+    <div class="t3-kpis">
+      <div class="kpi">
+        <div class="kl">재생수</div>
+        <div class="kv plays">62.8만</div>
+      </div>
+      <div class="kpi">
+        <div class="kl">좋아요</div>
+        <div class="kv">6.9천</div>
+      </div>
+      <div class="kpi">
+        <div class="kl">댓글</div>
+        <div class="kv">76</div>
+      </div>
+      <div class="kpi"><div class="kl">참여율</div><div class="kv er">3.5%</div></div>
+    </div>
+    <p class="t3-cap">짝다리 짚지 말라고   그런 말을 들었습니다 허리가 아파서 병원을 갔더니  “짝다리를 짚지 말라”고요   그 말을 듣고 저는  허리가 더 아파졌습니다  정확히 말하면   한 발로 운동할 때  허리를 삐었습니다   “절대 골반이 안틀어 지도록 ‘중립’을 잡았는데 어째서 다친거지?” 억울했습니다  수 년이 지나고 여러 공부를…</p>
+    <div class="t3-foot">
+      <span class="t3-date">2026.04.14</span>
+      <div class="t3-btns">
+        <a href="https://www.instagram.com/p/DXHTl9TkSyJ/" target="_blank" rel="noopener" class="btn-orig">원본 ↗</a>
+        <a href="sub_koo_analysis_3.html" class="btn-analysis">상세 분석 →</a>
+      </div>
+    </div>
+  </div>
+</article></div>
+  </section>
+
+  <!-- 나머지 12개 -->
+  <section class="sec">
+    <div class="sh">
+      <h2>TOP 4 – 15</h2>
+      <span class="sh-sub">재생수 순</span>
+      <span class="sh-badge">10개</span>
+    </div>
+    <div class="g-grid"><div class="g-card">
+  <div class="g-rank">#4</div>
+  <a href="https://www.instagram.com/p/DXjF8aIEYs5/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DXjF8aIEYs5.mp4" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DXjF8aIEYs5_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      <span class="outlier ol-up ">↑ 평소의 2.7배</span>
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 51.9만</span>
+      <span class="gm likes">♥ 6.7천</span>
+      <span class="gm cmt">💬 101</span>
+      <span class="gm date">04.25</span>
+    </div>
+    <p class="g-cap">📌제일 중요한 팁   마지막에 알려드린 자세의 팁(기전)을 이 릴스가 처음 시작 할 때 자세처럼  무게를 이용해서 극대화시킨다면  적용은 더 쉽고  효과는 두배.. 그 이상이 될 것 입니다 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ  사레레 중  어깨관…</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#5</div>
+  <a href="https://www.instagram.com/p/DWBAGRPkaWA/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DWBAGRPkaWA.mp4" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DWBAGRPkaWA_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      <span class="outlier ol-up ">↑ 평소의 2.2배</span>
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 41.2만</span>
+      <span class="gm likes">♥ 5.3천</span>
+      <span class="gm cmt">💬 65</span>
+      <span class="gm date">03.18</span>
+    </div>
+    <p class="g-cap">이 원리가 뭐냐면...  🌀회전은 과학이다   항상 하는 말입니다 앞으로도 할겁니다 질리도록이요  10년전 운동을 배우며 PT도, 교육도 받던 시절   제일 헷갈렸던 말이 🔴“몸통을 움직이지마” 입니다  근데 잘하는사람들은 몸통을 잘…</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#6</div>
+  <a href="https://www.instagram.com/p/DViOA98kfCG/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DViOA98kfCG.mp4" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DViOA98kfCG_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      <span class="outlier ol-up ">↑ 평소의 2.1배</span>
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 40.2만</span>
+      <span class="gm likes">♥ 5.1천</span>
+      <span class="gm cmt">💬 48</span>
+      <span class="gm date">03.06</span>
+    </div>
+    <p class="g-cap">이 원리가 뭐냐면  🌀회전의 힘  🌀비틀림 입니다   이게 무슨 말이냐..  📌근육은 결이 존재합니다  그리고 근육은 그 결대로 움직입니다   📌허벅지는 결이  세로,수직이기에 비교적 수직으로 움직이며 무릎을 접고피는  수직의 움직임…</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#7</div>
+  <a href="https://www.instagram.com/p/DWn6SSYkVk2/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DWn6SSYkVk2.mp4" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DWn6SSYkVk2_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 34.2만</span>
+      <span class="gm likes">♥ 4.2천</span>
+      <span class="gm cmt">💬 72</span>
+      <span class="gm date">04.02</span>
+    </div>
+    <p class="g-cap">ㅇㅇ 근육 때문인데요?   이 말 때문에  돌아돌아돌아 돌아돌아돌아 돌아왔습니다   저는 야구선수 였습니다   한 쪽으로만  10년 넘게 운동한 저에게  ‘좌우의 비대칭’은  ‘당연함’ 이었고  ‘고칠 수 있는 것’ 이 아니었죠   …</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#8</div>
+  <a href="https://www.instagram.com/p/DVdLlgFkURw/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DVdLlgFkURw.mp4" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DVdLlgFkURw_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 23.7만</span>
+      <span class="gm likes">♥ 2.5천</span>
+      <span class="gm cmt">💬 47</span>
+      <span class="gm date">03.04</span>
+    </div>
+    <p class="g-cap">국내신기록...? 아시아기록..?  맞나..사실 잘 모르겠습니다  아님 재성함다  68kg(150lbs) / Bw. 83kg  명검으로 갈아주신 준영쌤에게 감사드립니다 @fullgrip__   ㅡㅡㅡㅡㅡㅡㅡㅡㅡ 매주 진행하는 그룹 세…</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#9</div>
+  <a href="https://www.instagram.com/p/DWTOnOSkRwl/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DWTOnOSkRwl.mp4" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DWTOnOSkRwl_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 20.1만</span>
+      <span class="gm likes">♥ 2.2천</span>
+      <span class="gm cmt">💬 65</span>
+      <span class="gm date">03.25</span>
+    </div>
+    <p class="g-cap">가끔 곤란한 일이 생깁니다.  💬“나는 엄마가 좋아”   라고 표현했더니  👹“그럼 아빠는 싫다는거네?”  라고 오해받을 때는 조금 곤란합니다  저는 보디빌딩 대회를 30개 이상 종목에 나갔고   파워리프팅을 7년 간 했습니다   어…</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#10</div>
+  <a href="https://www.instagram.com/p/DUXx8J5EfzC/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-bos5-1.cdninstagram.com/o1/v/t16/f2/m69/AQNayHgioySjEMzrAmpsZh0Fa362OdKLX0H-bNYwDwm_zTF0piQ6_Y9iTnMAYyc3f95e0-zKHnLhjZMw7iwyAoWZ.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=107&amp;vs=2077858869643290_1349770941&amp;_nc_vs=HBksFQIYOnBhc3N0aHJvdWdoX2V2ZXJzdG9yZS9HQkRjU2lXQWNIUjd1LXdHQUp5azJOYmJEcTFaYnNwVEFRQUYVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyL0U0NDI3Njc2QkI1Q0UwNTJDRjIyRDdEQkI1OUU1MDlEX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmmMzK4Y2O3j8VAigCQzMsF0BBjMzMzMzNGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&amp;_nc_rid=5de3bfeae2&amp;ccb=9-4&amp;oh=00_Af63zbJPtQW_kfygRKWQ3mhBqA4uBW5QQpsTyeu8zSmzOA&amp;oe=6A19B012&amp;_nc_sid=10d13b" poster="https://scontent-bos5-1.cdninstagram.com/v/t51.82787-15/625966140_18168586687403728_7530916202874166238_n.jpg?stp=dst-jpg_e35_p1080x1080_sh2.08_tt6&amp;_nc_ht=scontent-bos5-1.cdninstagram.com&amp;_nc_cat=104&amp;_nc_oc=Q6cZ2gE-M4ZSXlC8TQ5q8H6VXW1PeTnV5D6P7tw_nWbhyBYA1LhJ20cNwt_sW_Se9PukKl83jtIS-Czrwkx6CGI_stZr&amp;_nc_ohc=9usjms9jp4UQ7kNvwGabCKL&amp;_nc_gid=He7kSMkKuEzhCzSVA_ts5Q&amp;edm=APs17CUBAAAA&amp;ccb=7-5&amp;oh=00_Af5UOQloHqHtTfkWgAOzxwp0N0gPTDs_2Tp0T0-a6G5_jw&amp;oe=6A1D8CC6&amp;_nc_sid=10d13b" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 19.9만</span>
+      <span class="gm likes">♥ 694</span>
+      <span class="gm cmt">💬 53</span>
+      <span class="gm date">02.05</span>
+    </div>
+    <p class="g-cap">장비가 휘두른 창이 20kg  이 빵망이도 20kg  전쟁대비 검술훈련 Or 체간어깨 재활, 강화</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#11</div>
+  <a href="https://www.instagram.com/p/DVDbG6xkTfy/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-mia5-1.cdninstagram.com/o1/v/t16/f2/m69/AQMPKe7nigTvsKxU6WyGQqm-Q-5GJeDhBovzPVAcjgMnioVZWRt6lSLmmUktGou85ERQtb8qJiLpxqC-qn052v_K.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=104&amp;vs=896903676527090_204023007&amp;_nc_vs=HBksFQIYOnBhc3N0aHJvdWdoX2V2ZXJzdG9yZS9HRzBZRlNiQmgtb1hEV2tFQUJSWDNnSVRfakVFYnNwVEFRQUYVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyLzZENEJBNDFBODQyMTM2NEZCNUY5MzI0MzNDNDdFQThCX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmmL2TrprU3z8VAigCQzMsF0BGap%2B%2Bdsi0GBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&amp;_nc_rid=0607836efc&amp;ccb=9-4&amp;oh=00_Af7W7Y_JSUaLI4ZoSr6hq3V09UyAWjh_3r7DuXzlPI9bew&amp;oe=6A19A784&amp;_nc_sid=10d13b" poster="https://scontent-mia5-1.cdninstagram.com/v/t51.82787-15/640148376_18170167615403728_3227835691550886980_n.jpg?stp=dst-jpg_e35_p1080x1080_sh2.08_tt6&amp;_nc_ht=scontent-mia5-1.cdninstagram.com&amp;_nc_cat=104&amp;_nc_oc=Q6cZ2gH_IR_hZqKDNukJAB_G6i__T_b6CHD5A3iJir-x-y0o7YB3Mchme6Ua_fLRcRVKNZM&amp;_nc_ohc=XgLV7X8T1D0Q7kNvwGPVTJC&amp;_nc_gid=WlSgfpWeSPghPz4NEVC0Lw&amp;edm=APs17CUBAAAA&amp;ccb=7-5&amp;oh=00_Af7o4DFMkhJWgoq3ztYoqw2z1rINJ5bqCh0SJdAOqOC82w&amp;oe=6A1D96EA&amp;_nc_sid=10d13b" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 18.8만</span>
+      <span class="gm likes">♥ 1.2천</span>
+      <span class="gm cmt">💬 25</span>
+      <span class="gm date">02.22</span>
+    </div>
+    <p class="g-cap">근비대를 포기하지 않고 각 능력치를 골고루 개발 시킬수 있는 루틴으로 근비대와 더불어  스포츠에 도움이 되는 능력치의 기능성까지 챙길 수 있는 하이브리드 루틴입니다  다양한 개발을 통해 다양한 강해짐을 경험할 수 있습니다🌀  @ful…</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#12</div>
+  <a href="https://www.instagram.com/p/DX_rS5OxXem/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DX_rS5OxXem.mp4" poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DX_rS5OxXem_thumb.jpg" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 18.2만</span>
+      <span class="gm likes">♥ 2.2천</span>
+      <span class="gm cmt">💬 39</span>
+      <span class="gm date">05.06</span>
+    </div>
+    <p class="g-cap">제일 난감한 질문이  “스쿼트 할 때 얼마나 숙여요?”  였습니다   왜냐하면   “이 만큼 숙이세요”  라고 할 수 있는  ‘단 하나의 기준’ 이 없기 때문입니다   너무 많아요 변수가   ✅크게는 무게가 올라간 위치   에 따라 …</p>
+  </div>
+</div><div class="g-card">
+  <div class="g-rank">#13</div>
+  <a href="https://www.instagram.com/p/DUPYpockSBh/" target="_blank" rel="noopener">
+    <div class="mw" style="aspect-ratio:9/16">
+      <video src="https://scontent-atl3-3.cdninstagram.com/o1/v/t16/f2/m86/AQPvr3UpN-WJ7pRzmxG5tVSDdqDcLBoSOZh7Z_Kb8N42zKeo6k53aYifozuruO_C36Uhf_QKYspDxeOMKa9-17ze2nRPAcsexm2fezc.mp4?stp=dst-mp4&amp;efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&amp;_nc_cat=110&amp;vs=4477334972498298_3450461778&amp;_nc_vs=HBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC8yODRDMDM1QUZEMkY5NzE4Q0VDMkI5QjE0QTkwRTY4NF92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyL0I5NEZBRTU3M0EwMkE4NDA1MEUyNzdGNEY0RDQyOEIxX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAmmPuK9Mrt3T8VAigCQzMsF0BOogxJul41GBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&amp;_nc_rid=003e02ced8&amp;ccb=9-4&amp;oh=00_Af5-h7qZ9VlkgVDESnYjizV77ecabKEHrwnwdxwoFYMJsw&amp;oe=6A19AB73&amp;_nc_sid=10d13b" poster="https://scontent-atl3-2.cdninstagram.com/v/t51.82787-15/626506588_18168271291403728_8118292834842116429_n.jpg?stp=dst-jpg_e35_p1080x1080_sh2.08_tt6&amp;_nc_ht=scontent-atl3-2.cdninstagram.com&amp;_nc_cat=104&amp;_nc_oc=Q6cZ2gG4pZmmjyegUngREEW2AObMJdrnKWY3eSCi6nldWVl86MZHpcYK90TJ_9A-Lk8kg0s&amp;_nc_ohc=qWJN3IW6ocYQ7kNvwEEp-bd&amp;_nc_gid=RxhyzkkOV0Xd2iCza2y7vA&amp;edm=APs17CUBAAAA&amp;ccb=7-5&amp;oh=00_Af4m9kzZA1LYMESJwhsi3myQO0OwaV8t4ax2OXM1Okwopw&amp;oe=6A1D9E8A&amp;_nc_sid=10d13b" controls preload="none" playsinline muted></video>
+      <span class="badge bg-reel">Reels</span>
+      
+    </div>
+  </a>
+  <div class="g-foot">
+    <div class="g-metrics">
+      <span class="gm plays">▶ 17.6만</span>
+      <span class="gm likes">♥ 1.2천</span>
+      <span class="gm cmt">💬 27</span>
+      <span class="gm date">02.02</span>
+    </div>
+    <p class="g-cap">마지막에 부른   운동자기야, 자기 따라잡혔어 @ki_fit94   ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 📌영상의 밴트프레스는 사실 재활 및 교정에 탁월한 종목입니다  오랜 학습과 수련을 통해 고중량을 시도하고 있지만 초보자 분들은 꼭 학습을 통해…</p>
+  </div>
+</div></div>
+  </section>
+
+</main>
+
+<footer>@sub_koo · 2026.05.29 생성 · 최근 120일 릴스 기준 · 조회수 순</footer>
+
+</body>
+</html>
