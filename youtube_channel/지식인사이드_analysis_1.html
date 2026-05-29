@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TOP 1 분석 — @지식인사이드</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070707;--s1:#0f0f0f;--s2:#161616;--s3:#1e1e1e;--s4:#272727;
+  --br:#1e1e1e;--br2:#2c2c2c;
+  --t1:#f0f0f0;--t2:#8c8c8c;--t3:#4a4a4a;
+  --ac:#e1306c;--r:12px;--rs:8px;--rxs:5px;
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Malgun Gothic',sans-serif;
+  background:var(--bg);color:var(--t1);line-height:1.5;font-size:14px;
+  -webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+em{font-style:normal;color:var(--t2)}
+
+/* ─ Layout ─ */
+.layout{display:flex;min-height:100vh}
+.sidebar{
+  width:200px;flex-shrink:0;
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+  background:var(--s1);border-right:1px solid var(--br);
+  display:flex;flex-direction:column;padding:18px 0;
+}
+.sb-top{padding:0 16px 16px;border-bottom:1px solid var(--br);margin-bottom:8px}
+.sb-back{font-size:11px;color:var(--t3);display:block;margin-bottom:8px}
+.sb-back:hover{color:var(--t2)}
+.sb-rank{font-size:11px;color:var(--ac);font-weight:700;margin-bottom:2px}
+.sb-title{font-size:12px;font-weight:700;line-height:1.4}
+.ni{display:flex;align-items:center;gap:8px;padding:7px 16px;
+  font-size:12px;color:var(--t2);border-left:2px solid transparent;
+  transition:all .15s var(--ease);cursor:pointer}
+.ni:hover,.ni.active{color:var(--t1);background:var(--s2);border-left-color:var(--ac)}
+.nn{width:18px;height:18px;border-radius:4px;background:var(--s3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:800;color:var(--t3);flex-shrink:0}
+
+.main{flex:1;min-width:0;padding:32px 40px 80px;max-width:860px}
+
+/* ─ Page header ─ */
+.ph{margin-bottom:28px}
+.ph h1{font-size:20px;font-weight:800;margin-bottom:6px}
+.pm{display:flex;gap:8px;flex-wrap:wrap;font-size:12px;color:var(--t3)}
+.er-b{padding:2px 10px;border-radius:20px;font-size:11px;font-weight:700;
+  background:rgba(225,48,108,.15);color:var(--ac);border:1px solid rgba(225,48,108,.3)}
+.top-nav{display:flex;gap:10px;margin-bottom:12px;font-size:12px}
+.nav-prev,.nav-next{color:var(--t3);border:1px solid var(--br2);
+  padding:4px 12px;border-radius:var(--rxs);transition:color .15s}
+.nav-prev:hover,.nav-next:hover{color:var(--t1)}
+
+/* ─ Metrics ─ */
+.mr{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px}
+.mc{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);padding:14px 16px}
+.ml{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px}
+.mv{font-size:20px;font-weight:800;line-height:1}
+.ms{font-size:11px;color:var(--t3);margin-top:3px}
+
+/* ─ Storyboard Player ─ */
+.sb-player{
+  background:var(--s1);border:1px solid var(--br);border-radius:var(--r);
+  overflow:hidden;margin-bottom:28px;
+}
+.sb-player-inner{display:flex;gap:0;min-height:400px}
+.sb-video-col{
+  width:260px;flex-shrink:0;
+  background:#000;display:flex;flex-direction:column;
+}
+.sb-video-col video{
+  width:100%;flex:1;object-fit:contain;
+  min-height:360px;
+}
+.sb-progress{height:3px;background:var(--s4)}
+.sb-progress-fill{height:100%;background:var(--ac);transition:width .1s linear;width:0}
+.sb-right{flex:1;display:flex;flex-direction:column;padding:16px;min-width:0}
+.sb-current-text{
+  font-size:13px;color:var(--t1);line-height:1.6;
+  min-height:48px;margin-bottom:12px;
+  background:var(--s2);border-radius:var(--rs);padding:10px 12px;
+}
+.sb-filmstrip-wrap{
+  overflow-x:auto;margin-bottom:12px;
+  /* 스크롤바 스타일 */
+  scrollbar-width:thin;scrollbar-color:var(--s4) transparent;
+}
+.sb-filmstrip-wrap::-webkit-scrollbar{height:4px}
+.sb-filmstrip-wrap::-webkit-scrollbar-track{background:transparent}
+.sb-filmstrip-wrap::-webkit-scrollbar-thumb{background:var(--s4);border-radius:2px}
+.sb-filmstrip{display:flex;gap:6px;padding:2px}
+.sbf{
+  flex-shrink:0;width:68px;
+  background:var(--s3);border-radius:var(--rxs);
+  overflow:hidden;cursor:pointer;
+  border:2px solid transparent;
+  transition:border-color .15s,opacity .15s;
+  opacity:.6;
+}
+.sbf:hover{opacity:.85}
+.sbf.sbf-active{border-color:var(--ac);opacity:1}
+.sbf img{width:68px;height:121px;object-fit:cover;display:block}
+.sbf-t{text-align:center;font-size:9px;color:var(--t3);padding:2px 0}
+.sb-ctrl{display:flex;align-items:center;gap:8px}
+.sb-btn{
+  background:var(--s3);border:1px solid var(--br2);border-radius:var(--rxs);
+  color:var(--t2);font-size:13px;padding:6px 14px;cursor:pointer;
+  transition:background .15s,color .15s;
+}
+.sb-btn:hover{background:var(--s4);color:var(--t1)}
+.sb-btn.play{background:var(--ac);color:#fff;border-color:transparent;padding:6px 20px}
+.sb-btn.play:hover{opacity:.85}
+.sb-frame-info{font-size:11px;color:var(--t3);margin-left:auto}
+
+/* ─ Sections ─ */
+.sec{margin-bottom:44px}
+.sh{font-size:16px;font-weight:700;margin-bottom:16px;
+  padding-bottom:12px;border-bottom:1px solid var(--br);
+  display:flex;align-items:center;gap:8px}
+.sn{width:24px;height:24px;border-radius:5px;background:var(--s2);
+  border:1px solid var(--br2);display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:800;color:var(--t3);flex-shrink:0}
+
+/* ─ Transcript ─ */
+.tr-legend{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.tr-leg-item{font-size:10px;padding:2px 8px;border-radius:10px;border:1px solid}
+.tr-row{display:flex;align-items:flex-start;gap:8px;
+  padding:7px 10px;border-radius:var(--rxs);cursor:pointer;transition:background .15s}
+.tr-row:hover{background:var(--s2)}
+.tr-t{width:32px;font-size:11px;color:var(--t3);font-family:monospace;flex-shrink:0;padding-top:1px}
+.tr-a{font-size:9px;font-weight:800;padding:2px 6px;border-radius:10px;
+  flex-shrink:0;border:1px solid;margin-top:2px;letter-spacing:.3px;white-space:nowrap}
+.tr-x{font-size:13px;color:var(--t2);line-height:1.6}
+
+/* ─ Shared card ─ */
+.card-h{display:flex;gap:12px;padding:14px;
+  background:var(--s1);border:1px solid var(--br);border-radius:var(--r);
+  margin-bottom:8px}
+.ci{font-size:20px;flex-shrink:0;width:32px;text-align:center;margin-top:2px}
+.ct{font-size:14px;font-weight:700;margin-bottom:4px}
+.cd{font-size:13px;color:var(--t2);line-height:1.65}
+
+/* ─ Funnel ─ */
+.funnel-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--br)}
+.fl{width:52px;font-size:12px;color:var(--t2);flex-shrink:0}
+.fb{flex:1;height:8px;background:var(--s3);border-radius:4px;overflow:hidden}
+.fbar{height:100%;border-radius:4px}
+.fv{width:52px;text-align:right;font-size:14px;font-weight:700;flex-shrink:0}
+.fp{width:42px;text-align:right;font-size:12px;flex-shrink:0}
+
+/* ─ Cuts ─ */
+.cuts-summary{font-size:13px;color:var(--t2);margin-bottom:12px}
+.cut-row{display:flex;align-items:center;gap:10px;
+  padding:8px 12px;background:var(--s1);border:1px solid var(--br);
+  border-radius:var(--rxs);margin-bottom:5px;cursor:pointer;transition:background .15s}
+.cut-row:hover{background:var(--s2)}
+.cn{width:36px;font-size:10px;font-weight:700;color:var(--t3);flex-shrink:0}
+.ct2{width:36px;font-size:11px;color:var(--ac);font-family:monospace;flex-shrink:0}
+.cbar-w{flex:1;height:5px;background:var(--s3);border-radius:3px;overflow:hidden}
+.cbar{height:100%;background:var(--ac);border-radius:3px}
+.cd2{width:50px;font-size:11px;color:var(--t3);text-align:right;flex-shrink:0}
+
+/* ─ Narrative ─ */
+.narr-row{display:flex;gap:16px;padding:12px 0;border-bottom:1px solid var(--br)}
+.na{width:100px;flex-shrink:0}
+.nat{font-size:12px;font-weight:700}
+.nrg{font-size:11px;color:var(--t3);font-family:monospace;margin-top:1px}
+.nd{font-size:13px;color:var(--t2);line-height:1.6}
+
+/* ─ Emotion flow ─ */
+.emo-row{display:flex;gap:12px;padding:12px;
+  background:var(--s1);border:1px solid var(--br);border-radius:var(--r);margin-bottom:8px}
+.ebar{width:4px;flex-shrink:0;border-radius:2px;min-height:40px}
+.et{font-size:13px;font-weight:700;margin-bottom:2px}
+.er2{font-size:11px;color:var(--t3);font-family:monospace;margin-bottom:5px}
+.ed{font-size:13px;color:var(--t2);line-height:1.6}
+
+/* ─ Tone ─ */
+.tone-row{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);
+  padding:14px 16px;margin-bottom:8px}
+.tone-title{font-size:14px;font-weight:700;margin-bottom:5px}
+.tone-desc{font-size:13px;color:var(--t2);line-height:1.65}
+
+/* ─ Formulas ─ */
+.fml-card{display:flex;gap:14px;background:var(--s1);border:1px solid var(--br);
+  border-radius:var(--r);padding:16px;margin-bottom:10px}
+.fml-num{width:28px;height:28px;border-radius:6px;background:var(--ac);
+  color:#fff;font-size:11px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.fml-title{font-size:14px;font-weight:700;margin-bottom:5px}
+.fml-pattern{font-size:12px;color:var(--ac);background:rgba(225,48,108,.1);
+  border-radius:var(--rxs);padding:6px 10px;margin-bottom:8px;line-height:1.6}
+.fml-why{font-size:13px;color:var(--t2);line-height:1.65}
+
+/* ─ Ideas ─ */
+.idea-card{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);
+  padding:14px 16px;margin-bottom:8px}
+.idea-domain{font-size:11px;font-weight:800;color:var(--ac);
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.idea-hook,.idea-pat{font-size:13px;color:var(--t2);line-height:1.65;margin-bottom:4px}
+.idea-hook em,.idea-pat em{color:var(--t1)}
+
+/* ─ Master formula ─ */
+.master-formula{background:var(--s2);border:1px solid var(--br2);
+  border-radius:var(--r);padding:20px 22px}
+.mf-label{font-size:10px;color:var(--t3);text-transform:uppercase;
+  letter-spacing:.5px;margin-bottom:6px}
+.mf-pattern{font-size:14px;color:var(--ac);line-height:1.7;margin-bottom:4px}
+.mf-why{font-size:13px;color:var(--t2);line-height:1.7}
+
+/* ─ Timeline ─ */
+.tl-wrap{background:var(--s1);border:1px solid var(--br);
+  border-radius:var(--r);padding:16px 14px 10px}
+.tl-note{font-size:11px;color:var(--t3);margin-top:8px}
+
+/* ─ 록코치 훅 변형 ─ */
+.rok-list{display:flex;flex-direction:column;gap:8px}
+.rok-item{display:flex;gap:12px;align-items:flex-start;
+  background:var(--s1);border:1px solid var(--br);border-left:3px solid var(--ac);
+  border-radius:var(--rs);padding:14px 16px}
+.rok-num{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--ac);
+  color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.rok-text{font-size:14px;color:var(--t1);line-height:1.65}
+
+/* ─ Overlay (화면 자막) ─ */
+.ov-list{display:flex;flex-direction:column;gap:4px}
+.ov-row{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;
+  background:var(--s1);border:1px solid var(--br);border-radius:var(--rxs);
+  cursor:pointer;transition:background .15s}
+.ov-row:hover{background:var(--s2)}
+.ov-t{font-size:11px;color:#a78bfa;font-family:monospace;flex-shrink:0;padding-top:1px;width:36px}
+.ov-x{font-size:13px;color:var(--t1);line-height:1.5;font-weight:500}
+
+/* ─ First frame · Loop ─ */
+.ff-wrap{display:flex;gap:20px}
+.ff-img{width:160px;flex-shrink:0;border-radius:var(--r);overflow:hidden;
+  border:1px solid var(--br2);background:#000}
+.ff-img img{width:100%;aspect-ratio:9/16;object-fit:cover;display:block}
+.ff-body{flex:1;display:flex;flex-direction:column;gap:14px;min-width:0}
+.ff-block{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);padding:16px}
+.ff-label{font-size:12px;font-weight:700;color:var(--t1);margin-bottom:8px}
+.ff-text{font-size:14px;color:var(--t1);line-height:1.6;margin-bottom:6px}
+.ff-ov{font-size:12px;color:var(--t2);line-height:1.6}
+
+/* ─ Meta (길이·템포) ─ */
+.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.meta-card{display:flex;gap:14px;background:var(--s1);border:1px solid var(--br);
+  border-radius:var(--r);padding:18px}
+.meta-ico{font-size:24px;flex-shrink:0}
+.meta-l{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px}
+.meta-v{font-size:20px;font-weight:800;margin-bottom:4px}
+.meta-s{font-size:12px;color:var(--t2);line-height:1.55}
+
+/* ─ Comments ─ */
+.cmt-list{display:flex;flex-direction:column;gap:8px}
+.cmt-row{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);padding:12px 14px}
+.cmt-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.cmt-user{font-size:12px;font-weight:700;color:#60c8ff}
+.cmt-likes{font-size:11px;color:#ff4d6e}
+.cmt-text{font-size:13px;color:var(--t2);line-height:1.6}
+
+/* ─ Floating Mini Player (스크롤 추적) ─ */
+.sb-video-col{position:relative;transition:none}
+.sb-video-col.floating{
+  position:fixed;
+  right:28px;bottom:28px;
+  width:420px;
+  z-index:300;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 12px 40px rgba(0,0,0,.7);
+  border:1px solid var(--br2);
+  animation:floatIn .25s var(--ease);
+}
+@keyframes floatIn{from{opacity:0;transform:translateY(20px) scale(.9)}to{opacity:1;transform:none}}
+.sb-video-col.floating video{min-height:0;height:auto;aspect-ratio:9/16;max-height:85vh}
+.float-bar{
+  display:none;
+  position:absolute;top:0;left:0;right:0;z-index:2;
+  padding:6px 8px;
+  background:linear-gradient(180deg,rgba(0,0,0,.75),transparent);
+  align-items:center;justify-content:space-between;
+}
+.sb-video-col.floating .float-bar{display:flex}
+.float-label{font-size:10px;color:#fff;font-weight:700;opacity:.9;cursor:pointer}
+.float-label:hover{opacity:1}
+.float-close{
+  width:22px;height:22px;border-radius:50%;
+  background:rgba(0,0,0,.6);border:none;color:#fff;
+  font-size:13px;cursor:pointer;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+}
+.float-close:hover{background:rgba(0,0,0,.85)}
+/* 플로팅 중 원래 자리에 빈 공간 유지 (레이아웃 안정) */
+.sb-video-placeholder{display:none}
+.sb-player.is-floating .sb-video-placeholder{
+  display:block;width:260px;flex-shrink:0;
+  background:var(--s2);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--t3);font-size:12px;text-align:center;padding:20px;
+}
+@media(max-width:768px){
+  .sb-video-col.floating{width:240px;right:12px;bottom:12px}
+  .sb-player.is-floating .sb-video-placeholder{display:none}
+}
+
+@media(max-width:768px){
+  .sidebar{display:none}
+  .main{padding:20px 14px 60px}
+  .sb-player-inner{flex-direction:column}
+  .sb-video-col{width:100%}
+  .mr{grid-template-columns:repeat(2,1fr)}
+  .ff-wrap{flex-direction:column}
+  .ff-img{width:100%;max-width:200px}
+  .meta-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="sidebar">
+  <div class="sb-top">
+    <a href="지식인사이드_report.html" class="sb-back">← 개요 리포트</a>
+    <div class="sb-rank">TOP 1</div>
+    <div class="sb-title"></div>
+  </div>
+  <a href="#storyboard" class="ni"><span class="nn">🎬</span>스토리보드</a>
+  <a href="#transcript" class="ni"><span class="nn">00</span>영상 대본</a>
+  <a href="#overlay" class="ni"><span class="nn">🔤</span>화면 자막</a>
+  <a href="#why" class="ni"><span class="nn">01</span>왜 터졌나</a>
+  <a href="#goals" class="ni"><span class="nn">02</span>목표</a>
+  <a href="#funnel" class="ni"><span class="nn">03</span>참여 깔때기</a>
+  <a href="#meta" class="ni"><span class="nn">⏱</span>길이·템포</a>
+  <a href="#audience" class="ni"><span class="nn">04</span>시청자</a>
+  <a href="#timeline" class="ni"><span class="nn">05</span>타임라인</a>
+  <a href="#cuts" class="ni"><span class="nn">06</span>컷 디테일</a>
+  <a href="#hook" class="ni"><span class="nn">07</span>3초 후킹</a>
+  <a href="#firstframe" class="ni"><span class="nn">🖼</span>첫프레임·루프</a>
+  <a href="#narrative" class="ni"><span class="nn">08</span>서사구조</a>
+  <a href="#emotion" class="ni"><span class="nn">09</span>감정흐름</a>
+  <a href="#tone" class="ni"><span class="nn">10</span>톤·말투</a>
+  <a href="#formulas" class="ni"><span class="nn">11</span>n가지 공식</a>
+  <a href="#ideas" class="ni"><span class="nn">12</span>변환 아이디어</a>
+  <a href="#formula" class="ni"><span class="nn">13</span>콘텐츠 공식</a>
+</nav>
+
+<main class="main">
+  <div class="top-nav"></div>
+
+  <div class="ph">
+    <h1>TOP 1 영상 상세 분석</h1>
+    <div class="pm">
+      <span>@지식인사이드</span><span>|</span><span></span><span>|</span>
+      <span>60초</span><span>|</span>
+      <a href="https://www.youtube.com/@/about" target="_blank" rel="noopener">원본↗</a>
+      
+    </div>
+  </div>
+
+  <div class="mr">
+    <div class="mc"><div class="ml">재생수</div><div class="mv">0</div>
+      <div class="ms">팔로워의 0%</div></div>
+    <div class="mc"><div class="ml">좋아요</div><div class="mv">0</div></div>
+    <div class="mc"><div class="ml">댓글</div><div class="mv">0</div></div>
+    <div class="mc"><div class="ml">참여율</div><div class="mv">0.0%</div>
+      <div class="ms">팔로워 383.0만</div></div>
+  </div>
+
+  <!-- ★ 스토리보드 슬라이드 플레이어 ★ -->
+  <section class="sec" id="storyboard">
+    <div class="sh"><div class="sn">🎬</div>스토리보드 플레이어</div>
+    <div class="sb-player" id="sb-player">
+      <div class="sb-player-inner">
+        <div class="sb-video-col" id="sb-video-col">
+          <div class="float-bar">
+            <span class="float-label" onclick="scrollToStoryboard()">↑ 스토리보드</span>
+            <button class="float-close" onclick="closeFloat()" title="고정 해제">✕</button>
+          </div>
+          <video id="main-video"
+            src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_channel/media/about.mp4"
+            poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_channel/media/about_thumb.jpg"
+            controls preload="metadata" playsinline>
+          </video>
+          <div class="sb-progress"><div class="sb-progress-fill" id="sb-prog"></div></div>
+        </div>
+        <div class="sb-video-placeholder">🎬<br>영상이 우측 하단에<br>고정되어 따라갑니다</div>
+        <div class="sb-right">
+          <div class="sb-current-text" id="sb-text">▶ 재생하거나 프레임을 클릭하면 해당 구간으로 이동합니다.</div>
+          <div class="sb-filmstrip-wrap">
+            <div class="sb-filmstrip" id="sb-filmstrip">
+              
+            </div>
+          </div>
+          <div class="sb-ctrl">
+            <button class="sb-btn" onclick="sbPrev()">◄</button>
+            <button class="sb-btn play" id="sb-play" onclick="sbToggle()">▶</button>
+            <button class="sb-btn" onclick="sbNext()">►</button>
+            <span class="sb-frame-info" id="sb-fi">0 / 0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 00 영상 대본 -->
+  <section class="sec" id="transcript">
+    <div class="sh"><div class="sn">00</div>영상 대본 (Whisper 전사)</div>
+    <div class="tr-legend">
+      <span class="tr-leg-item" style="color:#e11d48;border-color:#e11d4840;background:#e11d4812">후킹</span>
+      <span class="tr-leg-item" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b12">문제</span>
+      <span class="tr-leg-item" style="color:#2563eb;border-color:#2563eb40;background:#2563eb12">전개</span>
+      <span class="tr-leg-item" style="color:#059669;border-color:#05966940;background:#05966912">CTA</span>
+    </div>
+    <p style="color:var(--t3)">전사 데이터 없음</p>
+  </section>
+
+  <!-- 화면 자막 (OCR) -->
+  <section class="sec" id="overlay">
+    <div class="sh"><div class="sn">🔤</div>화면 자막 (텍스트 오버레이)</div>
+    <p style="color:var(--t3);font-size:13px">화면 자막 데이터 없음 (extract_overlay.py 실행 필요)</p>
+  </section>
+
+  <!-- 01 왜 터졌나 -->
+  <section class="sec" id="why">
+    <div class="sh"><div class="sn">01</div>왜 터졌나</div>
+    <div class="card-h">
+  <div class="ci">⚡</div>
+  <div><div class="ct">없음</div><p class="cd">첫 문장: &quot;&quot; — 분석 불가</p></div>
+</div>
+  </section>
+
+  <!-- 02 목표 -->
+  <section class="sec" id="goals">
+    <div class="sh"><div class="sn">02</div>콘텐츠 목표</div>
+    <div class="card-h">
+  <div class="ci">📚</div>
+  <div><div class="ct">전문성 포지셔닝</div><p class="cd">해부학/운동역학/실전 경험을 통해 &#x27;이 채널은 다르다&#x27;는 신뢰 구축.</p></div>
+</div><div class="card-h">
+  <div class="ci">🔗</div>
+  <div><div class="ct">후속 콘텐츠 / 팔로우 유도</div><p class="cd">영상 내 미완성 질문이나 새로운 개념 제시로 다음 편 기대감 형성.</p></div>
+</div>
+  </section>
+
+  <!-- 03 참여 깔때기 -->
+  <section class="sec" id="funnel">
+    <div class="sh"><div class="sn">03</div>참여 깔때기</div>
+    <div class="funnel-row">
+  <div class="fl">재생수</div>
+  <div class="fb"><div class="fbar" style="width:100%;background:#a855f7"></div></div>
+  <div class="fv">0</div>
+  <div class="fp" style="color:#a855f7">100.0%</div>
+</div><div class="funnel-row">
+  <div class="fl">조회수</div>
+  <div class="fb"><div class="fbar" style="width:49%;background:#3b82f6"></div></div>
+  <div class="fv">N/A</div>
+  <div class="fp" style="color:#3b82f6">49.0%</div>
+</div><div class="funnel-row">
+  <div class="fl">좋아요</div>
+  <div class="fb"><div class="fbar" style="width:0%;background:#e11d48"></div></div>
+  <div class="fv">0</div>
+  <div class="fp" style="color:#e11d48">0.0%</div>
+</div><div class="funnel-row">
+  <div class="fl">댓글</div>
+  <div class="fb"><div class="fbar" style="width:0%;background:#f59e0b"></div></div>
+  <div class="fv">0</div>
+  <div class="fp" style="color:#f59e0b">0.0%</div>
+</div>
+  </section>
+
+  <!-- 길이·템포 -->
+  <section class="sec" id="meta">
+    <div class="sh"><div class="sn">⏱</div>영상 길이 · 편집 템포</div>
+    <div class="meta-grid">
+  <div class="meta-card">
+    <div class="meta-ico">⏱</div>
+    <div><div class="meta-l">영상 길이</div>
+    <div class="meta-v">60초</div>
+    <div class="meta-s">30~60초 — 숏폼 표준 구간. 완주율과 정보량의 균형.</div></div>
+  </div>
+  <div class="meta-card">
+    <div class="meta-ico">✂️</div>
+    <div><div class="meta-l">편집 템포</div>
+    <div class="meta-v">60.0초/컷</div>
+    <div class="meta-s">느림 — 한 장면을 길게 유지. 화자 매력이나 내용에 의존</div></div>
+  </div>
+</div>
+  </section>
+
+  <!-- 04 시청자 -->
+  <section class="sec" id="audience">
+    <div class="sh"><div class="sn">04</div>시청자 분석</div>
+    <div class="card-h">
+  <div class="ci">👥</div>
+  <div><div class="ct">부 타깃</div><div class="cd">PT 트레이너, 필라테스 강사 등 운동 전문가. 레퍼런스 &amp; 공유 목적.</div></div>
+</div>
+  </section>
+
+  <!-- 05 타임라인 -->
+  <section class="sec" id="timeline">
+    <div class="sh"><div class="sn">05</div>감정 타임라인</div>
+    <div class="tl-wrap">
+      <svg viewBox="0 0 720 150" style="width:100%;max-width:720px;display:block">
+  <defs><linearGradient id="tg720" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#e11d48" stop-opacity=".3"/>
+    <stop offset="100%" stop-color="#e11d48" stop-opacity="0"/>
+  </linearGradient></defs>
+  <rect x="32.0" y="24" width="78.7" height="102" fill="#e11d48" opacity=".07"/><rect x="110.7" y="24" width="183.7" height="102" fill="#f59e0b" opacity=".07"/><rect x="294.4" y="24" width="209.9" height="102" fill="#2563eb" opacity=".07"/><rect x="504.3" y="24" width="183.7" height="102" fill="#059669" opacity=".07"/>
+  <path d="M32.0,24.0 C45.7,24.0 45.7,24.0 59.3,24.0 C73.0,24.0 73.0,95.4 86.7,95.4 C100.3,95.4 100.3,95.4 114.0,95.4 C127.7,95.4 127.7,95.4 141.3,95.4 C155.0,95.4 155.0,95.4 168.7,95.4 C182.3,95.4 182.3,95.4 196.0,95.4 C209.7,95.4 209.7,95.4 223.3,95.4 C237.0,95.4 237.0,95.4 250.7,95.4 C264.3,95.4 264.3,54.6 278.0,54.6 C291.7,54.6 291.7,54.6 305.3,54.6 C319.0,54.6 319.0,54.6 332.7,54.6 C346.3,54.6 346.3,95.4 360.0,95.4 C373.7,95.4 373.7,95.4 387.3,95.4 C401.0,95.4 401.0,95.4 414.7,95.4 C428.3,95.4 428.3,95.4 442.0,95.4 C455.7,95.4 455.7,95.4 469.3,95.4 C483.0,95.4 483.0,95.4 496.7,95.4 C510.3,95.4 510.3,95.4 524.0,95.4 C537.7,95.4 537.7,95.4 551.3,95.4 C565.0,95.4 565.0,95.4 578.7,95.4 C592.3,95.4 592.3,95.4 606.0,95.4 C619.7,95.4 619.7,58.7 633.3,58.7 C647.0,58.7 647.0,58.7 660.7,58.7 C674.3,58.7 674.3,58.7 688.0,58.7 L688.0,126 L32.0,126 Z" fill="url(#tg720)"/>
+  <path d="M32.0,24.0 C45.7,24.0 45.7,24.0 59.3,24.0 C73.0,24.0 73.0,95.4 86.7,95.4 C100.3,95.4 100.3,95.4 114.0,95.4 C127.7,95.4 127.7,95.4 141.3,95.4 C155.0,95.4 155.0,95.4 168.7,95.4 C182.3,95.4 182.3,95.4 196.0,95.4 C209.7,95.4 209.7,95.4 223.3,95.4 C237.0,95.4 237.0,95.4 250.7,95.4 C264.3,95.4 264.3,54.6 278.0,54.6 C291.7,54.6 291.7,54.6 305.3,54.6 C319.0,54.6 319.0,54.6 332.7,54.6 C346.3,54.6 346.3,95.4 360.0,95.4 C373.7,95.4 373.7,95.4 387.3,95.4 C401.0,95.4 401.0,95.4 414.7,95.4 C428.3,95.4 428.3,95.4 442.0,95.4 C455.7,95.4 455.7,95.4 469.3,95.4 C483.0,95.4 483.0,95.4 496.7,95.4 C510.3,95.4 510.3,95.4 524.0,95.4 C537.7,95.4 537.7,95.4 551.3,95.4 C565.0,95.4 565.0,95.4 578.7,95.4 C592.3,95.4 592.3,95.4 606.0,95.4 C619.7,95.4 619.7,58.7 633.3,58.7 C647.0,58.7 647.0,58.7 660.7,58.7 C674.3,58.7 674.3,58.7 688.0,58.7" fill="none" stroke="#e11d48" stroke-width="2" stroke-linecap="round"/>
+  <text x="32.0" y="144" text-anchor="middle" fill="#333" font-size="9">00:00</text><text x="196.0" y="144" text-anchor="middle" fill="#333" font-size="9">00:15</text><text x="360.0" y="144" text-anchor="middle" fill="#333" font-size="9">00:30</text><text x="524.0" y="144" text-anchor="middle" fill="#333" font-size="9">00:45</text><text x="688.0" y="144" text-anchor="middle" fill="#333" font-size="9">01:00</text>
+</svg>
+      <div class="tl-note">컷 전환 0개 | 자막 밀도 기반 감정 강도 추정</div>
+    </div>
+  </section>
+
+  <!-- 06 컷 디테일 -->
+  <section class="sec" id="cuts">
+    <div class="sh"><div class="sn">06</div>컷 디테일</div>
+    <div class="cuts-summary">총 <strong>0컷</strong> · 60초 · 평균 60.0초/컷</div>
+    <p style="font-size:11px;color:var(--t3);margin-top:8px">클릭하면 해당 구간으로 영상 이동</p>
+  </section>
+
+  <!-- 07 3초 후킹 -->
+  <section class="sec" id="hook">
+    <div class="sh"><div class="sn">07</div>3초 후킹 분석</div>
+    <div style="display:inline-block;padding:4px 13px;border-radius:20px;
+         background:rgba(225,48,108,.15);color:var(--ac);border:1px solid rgba(225,48,108,.3);
+         font-size:12px;font-weight:800;margin-bottom:14px">없음</div>
+    
+    <p style="font-size:13px;color:var(--t2);line-height:1.7">분석 불가</p>
+  </section>
+
+  <!-- 첫 프레임 · 루프 -->
+  <section class="sec" id="firstframe">
+    <div class="sh"><div class="sn">🖼</div>첫 프레임 후킹 · 루프 설계</div>
+    <div class="ff-wrap">
+  <div class="ff-img"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_channel/media/about_thumb.jpg" alt="첫 프레임"></div>
+  <div class="ff-body">
+    <div class="ff-block">
+      <div class="ff-label">🖼 첫 프레임 (0초 — 스크롤 정지 지점)</div>
+      <p class="ff-text">(음성 없음 — 시각만으로 시작)</p>
+      
+    </div>
+    <div class="ff-block">
+      <div class="ff-label">🔁 루프 설계 — 연결 강도: <strong style="color:var(--ac)">보통</strong></div>
+      <p class="ff-text">엔딩: ""</p>
+      <p class="ff-ov">정보 마무리형 — 엔딩에서 첫 장면으로의 직접 연결은 약함. 루프 후킹 보강 여지 있음</p>
+    </div>
+  </div>
+</div>
+  </section>
+
+  <!-- 08 서사구조 -->
+  <section class="sec" id="narrative">
+    <div class="sh"><div class="sn">08</div>서사구조</div>
+    
+  </section>
+
+  <!-- 09 감정흐름 -->
+  <section class="sec" id="emotion">
+    <div class="sh"><div class="sn">09</div>감정흐름</div>
+    <div class="emo-row" data-t="0.0" title="클릭하면 00:00 구간으로 이동">
+  <div class="ebar" style="background:#f59e0b"></div>
+  <div style="flex:1">
+    <div class="et">호기심 유발</div>
+    <div class="er2">00:00–00:06</div>
+    <p class="ed">후킹이 시작되는 순간. &#x27;뭐지?&#x27; 하는 첫 집중.</p>
+  </div>
+  <div style="flex-shrink:0;font-size:11px;color:#f59e0b;padding-top:2px;opacity:.7">00:00 ▶</div>
+</div><div class="emo-row" data-t="6.0" title="클릭하면 00:06 구간으로 이동">
+  <div class="ebar" style="background:#e11d48"></div>
+  <div style="flex:1">
+    <div class="et">의문/불신</div>
+    <div class="er2">00:06–00:18</div>
+    <p class="ed">기존에 알던 것과 다른 정보에 &#x27;진짜?&#x27; 하는 인지 충돌.</p>
+  </div>
+  <div style="flex-shrink:0;font-size:11px;color:#e11d48;padding-top:2px;opacity:.7">00:06 ▶</div>
+</div><div class="emo-row" data-t="18.0" title="클릭하면 00:18 구간으로 이동">
+  <div class="ebar" style="background:#2563eb"></div>
+  <div style="flex:1">
+    <div class="et">이해/공감</div>
+    <div class="er2">00:18–00:33</div>
+    <p class="ed">설명이 이어지면서 &#x27;아, 맞네&#x27; 하는 납득 단계.</p>
+  </div>
+  <div style="flex-shrink:0;font-size:11px;color:#2563eb;padding-top:2px;opacity:.7">00:18 ▶</div>
+</div><div class="emo-row" data-t="33.0" title="클릭하면 00:33 구간으로 이동">
+  <div class="ebar" style="background:#8b5cf6"></div>
+  <div style="flex:1">
+    <div class="et">재미/몰입</div>
+    <div class="er2">00:33–00:46</div>
+    <p class="ed">시각화나 시연이 나오며 흥미와 이해가 동시에 오름.</p>
+  </div>
+  <div style="flex-shrink:0;font-size:11px;color:#8b5cf6;padding-top:2px;opacity:.7">00:33 ▶</div>
+</div><div class="emo-row" data-t="46.8" title="클릭하면 00:46 구간으로 이동">
+  <div class="ebar" style="background:#059669"></div>
+  <div style="flex:1">
+    <div class="et">실천 의지</div>
+    <div class="er2">00:46–01:00</div>
+    <p class="ed">&#x27;나도 해봐야겠다&#x27; 행동 욕구로 전환. 저장/공유 욕구 최고.</p>
+  </div>
+  <div style="flex-shrink:0;font-size:11px;color:#059669;padding-top:2px;opacity:.7">00:46 ▶</div>
+</div>
+  </section>
+
+  <!-- 10 톤·말투 -->
+  <section class="sec" id="tone">
+    <div class="sh"><div class="sn">10</div>톤 · 말투</div>
+    <div class="tone-row">
+  <div class="tone-title">반말/존댓말 혼용</div>
+  <p class="tone-desc">상황에 따라 유연하게 전환. 친근함과 전문성 균형.</p>
+</div>
+  </section>
+
+  <!-- 11 n가지 공식 -->
+  <section class="sec" id="formulas">
+    <div class="sh"><div class="sn">11</div>1가지 콘텐츠 공식</div>
+    <div class="fml-card">
+  <div class="fml-num">01</div>
+  <div>
+    <div class="fml-title">정보 전달 공식</div>
+    <div class="fml-pattern">[공감 상황 설정] → [핵심 정보 전달] → [시각 시연] → [실천 유도]</div>
+    <p class="fml-why">기본 정보 전달 구조. 시각화와 실천 가능성이 바이럴 결정 요인.</p>
+  </div>
+</div>
+  </section>
+
+  <!-- 12 변환 가능한 아이디어 -->
+  <section class="sec" id="ideas">
+    <div class="sh"><div class="sn">12</div>변환 가능한 아이디어</div>
+    <p style="font-size:12px;color:var(--t3);margin-bottom:14px">이 영상의 공식을 다른 주제에 적용한 예시</p>
+    <div class="idea-card">
+  <div class="idea-domain">다이어트</div>
+  <div class="idea-hook">후킹: <em>"나 살이 안 빠지는데 뭘 먹어야 해? / 덜 먹어."</em></div>
+  <div class="idea-pat">패턴: <em>[공감 상황 설정] → [핵심 정보 전달] → [시각 시연] → [실천 유도]</em></div>
+</div><div class="idea-card">
+  <div class="idea-domain">피부 관리</div>
+  <div class="idea-hook">후킹: <em>"나 여드름이 왜 자꾸 나는지 모르겠어 / 세안을 너무 열심히 해서야."</em></div>
+  <div class="idea-pat">패턴: <em>[공감 상황 설정] → [핵심 정보 전달] → [시각 시연] → [실천 유도]</em></div>
+</div><div class="idea-card">
+  <div class="idea-domain">수면</div>
+  <div class="idea-hook">후킹: <em>"나 잠이 안 와서 힘든데 어떻게 해야 해? / 일찍 누워."</em></div>
+  <div class="idea-pat">패턴: <em>[공감 상황 설정] → [핵심 정보 전달] → [시각 시연] → [실천 유도]</em></div>
+</div>
+  </section>
+
+  <!-- 13 콘텐츠 공식 -->
+  <section class="sec" id="formula">
+    <div class="sh"><div class="sn">13</div>콘텐츠 공식 (마스터)</div>
+    <div class="master-formula">
+  <div class="mf-label">핵심 패턴</div>
+  <div class="mf-pattern">[공감 상황 설정] → [핵심 정보 전달] → [시각 시연] → [실천 유도]</div>
+  <div class="mf-label" style="margin-top:14px">왜 효과적인가</div>
+  <p class="mf-why">기본 정보 전달 구조. 시각화와 실천 가능성이 바이럴 결정 요인.</p>
+</div>
+  </section>
+
+</main>
+</div>
+
+<script>
+const VIDEO = document.getElementById('main-video');
+const FRAMES = [];
+let sbActive = 0;
+
+// 비디오 시간 업데이트 → 프레임 동기화
+VIDEO.addEventListener('timeupdate', () => {
+  const t = VIDEO.currentTime;
+  // 현재 프레임 찾기
+  let fi = 0;
+  for (let i = FRAMES.length - 1; i >= 0; i--) {
+    if (FRAMES[i].time <= t) { fi = i; break; }
+  }
+  if (fi !== sbActive) setActiveFrame(fi);
+
+  // 프로그레스 바
+  if (VIDEO.duration) {
+    document.getElementById('sb-prog').style.width = (t / VIDEO.duration * 100) + '%';
+  }
+
+  // 현재 자막
+  const txt = FRAMES[fi] ? FRAMES[fi].text : '';
+  const el  = document.getElementById('sb-text');
+  if (txt && el.dataset.last !== txt) {
+    el.textContent = txt;
+    el.dataset.last = txt;
+  }
+});
+
+VIDEO.addEventListener('play', () => { document.getElementById('sb-play').textContent = '⏸'; });
+VIDEO.addEventListener('pause', () => { document.getElementById('sb-play').textContent = '▶'; });
+
+function setActiveFrame(i) {
+  sbActive = i;
+  document.querySelectorAll('.sbf').forEach((f, j) => f.classList.toggle('sbf-active', j === i));
+  document.getElementById('sb-fi').textContent = (i+1) + ' / ' + FRAMES.length;
+  // 페이지 스크롤 없이 필름스트립 내부만 수평 스크롤
+  const wrap = document.querySelector('.sb-filmstrip-wrap');
+  const strip = document.getElementById('sb-filmstrip');
+  const frameEl = strip.querySelectorAll('.sbf')[i];
+  if (frameEl && wrap) {
+    const target = frameEl.offsetLeft - wrap.offsetWidth / 2 + frameEl.offsetWidth / 2;
+    wrap.scrollTo({ left: target, behavior: 'smooth' });
+  }
+}
+
+function sbSeek(t) {
+  VIDEO.currentTime = t;
+  VIDEO.play().catch(()=>{});
+}
+
+function sbPrev() {
+  if (sbActive > 0) { sbActive--; sbSeek(FRAMES[sbActive].time); }
+}
+function sbNext() {
+  if (sbActive < FRAMES.length-1) { sbActive++; sbSeek(FRAMES[sbActive].time); }
+}
+function sbToggle() {
+  VIDEO.paused ? VIDEO.play().catch(()=>{}) : VIDEO.pause();
+}
+
+// 대본/컷/서사 클릭 시 이동 — 페이지 스크롤 없이 시간만 이동
+function vSeek(t) {
+  VIDEO.currentTime = t;
+  VIDEO.play().catch(()=>{});
+}
+
+// ── 타임라인 SVG 클릭 → 영상 이동 ──────────────────────────
+const tlSvg = document.querySelector('.tl-wrap svg');
+if (tlSvg) {
+  tlSvg.style.cursor = 'crosshair';
+  tlSvg.addEventListener('click', function(e) {
+    const rect = this.getBoundingClientRect();
+    const relX = e.clientX - rect.left;
+    const pct  = Math.max(0, Math.min(1, relX / rect.width));
+    if (VIDEO.duration) {
+      VIDEO.currentTime = pct * VIDEO.duration;
+      VIDEO.play().catch(()=>{});
+    }
+  });
+}
+
+// ── 감정흐름 카드 클릭 → 해당 구간 이동 ───────────────────
+document.querySelectorAll('.emo-row[data-t]').forEach(row => {
+  row.style.cursor = 'pointer';
+  row.addEventListener('click', () => vSeek(parseFloat(row.dataset.t)));
+});
+
+// 사이드바 활성화
+const navLinks = document.querySelectorAll('.ni[href^="#"]');
+const sections = document.querySelectorAll('.sec');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(n => n.classList.remove('active'));
+      const a = document.querySelector('.ni[href="#' + entry.target.id + '"]');
+      if (a) a.classList.add('active');
+    }
+  });
+}, {threshold: 0.25});
+sections.forEach(s => obs.observe(s));
+
+// ── 플로팅 미니플레이어 (스크롤 추적) ──────────────────────
+const VCOL    = document.getElementById('sb-video-col');
+const PLAYER  = document.getElementById('sb-player');
+const SBSEC   = document.getElementById('storyboard');
+let floatDisabled = false;   // 사용자가 ✕로 끄면 true
+
+const floatObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    // 스토리보드 섹션이 화면에서 거의 벗어났을 때만 플로팅
+    if (!entry.isIntersecting && !floatDisabled) {
+      VCOL.classList.add('floating');
+      PLAYER.classList.add('is-floating');
+    } else {
+      VCOL.classList.remove('floating');
+      PLAYER.classList.remove('is-floating');
+    }
+  });
+}, { threshold: 0, rootMargin: '-80px 0px 0px 0px' });
+floatObs.observe(SBSEC);
+
+// ✕ 버튼: 플로팅 해제 (스크롤 올려 스토리보드 다시 보이면 재활성화)
+function closeFloat() {
+  floatDisabled = true;
+  VCOL.classList.remove('floating');
+  PLAYER.classList.remove('is-floating');
+}
+// 스토리보드 섹션이 다시 보이면 플로팅 재활성화 허용
+const reEnableObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => { if (entry.isIntersecting) floatDisabled = false; });
+}, { threshold: 0.3 });
+reEnableObs.observe(SBSEC);
+
+// 플로팅 라벨 클릭 → 스토리보드로 부드럽게 복귀
+function scrollToStoryboard() {
+  SBSEC.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+</body>
+</html>
