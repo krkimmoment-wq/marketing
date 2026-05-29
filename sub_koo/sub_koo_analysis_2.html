@@ -215,6 +215,12 @@ em{font-style:normal;color:var(--t2)}
   border-radius:var(--r);padding:16px 14px 10px}
 .tl-note{font-size:11px;color:var(--t3);margin-top:8px}
 
+/* ─ 핵심 키워드 ─ */
+.kw-wrap{display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+.kw-chip{display:inline-flex;align-items:center;gap:5px;background:var(--s2);
+  border:1px solid var(--br2);border-radius:20px;padding:7px 14px;color:var(--t1);line-height:1}
+.kw-chip b{color:var(--ac);font-size:11px}
+
 /* ─ 록코치 훅 변형 ─ */
 .rok-list{display:flex;flex-direction:column;gap:8px}
 .rok-item{display:flex;gap:12px;align-items:flex-start;
@@ -324,27 +330,20 @@ em{font-style:normal;color:var(--t2)}
   <div class="sb-top">
     <a href="sub_koo_report.html" class="sb-back">← 개요 리포트</a>
     <div class="sb-rank">TOP 2</div>
-    <div class="sb-title">짝다리 짚지 말라고 </div>
+    <div class="sb-title">마지막에 죽을뻔..</div>
   </div>
   <a href="#storyboard" class="ni"><span class="nn">🎬</span>스토리보드</a>
-  <a href="#transcript" class="ni"><span class="nn">00</span>영상 대본</a>
+  <a href="#transcript" class="ni"><span class="nn">📝</span>영상 대본</a>
   <a href="#overlay" class="ni"><span class="nn">🔤</span>화면 자막</a>
-  <a href="#why" class="ni"><span class="nn">01</span>왜 터졌나</a>
-  <a href="#goals" class="ni"><span class="nn">02</span>목표</a>
-  <a href="#funnel" class="ni"><span class="nn">03</span>참여 깔때기</a>
+  <a href="#keywords" class="ni"><span class="nn">🔑</span>핵심 키워드</a>
+  <a href="#funnel" class="ni"><span class="nn">📊</span>참여 깔때기</a>
   <a href="#meta" class="ni"><span class="nn">⏱</span>길이·템포</a>
-  <a href="#audience" class="ni"><span class="nn">04</span>시청자</a>
   <a href="#comments" class="ni"><span class="nn">💬</span>댓글 반응</a>
-  <a href="#timeline" class="ni"><span class="nn">05</span>타임라인</a>
-  <a href="#cuts" class="ni"><span class="nn">06</span>컷 디테일</a>
-  <a href="#hook" class="ni"><span class="nn">07</span>3초 후킹</a>
+  <a href="#timeline" class="ni"><span class="nn">📈</span>타임라인</a>
+  <a href="#cuts" class="ni"><span class="nn">✂️</span>컷 디테일</a>
+  <a href="#hook" class="ni"><span class="nn">🎯</span>3초 후킹</a>
   <a href="#firstframe" class="ni"><span class="nn">🖼</span>첫프레임·루프</a>
-  <a href="#narrative" class="ni"><span class="nn">08</span>서사구조</a>
-  <a href="#emotion" class="ni"><span class="nn">09</span>감정흐름</a>
-  <a href="#tone" class="ni"><span class="nn">10</span>톤·말투</a>
-  <a href="#formulas" class="ni"><span class="nn">11</span>n가지 공식</a>
-  <a href="#ideas" class="ni"><span class="nn">12</span>변환 아이디어</a>
-  <a href="#formula" class="ni"><span class="nn">13</span>콘텐츠 공식</a>
+  <a href="#narrative" class="ni"><span class="nn">📖</span>서사구조</a>
 </nav>
 
 <main class="main">
@@ -353,19 +352,19 @@ em{font-style:normal;color:var(--t2)}
   <div class="ph">
     <h1>TOP 2 영상 상세 분석</h1>
     <div class="pm">
-      <span>@sub_koo</span><span>|</span><span>2026-04-14</span><span>|</span>
+      <span>@sub_koo</span><span>|</span><span>2026-05-19</span><span>|</span>
       <span>75초</span><span>|</span>
-      <a href="https://www.instagram.com/p/DXHTl9TkSyJ/" target="_blank" rel="noopener">원본↗</a>
-      <span class="er-b">참여율 3.5%</span>
+      <a href="https://www.instagram.com/p/DYg8hPXRqco/" target="_blank" rel="noopener">원본↗</a>
+      <span class="er-b">참여율 1.1%</span>
     </div>
   </div>
 
   <div class="mr">
-    <div class="mc"><div class="ml">재생수</div><div class="mv">62.8만</div>
-      <div class="ms">팔로워의 315%</div></div>
-    <div class="mc"><div class="ml">좋아요</div><div class="mv">6.9천</div></div>
-    <div class="mc"><div class="ml">댓글</div><div class="mv">76</div></div>
-    <div class="mc"><div class="ml">참여율</div><div class="mv">3.5%</div>
+    <div class="mc"><div class="ml">재생수</div><div class="mv">76.2만</div>
+      <div class="ms">팔로워의 382%</div></div>
+    <div class="mc"><div class="ml">좋아요</div><div class="mv">2.1천</div></div>
+    <div class="mc"><div class="ml">댓글</div><div class="mv">45</div></div>
+    <div class="mc"><div class="ml">참여율</div><div class="mv">1.1%</div>
       <div class="ms">팔로워 19.9만</div></div>
   </div>
 
@@ -380,8 +379,8 @@ em{font-style:normal;color:var(--t2)}
             <button class="float-close" onclick="closeFloat()" title="고정 해제">✕</button>
           </div>
           <video id="main-video"
-            src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DXHTl9TkSyJ.mp4"
-            poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DXHTl9TkSyJ_thumb.jpg"
+            src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DYg8hPXRqco.mp4"
+            poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/media/DYg8hPXRqco_thumb.jpg"
             controls preload="metadata" playsinline>
           </video>
           <div class="sb-progress"><div class="sb-progress-fill" id="sb-prog"></div></div>
@@ -391,14 +390,14 @@ em{font-style:normal;color:var(--t2)}
           <div class="sb-current-text" id="sb-text">▶ 재생하거나 프레임을 클릭하면 해당 구간으로 이동합니다.</div>
           <div class="sb-filmstrip-wrap">
             <div class="sb-filmstrip" id="sb-filmstrip">
-              <div class="sbf sbf-active" data-i="0" data-t="0" onclick="sbSeek(0)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_000_0000s.jpg" loading="lazy"><div class="sbf-t">00:00</div></div><div class="sbf" data-i="1" data-t="2" onclick="sbSeek(2)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_001_0002s.jpg" loading="lazy"><div class="sbf-t">00:02</div></div><div class="sbf" data-i="2" data-t="3" onclick="sbSeek(3)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_002_0003s.jpg" loading="lazy"><div class="sbf-t">00:03</div></div><div class="sbf" data-i="3" data-t="7" onclick="sbSeek(7)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_003_0007s.jpg" loading="lazy"><div class="sbf-t">00:07</div></div><div class="sbf" data-i="4" data-t="10" onclick="sbSeek(10)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_004_0010s.jpg" loading="lazy"><div class="sbf-t">00:10</div></div><div class="sbf" data-i="5" data-t="13" onclick="sbSeek(13)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_005_0013s.jpg" loading="lazy"><div class="sbf-t">00:13</div></div><div class="sbf" data-i="6" data-t="17" onclick="sbSeek(17)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_006_0017s.jpg" loading="lazy"><div class="sbf-t">00:17</div></div><div class="sbf" data-i="7" data-t="21" onclick="sbSeek(21)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_007_0021s.jpg" loading="lazy"><div class="sbf-t">00:21</div></div><div class="sbf" data-i="8" data-t="22" onclick="sbSeek(22)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_008_0022s.jpg" loading="lazy"><div class="sbf-t">00:22</div></div><div class="sbf" data-i="9" data-t="23" onclick="sbSeek(23)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_009_0023s.jpg" loading="lazy"><div class="sbf-t">00:23</div></div><div class="sbf" data-i="10" data-t="28" onclick="sbSeek(28)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_010_0028s.jpg" loading="lazy"><div class="sbf-t">00:28</div></div><div class="sbf" data-i="11" data-t="30" onclick="sbSeek(30)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_011_0030s.jpg" loading="lazy"><div class="sbf-t">00:30</div></div><div class="sbf" data-i="12" data-t="31" onclick="sbSeek(31)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_012_0031s.jpg" loading="lazy"><div class="sbf-t">00:31</div></div><div class="sbf" data-i="13" data-t="33" onclick="sbSeek(33)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_013_0033s.jpg" loading="lazy"><div class="sbf-t">00:33</div></div><div class="sbf" data-i="14" data-t="41" onclick="sbSeek(41)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_014_0041s.jpg" loading="lazy"><div class="sbf-t">00:41</div></div><div class="sbf" data-i="15" data-t="42" onclick="sbSeek(42)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_015_0042s.jpg" loading="lazy"><div class="sbf-t">00:42</div></div><div class="sbf" data-i="16" data-t="43" onclick="sbSeek(43)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_016_0043s.jpg" loading="lazy"><div class="sbf-t">00:43</div></div><div class="sbf" data-i="17" data-t="45" onclick="sbSeek(45)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_017_0045s.jpg" loading="lazy"><div class="sbf-t">00:45</div></div><div class="sbf" data-i="18" data-t="46" onclick="sbSeek(46)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_018_0046s.jpg" loading="lazy"><div class="sbf-t">00:46</div></div><div class="sbf" data-i="19" data-t="47" onclick="sbSeek(47)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_019_0047s.jpg" loading="lazy"><div class="sbf-t">00:47</div></div><div class="sbf" data-i="20" data-t="49" onclick="sbSeek(49)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_020_0049s.jpg" loading="lazy"><div class="sbf-t">00:49</div></div><div class="sbf" data-i="21" data-t="51" onclick="sbSeek(51)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_021_0051s.jpg" loading="lazy"><div class="sbf-t">00:51</div></div><div class="sbf" data-i="22" data-t="57" onclick="sbSeek(57)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_022_0057s.jpg" loading="lazy"><div class="sbf-t">00:57</div></div><div class="sbf" data-i="23" data-t="59" onclick="sbSeek(59)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_023_0059s.jpg" loading="lazy"><div class="sbf-t">00:59</div></div><div class="sbf" data-i="24" data-t="60" onclick="sbSeek(60)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_024_0060s.jpg" loading="lazy"><div class="sbf-t">01:00</div></div><div class="sbf" data-i="25" data-t="68" onclick="sbSeek(68)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_025_0068s.jpg" loading="lazy"><div class="sbf-t">01:08</div></div><div class="sbf" data-i="26" data-t="71" onclick="sbSeek(71)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_026_0071s.jpg" loading="lazy"><div class="sbf-t">01:11</div></div><div class="sbf" data-i="27" data-t="73" onclick="sbSeek(73)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_027_0073s.jpg" loading="lazy"><div class="sbf-t">01:13</div></div>
+              <div class="sbf sbf-active" data-i="0" data-t="0" onclick="sbSeek(0)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_000_0000s.jpg" loading="lazy"><div class="sbf-t">00:00</div></div><div class="sbf" data-i="1" data-t="1" onclick="sbSeek(1)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_001_0001s.jpg" loading="lazy"><div class="sbf-t">00:01</div></div><div class="sbf" data-i="2" data-t="2" onclick="sbSeek(2)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_002_0002s.jpg" loading="lazy"><div class="sbf-t">00:02</div></div><div class="sbf" data-i="3" data-t="4" onclick="sbSeek(4)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_003_0004s.jpg" loading="lazy"><div class="sbf-t">00:04</div></div><div class="sbf" data-i="4" data-t="7" onclick="sbSeek(7)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_004_0007s.jpg" loading="lazy"><div class="sbf-t">00:07</div></div><div class="sbf" data-i="5" data-t="9" onclick="sbSeek(9)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_005_0009s.jpg" loading="lazy"><div class="sbf-t">00:09</div></div><div class="sbf" data-i="6" data-t="10" onclick="sbSeek(10)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_006_0010s.jpg" loading="lazy"><div class="sbf-t">00:10</div></div><div class="sbf" data-i="7" data-t="11" onclick="sbSeek(11)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_007_0011s.jpg" loading="lazy"><div class="sbf-t">00:11</div></div><div class="sbf" data-i="8" data-t="12" onclick="sbSeek(12)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_008_0012s.jpg" loading="lazy"><div class="sbf-t">00:12</div></div><div class="sbf" data-i="9" data-t="15" onclick="sbSeek(15)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_009_0015s.jpg" loading="lazy"><div class="sbf-t">00:15</div></div><div class="sbf" data-i="10" data-t="17" onclick="sbSeek(17)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_010_0017s.jpg" loading="lazy"><div class="sbf-t">00:17</div></div><div class="sbf" data-i="11" data-t="18" onclick="sbSeek(18)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_011_0018s.jpg" loading="lazy"><div class="sbf-t">00:18</div></div><div class="sbf" data-i="12" data-t="19" onclick="sbSeek(19)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_012_0019s.jpg" loading="lazy"><div class="sbf-t">00:19</div></div><div class="sbf" data-i="13" data-t="21" onclick="sbSeek(21)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_013_0021s.jpg" loading="lazy"><div class="sbf-t">00:21</div></div><div class="sbf" data-i="14" data-t="25" onclick="sbSeek(25)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_014_0025s.jpg" loading="lazy"><div class="sbf-t">00:25</div></div><div class="sbf" data-i="15" data-t="27" onclick="sbSeek(27)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_015_0027s.jpg" loading="lazy"><div class="sbf-t">00:27</div></div><div class="sbf" data-i="16" data-t="31" onclick="sbSeek(31)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_016_0031s.jpg" loading="lazy"><div class="sbf-t">00:31</div></div><div class="sbf" data-i="17" data-t="32" onclick="sbSeek(32)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_017_0032s.jpg" loading="lazy"><div class="sbf-t">00:32</div></div><div class="sbf" data-i="18" data-t="33" onclick="sbSeek(33)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_018_0033s.jpg" loading="lazy"><div class="sbf-t">00:33</div></div><div class="sbf" data-i="19" data-t="35" onclick="sbSeek(35)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_019_0035s.jpg" loading="lazy"><div class="sbf-t">00:35</div></div><div class="sbf" data-i="20" data-t="38" onclick="sbSeek(38)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_020_0038s.jpg" loading="lazy"><div class="sbf-t">00:38</div></div><div class="sbf" data-i="21" data-t="39" onclick="sbSeek(39)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_021_0039s.jpg" loading="lazy"><div class="sbf-t">00:39</div></div><div class="sbf" data-i="22" data-t="41" onclick="sbSeek(41)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_022_0041s.jpg" loading="lazy"><div class="sbf-t">00:41</div></div><div class="sbf" data-i="23" data-t="44" onclick="sbSeek(44)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_023_0044s.jpg" loading="lazy"><div class="sbf-t">00:44</div></div><div class="sbf" data-i="24" data-t="46" onclick="sbSeek(46)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_024_0046s.jpg" loading="lazy"><div class="sbf-t">00:46</div></div><div class="sbf" data-i="25" data-t="47" onclick="sbSeek(47)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_025_0047s.jpg" loading="lazy"><div class="sbf-t">00:47</div></div><div class="sbf" data-i="26" data-t="47" onclick="sbSeek(47)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_026_0047s.jpg" loading="lazy"><div class="sbf-t">00:47</div></div><div class="sbf" data-i="27" data-t="48" onclick="sbSeek(48)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_027_0048s.jpg" loading="lazy"><div class="sbf-t">00:48</div></div><div class="sbf" data-i="28" data-t="51" onclick="sbSeek(51)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_028_0051s.jpg" loading="lazy"><div class="sbf-t">00:51</div></div><div class="sbf" data-i="29" data-t="60" onclick="sbSeek(60)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_029_0060s.jpg" loading="lazy"><div class="sbf-t">01:00</div></div>
             </div>
           </div>
           <div class="sb-ctrl">
             <button class="sb-btn" onclick="sbPrev()">◄</button>
             <button class="sb-btn play" id="sb-play" onclick="sbToggle()">▶</button>
             <button class="sb-btn" onclick="sbNext()">►</button>
-            <span class="sb-frame-info" id="sb-fi">0 / 28</span>
+            <span class="sb-frame-info" id="sb-fi">0 / 30</span>
           </div>
         </div>
       </div>
@@ -417,111 +416,187 @@ em{font-style:normal;color:var(--t2)}
     <div class="tr-row" data-t="0.0" onclick="vSeek(0.0)">
   <span class="tr-t">00:00</span>
   <span class="tr-a" style="color:#e11d48;border-color:#e11d4840;background:#e11d4816">후킹</span>
-  <span class="tr-x">야 나 골반이 왼쪽으로 기운 같은데 뭘 해야 돼?</span>
-</div><div class="tr-row" data-t="2.56" onclick="vSeek(2.56)">
+  <span class="tr-x">야! 스쿼트 무게 치면 어떻게 해야 돼?</span>
+</div><div class="tr-row" data-t="2.0" onclick="vSeek(2.0)">
   <span class="tr-t">00:02</span>
   <span class="tr-a" style="color:#e11d48;border-color:#e11d4840;background:#e11d4816">후킹</span>
-  <span class="tr-x">짝다리.</span>
-</div><div class="tr-row" data-t="3.1" onclick="vSeek(3.1)">
-  <span class="tr-t">00:03</span>
+  <span class="tr-x">뇌이스를 뽑을 때 발이 너무 넓으면</span>
+</div><div class="tr-row" data-t="4.02" onclick="vSeek(4.02)">
+  <span class="tr-t">00:04</span>
   <span class="tr-a" style="color:#e11d48;border-color:#e11d4840;background:#e11d4816">후킹</span>
-  <span class="tr-x">응?</span>
-</div><div class="tr-row" data-t="3.48" onclick="vSeek(3.48)">
-  <span class="tr-t">00:03</span>
+  <span class="tr-x">꼭 걸을 때 좌우 중심이 너무 많아</span>
+</div><div class="tr-row" data-t="6.22" onclick="vSeek(6.22)">
+  <span class="tr-t">00:06</span>
   <span class="tr-a" style="color:#e11d48;border-color:#e11d4840;background:#e11d4816">후킹</span>
-  <span class="tr-x">보통 어떤 근육 한 두개가 짧아가지고 골반이 기운다고 생각하는데 절대 아니야.</span>
-</div><div class="tr-row" data-t="7.66" onclick="vSeek(7.66)">
+  <span class="tr-x">바벨이 길고</span>
+</div><div class="tr-row" data-t="7.16" onclick="vSeek(7.16)">
   <span class="tr-t">00:07</span>
   <span class="tr-a" style="color:#e11d48;border-color:#e11d4840;background:#e11d4816">후킹</span>
-  <span class="tr-x">골반 주변에는 이미 수십 가지의 근육이 매덜렀기 때문에</span>
-</div><div class="tr-row" data-t="10.28" onclick="vSeek(10.28)">
+  <span class="tr-x">이거 버티느라 벌써 힘을 다 빼는 거니까</span>
+</div><div class="tr-row" data-t="9.16" onclick="vSeek(9.16)">
+  <span class="tr-t">00:09</span>
+  <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
+  <span class="tr-x">발을 좁게 쓰면</span>
+</div><div class="tr-row" data-t="10.12" onclick="vSeek(10.12)">
   <span class="tr-t">00:10</span>
   <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
-  <span class="tr-x">이게 기울어지면 하나가 아니라 이미 전체가 바뀐 거거든.</span>
-</div><div class="tr-row" data-t="13.48" onclick="vSeek(13.48)">
+  <span class="tr-x">걸을 때 좌우 중심이 적으니까</span>
+</div><div class="tr-row" data-t="11.82" onclick="vSeek(11.82)">
+  <span class="tr-t">00:11</span>
+  <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
+  <span class="tr-x">달리던 칸칸 댄스를 주도</span>
+</div><div class="tr-row" data-t="13.46" onclick="vSeek(13.46)">
   <span class="tr-t">00:13</span>
   <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
-  <span class="tr-x">갑자기 허벅지에 마비키를 맞을 것도 아니고 멀쩡한 근육이 짧아진 이유가 없잖아.</span>
-</div><div class="tr-row" data-t="17.8" onclick="vSeek(17.8)">
+  <span class="tr-x">바벨이 안 기우니까 힘을 아껴</span>
+</div><div class="tr-row" data-t="15.06" onclick="vSeek(15.06)">
+  <span class="tr-t">00:15</span>
+  <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
+  <span class="tr-x">커트가 가능한 거야</span>
+</div><div class="tr-row" data-t="16.34" onclick="vSeek(16.34)">
+  <span class="tr-t">00:16</span>
+  <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
+  <span class="tr-x">어... 발이 좀...</span>
+</div><div class="tr-row" data-t="17.38" onclick="vSeek(17.38)">
   <span class="tr-t">00:17</span>
   <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
-  <span class="tr-x">즉 비제칭 이유는 보통 몸에 한쪽을 더 많이 쓰기 때문이고</span>
-</div><div class="tr-row" data-t="20.74" onclick="vSeek(20.74)">
-  <span class="tr-t">00:20</span>
+  <span class="tr-x">일단 노이스턴</span>
+</div><div class="tr-row" data-t="18.04" onclick="vSeek(18.04)">
+  <span class="tr-t">00:18</span>
   <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
-  <span class="tr-x">그 시작이 바로 한쪽 체준 지지 짝다리야.</span>
-</div><div class="tr-row" data-t="23.2" onclick="vSeek(23.2)">
-  <span class="tr-t">00:23</span>
+  <span class="tr-x">착을 아무리 잘해도</span>
+</div><div class="tr-row" data-t="19.42" onclick="vSeek(19.42)">
+  <span class="tr-t">00:19</span>
   <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
-  <span class="tr-x">지금 당장 짝다리를 짚어보면 편한 쪽.</span>
-</div><div class="tr-row" data-t="25.54" onclick="vSeek(25.54)">
+  <span class="tr-x">피부가 말랑거리니 원래 바벨이 흔들리는데</span>
+</div><div class="tr-row" data-t="21.88" onclick="vSeek(21.88)">
+  <span class="tr-t">00:21</span>
+  <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
+  <span class="tr-x">원래 얹는 것보다</span>
+</div><div class="tr-row" data-t="22.86" onclick="vSeek(22.86)">
+  <span class="tr-t">00:22</span>
+  <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
+  <span class="tr-x">위에 피부부터 눌러서 아래에서 땡겨 고정해 버리면</span>
+</div><div class="tr-row" data-t="25.62" onclick="vSeek(25.62)">
   <span class="tr-t">00:25</span>
   <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
-  <span class="tr-x">불편한 쪽이 있을 텐데</span>
-</div><div class="tr-row" data-t="26.48" onclick="vSeek(26.48)">
-  <span class="tr-t">00:26</span>
+  <span class="tr-x">말랑한 피부까지 팅팅 고정시켜서</span>
+</div><div class="tr-row" data-t="27.72" onclick="vSeek(27.72)">
+  <span class="tr-t">00:27</span>
   <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
-  <span class="tr-x">편한 쪽으로 몸의 모양이 점점 바뀌는 거지.</span>
-</div><div class="tr-row" data-t="28.7" onclick="vSeek(28.7)">
-  <span class="tr-t">00:28</span>
-  <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
-  <span class="tr-x">예를 들면 오른쪽으로 짝다리를 짚으면 오른쪽 골반이 올라오고</span>
-</div><div class="tr-row" data-t="31.98" onclick="vSeek(31.98)">
+  <span class="tr-x">손이 필요없을 정도로 등에 단단히 견착이 될 거고</span>
+</div><div class="tr-row" data-t="30.16" onclick="vSeek(30.16)">
+  <span class="tr-t">00:30</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">그만큼 스쿼트가 강해질 거야</span>
+</div><div class="tr-row" data-t="31.46" onclick="vSeek(31.46)">
   <span class="tr-t">00:31</span>
   <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
-  <span class="tr-x">오른쪽 어깨가 내려가면서 오른쪽 몸통이 짧아지는 거고</span>
-</div><div class="tr-row" data-t="34.82" onclick="vSeek(34.82)">
-  <span class="tr-t">00:34</span>
+  <span class="tr-x">다 알려줘!</span>
+</div><div class="tr-row" data-t="32.22" onclick="vSeek(32.22)">
+  <span class="tr-t">00:32</span>
   <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
-  <span class="tr-x">반대로 왼쪽 어깨는 올라오고 왼쪽 골반이 내려가면 왼쪽 몸통은 길어지는 거지.</span>
-</div><div class="tr-row" data-t="38.9" onclick="vSeek(38.9)">
+  <span class="tr-x">제발 노이스턴</span>
+</div><div class="tr-row" data-t="32.9" onclick="vSeek(32.9)">
+  <span class="tr-t">00:32</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">아래에 날 뒤에서 눌러서 쓰겨주면 당하는 백스코트는</span>
+</div><div class="tr-row" data-t="35.62" onclick="vSeek(35.62)">
+  <span class="tr-t">00:35</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">내려가면서 팔꿈치가 뒤로 가면</span>
+</div><div class="tr-row" data-t="37.12" onclick="vSeek(37.12)">
+  <span class="tr-t">00:37</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">날개뼈가 앞으로 길어지고</span>
+</div><div class="tr-row" data-t="38.42" onclick="vSeek(38.42)">
   <span class="tr-t">00:38</span>
   <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
-  <span class="tr-x">이런 결과로 멀리서 보면 자연스럽게 골반이 왼쪽으로 기울게 되는 거야.</span>
-</div><div class="tr-row" data-t="42.82" onclick="vSeek(42.82)">
-  <span class="tr-t">00:42</span>
+  <span class="tr-x">그만큼 상체가 쑥이 당하면서</span>
+</div><div class="tr-row" data-t="39.8" onclick="vSeek(39.8)">
+  <span class="tr-t">00:39</span>
   <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
-  <span class="tr-x">비제칭이 생기는 건데 이게 절대 나쁜 게 아니라 한 발로 체중을 이동했을 때 올바른 모양이고</span>
-</div><div class="tr-row" data-t="47.58" onclick="vSeek(47.58)">
+  <span class="tr-x">무기가 앞으로 쏠려서 무거워지니까</span>
+</div><div class="tr-row" data-t="41.56" onclick="vSeek(41.56)">
+  <span class="tr-t">00:41</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">팔꿈치를 살짝 앞으로 내미는 힘을 주면</span>
+</div><div class="tr-row" data-t="43.36" onclick="vSeek(43.36)">
+  <span class="tr-t">00:43</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">날개뼈가 뒤로 길어지며</span>
+</div><div class="tr-row" data-t="44.62" onclick="vSeek(44.62)">
+  <span class="tr-t">00:44</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">상체가 숙여주신 힘을 뻗히는 만큼</span>
+</div><div class="tr-row" data-t="46.26" onclick="vSeek(46.26)">
+  <span class="tr-t">00:46</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">가벼워지는 거야</span>
+</div><div class="tr-row" data-t="47.06" onclick="vSeek(47.06)">
   <span class="tr-t">00:47</span>
   <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
-  <span class="tr-x">만약에 이 비제칭은 억지로 죽는 걸 잡아 버리면</span>
-</div><div class="tr-row" data-t="49.8" onclick="vSeek(49.8)">
-  <span class="tr-t">00:49</span>
+  <span class="tr-x">어... 또죠!</span>
+</div><div class="tr-row" data-t="47.84" onclick="vSeek(47.84)">
+  <span class="tr-t">00:47</span>
   <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
-  <span class="tr-x">한 발이 아닌 양발 중심이 되어버려.</span>
-</div><div class="tr-row" data-t="51.84" onclick="vSeek(51.84)">
+  <span class="tr-x">그냥 노이스턴...</span>
+</div><div class="tr-row" data-t="48.46" onclick="vSeek(48.46)">
+  <span class="tr-t">00:48</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">운동 좀 해본 사람들은 다 아는 이 노이스턴</span>
+</div><div class="tr-row" data-t="50.28" onclick="vSeek(50.28)">
+  <span class="tr-t">00:50</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">금 본이라고 불리는 부스터야</span>
+</div><div class="tr-row" data-t="51.74" onclick="vSeek(51.74)">
   <span class="tr-t">00:51</span>
   <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
-  <span class="tr-x">런질라더라도 뒷발을 너무 많이 쓸 수밖에 없고 허리와 무릎의 테미지가 가는 거지.</span>
-</div><div class="tr-row" data-t="55.6" onclick="vSeek(55.6)">
+  <span class="tr-x">아래 인인으로 펌핑과</span>
+</div><div class="tr-row" data-t="52.94" onclick="vSeek(52.94)">
+  <span class="tr-t">00:52</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">파페인 집중력도 올려주고</span>
+</div><div class="tr-row" data-t="54.3" onclick="vSeek(54.3)">
+  <span class="tr-t">00:54</span>
+  <span class="tr-a" style="color:#059669;border-color:#05966940;background:#05966916">CTA</span>
+  <span class="tr-x">레아틴에 있어 스포츠처럼</span>
+</div><div class="tr-row" data-t="55.54" onclick="vSeek(55.54)">
   <span class="tr-t">00:55</span>
   <span class="tr-a" style="color:#059669;border-color:#05966940;background:#05966916">CTA</span>
-  <span class="tr-x">즉 스쿼트에서 이렇게 비제칭이 나더라도 한 발은 너무 잘 쓰고 한 발은 너무 못 쓰니까</span>
-</div><div class="tr-row" data-t="60.48" onclick="vSeek(60.48)">
+  <span class="tr-x">순간 파워가 필요한</span>
+</div><div class="tr-row" data-t="56.46" onclick="vSeek(56.46)">
+  <span class="tr-t">00:56</span>
+  <span class="tr-a" style="color:#059669;border-color:#05966940;background:#05966916">CTA</span>
+  <span class="tr-x">존목 퍼포먼스도 도움이 되고</span>
+</div><div class="tr-row" data-t="57.72" onclick="vSeek(57.72)">
+  <span class="tr-t">00:57</span>
+  <span class="tr-a" style="color:#059669;border-color:#05966940;background:#05966916">CTA</span>
+  <span class="tr-x">한토텐션까지 들어가 있어서</span>
+</div><div class="tr-row" data-t="59.04" onclick="vSeek(59.04)">
+  <span class="tr-t">00:59</span>
+  <span class="tr-a" style="color:#059669;border-color:#05966940;background:#05966916">CTA</span>
+  <span class="tr-x">에너지 대사까지 생겨주니까</span>
+</div><div class="tr-row" data-t="60.28" onclick="vSeek(60.28)">
   <span class="tr-t">01:00</span>
   <span class="tr-a" style="color:#059669;border-color:#05966940;background:#05966916">CTA</span>
-  <span class="tr-x">잘 쓰는 쪽으로 골반의 비제칭이 일할 수 있는 거고</span>
-</div><div class="tr-row" data-t="63.22" onclick="vSeek(63.22)">
-  <span class="tr-t">01:03</span>
+  <span class="tr-x">금 본 부스터 노이스턴</span>
+</div><div class="tr-row" data-t="61.46" onclick="vSeek(61.46)">
+  <span class="tr-t">01:01</span>
   <span class="tr-a" style="color:#059669;border-color:#05966940;background:#05966916">CTA</span>
-  <span class="tr-x">이걸 고칠 수 있는 게 바로 런지야.</span>
-</div><div class="tr-row" data-t="65.3" onclick="vSeek(65.3)">
-  <span class="tr-t">01:05</span>
+  <span class="tr-x">운동 전의 목감은 확실히 달라</span>
+</div><div class="tr-row" data-t="66.54" onclick="vSeek(66.54)">
+  <span class="tr-t">01:06</span>
   <span class="tr-a" style="color:#059669;border-color:#05966940;background:#05966916">CTA</span>
-  <span class="tr-x">아니 올바른 짝다리 그다음 런지야.</span>
-</div><div class="tr-row" data-t="68.12" onclick="vSeek(68.12)">
-  <span class="tr-t">01:08</span>
+  <span class="tr-x">혹시 알 수 있어요?</span>
+</div><div class="tr-row" data-t="72.52" onclick="vSeek(72.52)">
+  <span class="tr-t">01:12</span>
   <span class="tr-a" style="color:#059669;border-color:#05966940;background:#05966916">CTA</span>
-  <span class="tr-x">짝다리 런지.</span>
-</div><div class="tr-row" data-t="69.76" onclick="vSeek(69.76)">
-  <span class="tr-t">01:09</span>
+  <span class="tr-x">어?</span>
+</div><div class="tr-row" data-t="74.16" onclick="vSeek(74.16)">
+  <span class="tr-t">01:14</span>
   <span class="tr-a" style="color:#059669;border-color:#05966940;background:#05966916">CTA</span>
-  <span class="tr-x">짝다리 런지.</span>
-</div><div class="tr-row" data-t="71.4" onclick="vSeek(71.4)">
-  <span class="tr-t">01:11</span>
-  <span class="tr-a" style="color:#059669;border-color:#05966940;background:#05966916">CTA</span>
-  <span class="tr-x">짝다리 아니 만약에 중립을 잡으면 중립 런지.</span>
+  <span class="tr-x">바로?</span>
 </div>
   </section>
 
@@ -529,107 +604,90 @@ em{font-style:normal;color:var(--t2)}
   <section class="sec" id="overlay">
     <div class="sh"><div class="sn">🔤</div>화면 자막 (텍스트 오버레이)</div>
     <p style="font-size:12px;color:var(--t3);margin-bottom:12px">
-  무음 시청(70%+) 대응 — 화면에 박힌 자막을 OCR로 추출. 총 21개 (클릭 시 영상 이동)</p>
-<div class="ov-list"><div class="ov-row" onclick="vSeek(1.26)">
-  <span class="ov-t">00:01</span>
-  <span class="ov-x">야 나 골반이 왼쪽으로</span>
-</div><div class="ov-row" onclick="vSeek(2.95)">
-  <span class="ov-t">00:02</span>
-  <span class="ov-x">짝다리. &#x27;8</span>
-</div><div class="ov-row" onclick="vSeek(5.48)">
+  무음 시청(70%+) 대응 — 화면에 박힌 자막을 OCR로 추출. 총 25개 (클릭 시 영상 이동)</p>
+<div class="ov-list"><div class="ov-row" onclick="vSeek(0.0)">
+  <span class="ov-t">00:00</span>
+  <span class="ov-x">MMI KPao</span>
+</div><div class="ov-row" onclick="vSeek(0.94)">
+  <span class="ov-t">00:00</span>
+  <span class="ov-x">4Pao</span>
+</div><div class="ov-row" onclick="vSeek(3.27)">
+  <span class="ov-t">00:03</span>
+  <span class="ov-x">뽑올 때 발에</span>
+</div><div class="ov-row" onclick="vSeek(5.62)">
   <span class="ov-t">00:05</span>
-  <span class="ov-x">한두 개가 짧아 가지고</span>
-</div><div class="ov-row" onclick="vSeek(8.96)">
-  <span class="ov-t">00:08</span>
-  <span class="ov-x">골반 주변엔 이미</span>
-</div><div class="ov-row" onclick="vSeek(15.6)">
-  <span class="ov-t">00:15</span>
-  <span class="ov-x">마비키올 맞은 것도 아니고 um</span>
-</div><div class="ov-row" onclick="vSeek(19.7)">
-  <span class="ov-t">00:19</span>
-  <span class="ov-x">몸에 한쪽올 더</span>
-</div><div class="ov-row" onclick="vSeek(22.89)">
-  <span class="ov-t">00:22</span>
-  <span class="ov-x">짝다리야!</span>
-</div><div class="ov-row" onclick="vSeek(25.98)">
-  <span class="ov-t">00:25</span>
-  <span class="ov-x">불편한 쪽</span>
-</div><div class="ov-row" onclick="vSeek(29.7)">
-  <span class="ov-t">00:29</span>
-  <span class="ov-x">오른쪽으로 짝다길 짚으면 cnior</span>
-</div><div class="ov-row" onclick="vSeek(32.57)">
+  <span class="ov-x">좌우 중심 이동애 Ru 28</span>
+</div><div class="ov-row" onclick="vSeek(11.04)">
+  <span class="ov-t">00:11</span>
+  <span class="ov-x">검는발너비 중심 이동이 적으네 KS paDn</span>
+</div><div class="ov-row" onclick="vSeek(12.2)">
+  <span class="ov-t">00:12</span>
+  <span class="ov-x">20</span>
+</div><div class="ov-row" onclick="vSeek(14.18)">
+  <span class="ov-t">00:14</span>
+  <span class="ov-x">검는발너비 DTHRU</span>
+</div><div class="ov-row" onclick="vSeek(16.62)">
+  <span class="ov-t">00:16</span>
+  <span class="ov-x">mm poor</span>
+</div><div class="ov-row" onclick="vSeek(18.79)">
+  <span class="ov-t">00:18</span>
+  <span class="ov-x">견착올 아무리 잘해도!</span>
+</div><div class="ov-row" onclick="vSeek(20.72)">
+  <span class="ov-t">00:20</span>
+  <span class="ov-x">피부견착 원래 바빌은 흔들리논데!</span>
+</div><div class="ov-row" onclick="vSeek(23.85)">
+  <span class="ov-t">00:23</span>
+  <span class="ov-x">위에 피부부터</span>
+</div><div class="ov-row" onclick="vSeek(26.71)">
+  <span class="ov-t">00:26</span>
+  <span class="ov-x">말랑한 피부까지</span>
+</div><div class="ov-row" onclick="vSeek(31.87)">
+  <span class="ov-t">00:31</span>
+  <span class="ov-x">더 알려쥐: UmIm pon</span>
+</div><div class="ov-row" onclick="vSeek(32.6)">
   <span class="ov-t">00:32</span>
-  <span class="ov-x">오른쪽-어깨가 내려가면서</span>
-</div><div class="ov-row" onclick="vSeek(37.15)">
-  <span class="ov-t">00:37</span>
-  <span class="ov-x">왼쪽 골반에 내려가면 TDDD</span>
-</div><div class="ov-row" onclick="vSeek(41.9)">
-  <span class="ov-t">00:41</span>
-  <span class="ov-x">골반이 왼쪽으로</span>
-</div><div class="ov-row" onclick="vSeek(43.35)">
-  <span class="ov-t">00:43</span>
-  <span class="ov-x">비대칭에 생기는 건데</span>
-</div><div class="ov-row" onclick="vSeek(44.61)">
-  <span class="ov-t">00:44</span>
-  <span class="ov-x">이게 절대 나뿐 게 아니라</span>
-</div><div class="ov-row" onclick="vSeek(45.91)">
+  <span class="ov-x">&#x27;ODI</span>
+</div><div class="ov-row" onclick="vSeek(34.31)">
+  <span class="ov-t">00:34</span>
+  <span class="ov-x">상체버리기</span>
+</div><div class="ov-row" onclick="vSeek(39.17)">
+  <span class="ov-t">00:39</span>
+  <span class="ov-x">상체버리기 그만큼 상체가</span>
+</div><div class="ov-row" onclick="vSeek(40.73)">
+  <span class="ov-t">00:40</span>
+  <span class="ov-x">장체버티기</span>
+</div><div class="ov-row" onclick="vSeek(45.5)">
   <span class="ov-t">00:45</span>
-  <span class="ov-x">한발로 체중음 이동햇올 때</span>
-</div><div class="ov-row" onclick="vSeek(47.06)">
+  <span class="ov-x">상체버티기</span>
+</div><div class="ov-row" onclick="vSeek(47.43)">
   <span class="ov-t">00:47</span>
-  <span class="ov-x">올바름 모양이고</span>
-</div><div class="ov-row" onclick="vSeek(48.77)">
-  <span class="ov-t">00:48</span>
-  <span class="ov-x">만약에 이 비대청올</span>
-</div><div class="ov-row" onclick="vSeek(54.82)">
-  <span class="ov-t">00:54</span>
-  <span class="ov-x">허리와 무릎에 um</span>
-</div><div class="ov-row" onclick="vSeek(58.44)">
-  <span class="ov-t">00:58</span>
-  <span class="ov-x">한 발임너무 잘 쓰고!</span>
-</div><div class="ov-row" onclick="vSeek(59.86)">
-  <span class="ov-t">00:59</span>
-  <span class="ov-x">한 발은 너무 못 쓰니까o</span>
-</div><div class="ov-row" onclick="vSeek(72.81)">
+  <span class="ov-x">MM</span>
+</div><div class="ov-row" onclick="vSeek(50.06)">
+  <span class="ov-t">00:50</span>
+  <span class="ov-x">이 노익스는</span>
+</div><div class="ov-row" onclick="vSeek(55.98)">
+  <span class="ov-t">00:55</span>
+  <span class="ov-x">크레야린 순간 파워가 필요한</span>
+</div><div class="ov-row" onclick="vSeek(61.64)">
+  <span class="ov-t">01:01</span>
+  <span class="ov-x">운동 전에 먹고하면</span>
+</div><div class="ov-row" onclick="vSeek(63.34)">
+  <span class="ov-t">01:03</span>
+  <span class="ov-x">INW ND Boosting</span>
+</div><div class="ov-row" onclick="vSeek(63.94)">
+  <span class="ov-t">01:03</span>
+  <span class="ov-x">Boosting</span>
+</div><div class="ov-row" onclick="vSeek(72.4)">
   <span class="ov-t">01:12</span>
-  <span class="ov-x">만약에 중립올 잡으면?</span>
+  <span class="ov-x">PR(기록경신) 가능o</span>
 </div></div>
   </section>
 
-  <!-- 01 왜 터졌나 -->
-  <section class="sec" id="why">
-    <div class="sh"><div class="sn">01</div>왜 터졌나</div>
-    <div class="card-h">
-  <div class="ci">📡</div>
-  <div><div class="ct">비팔로워 추천 도달</div><p class="cd">재생수(62.8만)가 팔로워 수(19.9만)의 315%. 인스타그램 탐색/추천 알고리즘에 의한 광범위한 비팔로워 배포.</p></div>
-</div><div class="card-h">
-  <div class="ci">🔥</div>
-  <div><div class="ct">참여율 3.5% — 업계 평균 3× 초과</div><p class="cd">좋아요+댓글(7.0천) / 팔로워(19.9만) = 3.5%. 높은 참여율은 알고리즘 가속 배포를 유발.</p></div>
-</div><div class="card-h">
-  <div class="ci">⚡</div>
-  <div><div class="ct">질문형 후킹</div><p class="cd">첫 문장: &quot;야 나 골반이 왼쪽으로 기운 같은데 뭘 해야 돼?&quot; — 시청자의 궁금증을 즉시 자극해 영상 이탈을 막는 강력한 도입부.</p></div>
-</div><div class="card-h">
-  <div class="ci">🎯</div>
-  <div><div class="ct">오프닝 질문 후킹</div><p class="cd">첫 3초 내 질문으로 시청자가 답을 보기 위해 영상을 계속 봄.</p></div>
-</div><div class="card-h">
-  <div class="ci">🔄</div>
-  <div><div class="ct">통념 부정 / 반직관 정보</div><p class="cd">기존에 &#x27;알고 있다고 생각하는 것&#x27;을 뒤집어 강력한 인지 충돌 유발.</p></div>
-</div>
-  </section>
-
-  <!-- 02 목표 -->
-  <section class="sec" id="goals">
-    <div class="sh"><div class="sn">02</div>콘텐츠 목표</div>
-    <div class="card-h">
-  <div class="ci">🎯</div>
-  <div><div class="ct">직접 CTA</div><p class="cd">캡션에 팔로우/저장/DM 등 명시적 행동 유도 포함.</p></div>
-</div><div class="card-h">
-  <div class="ci">📚</div>
-  <div><div class="ct">전문성 포지셔닝</div><p class="cd">해부학/운동역학/실전 경험을 통해 &#x27;이 채널은 다르다&#x27;는 신뢰 구축.</p></div>
-</div><div class="card-h">
-  <div class="ci">🔗</div>
-  <div><div class="ct">후속 콘텐츠 / 팔로우 유도</div><p class="cd">영상 내 미완성 질문이나 새로운 개념 제시로 다음 편 기대감 형성.</p></div>
-</div>
+  <!-- 핵심 키워드 (자막 빈출 주제어) -->
+  <section class="sec" id="keywords">
+    <div class="sh"><div class="sn">🔑</div>핵심 키워드</div>
+    <p style="font-size:12px;color:var(--t3);margin-bottom:14px">자막·캡션에서 가장 많이 나온 단어 — 이 영상의 핵심 주제 (크기=빈도)</p>
+    <div class="kw-wrap"><span class="kw-chip" style="font-size:20px">노이스턴<b>5</b></span><span class="kw-chip" style="font-size:18px">힘을<b>4</b></span><span class="kw-chip" style="font-size:17px">바벨이<b>3</b></span><span class="kw-chip" style="font-size:17px">앞으로<b>3</b></span><span class="kw-chip" style="font-size:15px">발이<b>2</b></span><span class="kw-chip" style="font-size:15px">걸을<b>2</b></span><span class="kw-chip" style="font-size:15px">좌우<b>2</b></span><span class="kw-chip" style="font-size:15px">중심이<b>2</b></span><span class="kw-chip" style="font-size:15px">원래<b>2</b></span><span class="kw-chip" style="font-size:15px">눌러서<b>2</b></span><span class="kw-chip" style="font-size:15px">그만큼<b>2</b></span><span class="kw-chip" style="font-size:15px">뒤로<b>2</b></span><span class="kw-chip" style="font-size:15px">날개뼈가<b>2</b></span><span class="kw-chip" style="font-size:15px">상체가<b>2</b></span></div>
   </section>
 
   <!-- 03 참여 깔때기 -->
@@ -638,7 +696,7 @@ em{font-style:normal;color:var(--t2)}
     <div class="funnel-row">
   <div class="fl">재생수</div>
   <div class="fb"><div class="fbar" style="width:100%;background:#a855f7"></div></div>
-  <div class="fv">62.8만</div>
+  <div class="fv">76.2만</div>
   <div class="fp" style="color:#a855f7">100.0%</div>
 </div><div class="funnel-row">
   <div class="fl">조회수</div>
@@ -647,13 +705,13 @@ em{font-style:normal;color:var(--t2)}
   <div class="fp" style="color:#3b82f6">49.0%</div>
 </div><div class="funnel-row">
   <div class="fl">좋아요</div>
-  <div class="fb"><div class="fbar" style="width:1%;background:#e11d48"></div></div>
-  <div class="fv">6.9천</div>
-  <div class="fp" style="color:#e11d48">1.1%</div>
+  <div class="fb"><div class="fbar" style="width:0%;background:#e11d48"></div></div>
+  <div class="fv">2.1천</div>
+  <div class="fp" style="color:#e11d48">0.3%</div>
 </div><div class="funnel-row">
   <div class="fl">댓글</div>
   <div class="fb"><div class="fbar" style="width:0%;background:#f59e0b"></div></div>
-  <div class="fv">76</div>
+  <div class="fv">45</div>
   <div class="fp" style="color:#f59e0b">0.0%</div>
 </div>
   </section>
@@ -671,24 +729,9 @@ em{font-style:normal;color:var(--t2)}
   <div class="meta-card">
     <div class="meta-ico">✂️</div>
     <div><div class="meta-l">편집 템포</div>
-    <div class="meta-v">2.8초/컷</div>
+    <div class="meta-v">2.1초/컷</div>
     <div class="meta-s">빠름 — 정보형 숏폼의 표준 편집 템포</div></div>
   </div>
-</div>
-  </section>
-
-  <!-- 04 시청자 -->
-  <section class="sec" id="audience">
-    <div class="sh"><div class="sn">04</div>시청자 분석</div>
-    <div class="card-h">
-  <div class="ci">🏋️</div>
-  <div><div class="ct">헬스/운동 관심층</div><div class="cd">피트니스를 이미 하고 있거나 시작하려는 2040대.</div></div>
-</div><div class="card-h">
-  <div class="ci">🩺</div>
-  <div><div class="ct">신체 불균형 고민층</div><div class="cd">자세 교정, 부상 예방에 관심 있는 직장인/헬스인.</div></div>
-</div><div class="card-h">
-  <div class="ci">👥</div>
-  <div><div class="ct">부 타깃</div><div class="cd">PT 트레이너, 필라테스 강사 등 운동 전문가. 레퍼런스 &amp; 공유 목적.</div></div>
 </div>
   </section>
 
@@ -696,31 +739,63 @@ em{font-style:normal;color:var(--t2)}
   <section class="sec" id="comments">
     <div class="sh"><div class="sn">💬</div>실제 댓글 반응</div>
     <p style="font-size:12px;color:var(--t3);margin-bottom:12px">
-  수집된 댓글 5개 중 반응 상위 — 시청자가 실제로 남긴 말 (다음 콘텐츠 단서)</p>
+  수집된 댓글 9개 중 반응 상위 — 시청자가 실제로 남긴 말 (다음 콘텐츠 단서)</p>
 <div class="cmt-list"><div class="cmt-row">
   <div class="cmt-head">
-    <span class="cmt-user">@realm.ask</span>
-    
+    <span class="cmt-user">@c___lwj</span>
+    <span class="cmt-likes">♥ 1</span>
   </div>
-  <p class="cmt-text">내가 뭘보는 거지?</p>
+  <p class="cmt-text">벌크업이라는 이름 아래 너무 마음 편하게 먹기만 했더니 어느 순간 체지방까지 제대로 벌크업돼버렸네요😂 이제는 진짜 정신 차리고 제대로 감량하면서 운동 루틴 다시 잡아보고 싶습니다. 노익스플로드가 베타알라닌, 시트룰린 같은 퍼포먼스 성분 구성도 좋아서 운동 집중력이나 펌핑감 유지에 도움된다는 얘기를 많이 들었는데, 특히 타 부스터처럼 요힘빈 계열 자극이 강하지 않아 속 불편함이나 과한 심장 두근거림 부담이 적다는 점이 너무 끌립니다🙏 빡센 웨이트 끝나고도 퍼포먼스 안 꺼진 상태로 유산소까지 깔끔하게 마무리해서 이번엔 진짜 체지방 쭉쭉 빼고 건강하게 다시 몸 만들어보고 싶어요🔥 운동과 다이어트에 제대로 몰입할 수 있게 노익스의 은혜 한 번 내려주십쇼💪</p>
 </div><div class="cmt-row">
   <div class="cmt-head">
-    <span class="cmt-user">@owl.9285298</span>
-    
+    <span class="cmt-user">@wvfhoswn</span>
+    <span class="cmt-likes">♥ 1</span>
   </div>
-  <p class="cmt-text">앞으로 불편한쪽으로 짝다리 많이 짚어주면 되나요?</p>
+  <p class="cmt-text">노익스먹고 3대400 찍어보겠습니다</p>
 </div><div class="cmt-row">
   <div class="cmt-head">
-    <span class="cmt-user">@mungi._.1216</span>
-    
+    <span class="cmt-user">@doridisk</span>
+    <span class="cmt-likes">♥ 1</span>
   </div>
-  <p class="cmt-text">어케 올리고 가만히 계신거죠..</p>
+  <p class="cmt-text">노익스 먹고 따라잡고 싶은 사람이 있습니다
+1차 목표 @everyday_lv.up 
+2차 목표는 1차 잡고 생각하기..</p>
 </div><div class="cmt-row">
   <div class="cmt-head">
-    <span class="cmt-user">@opus_15</span>
+    <span class="cmt-user">@team_bestie_mins</span>
     
   </div>
-  <p class="cmt-text">ㅋㅋㅋㅋ 개그 내 코드야</p>
+  <p class="cmt-text">형도 거짓말하면 붙는 능력인가요? 학씨아저씨도 그렇던데</p>
+</div><div class="cmt-row">
+  <div class="cmt-head">
+    <span class="cmt-user">@efg_fitness_guide</span>
+    
+  </div>
+  <p class="cmt-text">좋은 내용 감사합니다:)</p>
+</div><div class="cmt-row">
+  <div class="cmt-head">
+    <span class="cmt-user">@simtaeyoon</span>
+    
+  </div>
+  <p class="cmt-text">광고인데 왤케 잘 가르쳐주냐 다 봐버렷네</p>
+</div><div class="cmt-row">
+  <div class="cmt-head">
+    <span class="cmt-user">@mno_archive</span>
+    
+  </div>
+  <p class="cmt-text">노익스 부스터 먹고 스쿼트 해보고 싶습니다🔥🔥</p>
+</div><div class="cmt-row">
+  <div class="cmt-head">
+    <span class="cmt-user">@iam_meerkat</span>
+    
+  </div>
+  <p class="cmt-text">제품에 소개대본이 붙어있나요?</p>
+</div><div class="cmt-row">
+  <div class="cmt-head">
+    <span class="cmt-user">@181.7_goodluck_89</span>
+    
+  </div>
+  <p class="cmt-text">아~~잘생겨따❤️</p>
 </div></div>
   </section>
 
@@ -733,118 +808,118 @@ em{font-style:normal;color:var(--t2)}
     <stop offset="0%" stop-color="#e11d48" stop-opacity=".3"/>
     <stop offset="100%" stop-color="#e11d48" stop-opacity="0"/>
   </linearGradient></defs>
-  <rect x="32.0" y="24" width="78.7" height="102" fill="#e11d48" opacity=".07"/><rect x="110.7" y="24" width="183.7" height="102" fill="#f59e0b" opacity=".07"/><rect x="294.4" y="24" width="209.9" height="102" fill="#2563eb" opacity=".07"/><rect x="504.3" y="24" width="183.7" height="102" fill="#059669" opacity=".07"/><line x1="54.2" y1="24" x2="54.2" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="61.5" y1="24" x2="61.5" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="98.6" y1="24" x2="98.6" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="122.6" y1="24" x2="122.6" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="149.7" y1="24" x2="149.7" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="187.8" y1="24" x2="187.8" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="221.6" y1="24" x2="221.6" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="230.1" y1="24" x2="230.1" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="235.1" y1="24" x2="235.1" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="284.5" y1="24" x2="284.5" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="300.3" y1="24" x2="300.3" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="311.4" y1="24" x2="311.4" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="323.7" y1="24" x2="323.7" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="391.7" y1="24" x2="391.7" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="406.9" y1="24" x2="406.9" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="417.1" y1="24" x2="417.1" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="429.1" y1="24" x2="429.1" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="439.9" y1="24" x2="439.9" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="449.3" y1="24" x2="449.3" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="469.7" y1="24" x2="469.7" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="485.8" y1="24" x2="485.8" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="539.3" y1="24" x2="539.3" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="549.2" y1="24" x2="549.2" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="564.4" y1="24" x2="564.4" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="629.0" y1="24" x2="629.0" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="662.6" y1="24" x2="662.6" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="678.1" y1="24" x2="678.1" y2="126" stroke="#2a2a2a" stroke-width="1"/>
-  <path d="M32.0,30.2 C45.7,30.2 45.7,24.0 59.3,24.0 C73.0,24.0 73.0,72.9 86.7,72.9 C100.3,72.9 100.3,72.9 114.0,72.9 C127.7,72.9 127.7,63.6 141.3,63.6 C155.0,63.6 155.0,66.7 168.7,66.7 C182.3,66.7 182.3,88.5 196.0,88.5 C209.7,88.5 209.7,54.2 223.3,54.2 C237.0,54.2 237.0,76.0 250.7,76.0 C264.3,76.0 264.3,52.1 278.0,52.1 C291.7,52.1 291.7,42.7 305.3,42.7 C319.0,42.7 319.0,42.7 332.7,42.7 C346.3,42.7 346.3,79.2 360.0,79.2 C373.7,79.2 373.7,97.9 387.3,97.9 C401.0,97.9 401.0,38.6 414.7,38.6 C428.3,38.6 428.3,47.9 442.0,47.9 C455.7,47.9 455.7,79.2 469.3,79.2 C483.0,79.2 483.0,60.4 496.7,60.4 C510.3,60.4 510.3,63.6 524.0,63.6 C537.7,63.6 537.7,85.4 551.3,85.4 C565.0,85.4 565.0,69.8 578.7,69.8 C592.3,69.8 592.3,72.9 606.0,72.9 C619.7,72.9 619.7,72.9 633.3,72.9 C647.0,72.9 647.0,63.6 660.7,63.6 C674.3,63.6 674.3,66.7 688.0,66.7 L688.0,126 L32.0,126 Z" fill="url(#tg720)"/>
-  <path d="M32.0,30.2 C45.7,30.2 45.7,24.0 59.3,24.0 C73.0,24.0 73.0,72.9 86.7,72.9 C100.3,72.9 100.3,72.9 114.0,72.9 C127.7,72.9 127.7,63.6 141.3,63.6 C155.0,63.6 155.0,66.7 168.7,66.7 C182.3,66.7 182.3,88.5 196.0,88.5 C209.7,88.5 209.7,54.2 223.3,54.2 C237.0,54.2 237.0,76.0 250.7,76.0 C264.3,76.0 264.3,52.1 278.0,52.1 C291.7,52.1 291.7,42.7 305.3,42.7 C319.0,42.7 319.0,42.7 332.7,42.7 C346.3,42.7 346.3,79.2 360.0,79.2 C373.7,79.2 373.7,97.9 387.3,97.9 C401.0,97.9 401.0,38.6 414.7,38.6 C428.3,38.6 428.3,47.9 442.0,47.9 C455.7,47.9 455.7,79.2 469.3,79.2 C483.0,79.2 483.0,60.4 496.7,60.4 C510.3,60.4 510.3,63.6 524.0,63.6 C537.7,63.6 537.7,85.4 551.3,85.4 C565.0,85.4 565.0,69.8 578.7,69.8 C592.3,69.8 592.3,72.9 606.0,72.9 C619.7,72.9 619.7,72.9 633.3,72.9 C647.0,72.9 647.0,63.6 660.7,63.6 C674.3,63.6 674.3,66.7 688.0,66.7" fill="none" stroke="#e11d48" stroke-width="2" stroke-linecap="round"/>
-  <text x="32.0" y="144" text-anchor="middle" fill="#333" font-size="9">00:00</text><text x="196.0" y="144" text-anchor="middle" fill="#333" font-size="9">00:18</text><text x="360.0" y="144" text-anchor="middle" fill="#333" font-size="9">00:37</text><text x="524.0" y="144" text-anchor="middle" fill="#333" font-size="9">00:56</text><text x="688.0" y="144" text-anchor="middle" fill="#333" font-size="9">01:14</text>
+  <rect x="32.0" y="24" width="78.7" height="102" fill="#e11d48" opacity=".07"/><rect x="110.7" y="24" width="183.7" height="102" fill="#f59e0b" opacity=".07"/><rect x="294.4" y="24" width="209.9" height="102" fill="#2563eb" opacity=".07"/><rect x="504.3" y="24" width="183.7" height="102" fill="#059669" opacity=".07"/><line x1="48.4" y1="24" x2="48.4" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="54.0" y1="24" x2="54.0" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="67.4" y1="24" x2="67.4" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="95.3" y1="24" x2="95.3" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="112.9" y1="24" x2="112.9" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="121.4" y1="24" x2="121.4" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="136.6" y1="24" x2="136.6" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="141.9" y1="24" x2="141.9" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="171.6" y1="24" x2="171.6" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="184.7" y1="24" x2="184.7" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="191.2" y1="24" x2="191.2" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="203.2" y1="24" x2="203.2" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="225.2" y1="24" x2="225.2" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="258.3" y1="24" x2="258.3" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="275.6" y1="24" x2="275.6" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="309.3" y1="24" x2="309.3" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="315.2" y1="24" x2="315.2" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="322.2" y1="24" x2="322.2" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="345.3" y1="24" x2="345.3" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="370.3" y1="24" x2="370.3" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="382.6" y1="24" x2="382.6" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="397.8" y1="24" x2="397.8" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="424.5" y1="24" x2="424.5" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="439.8" y1="24" x2="439.8" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="446.4" y1="24" x2="446.4" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="451.7" y1="24" x2="451.7" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="457.9" y1="24" x2="457.9" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="486.6" y1="24" x2="486.6" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="562.0" y1="24" x2="562.0" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="586.0" y1="24" x2="586.0" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="591.9" y1="24" x2="591.9" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="596.5" y1="24" x2="596.5" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="606.2" y1="24" x2="606.2" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="640.8" y1="24" x2="640.8" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="649.3" y1="24" x2="649.3" y2="126" stroke="#2a2a2a" stroke-width="1"/>
+  <path d="M32.0,24.0 C45.7,24.0 45.7,51.1 59.3,51.1 C73.0,51.1 73.0,77.3 86.7,77.3 C100.3,77.3 100.3,47.5 114.0,47.5 C127.7,47.5 127.7,88.1 141.3,88.1 C155.0,88.1 155.0,69.1 168.7,69.1 C182.3,69.1 182.3,69.1 196.0,69.1 C209.7,69.1 209.7,74.5 223.3,74.5 C237.0,74.5 237.0,90.8 250.7,90.8 C264.3,90.8 264.3,61.9 278.0,61.9 C291.7,61.9 291.7,51.1 305.3,51.1 C319.0,51.1 319.0,43.0 332.7,43.0 C346.3,43.0 346.3,82.7 360.0,82.7 C373.7,82.7 373.7,63.7 387.3,63.7 C401.0,63.7 401.0,80.0 414.7,80.0 C428.3,80.0 428.3,69.1 442.0,69.1 C455.7,69.1 455.7,63.7 469.3,63.7 C483.0,63.7 483.0,85.4 496.7,85.4 C510.3,85.4 510.3,85.4 524.0,85.4 C537.7,85.4 537.7,96.2 551.3,96.2 C565.0,96.2 565.0,77.3 578.7,77.3 C592.3,77.3 592.3,69.1 606.0,69.1 C619.7,69.1 619.7,85.4 633.3,85.4 C647.0,85.4 647.0,74.5 660.7,74.5 C674.3,74.5 674.3,90.8 688.0,90.8 L688.0,126 L32.0,126 Z" fill="url(#tg720)"/>
+  <path d="M32.0,24.0 C45.7,24.0 45.7,51.1 59.3,51.1 C73.0,51.1 73.0,77.3 86.7,77.3 C100.3,77.3 100.3,47.5 114.0,47.5 C127.7,47.5 127.7,88.1 141.3,88.1 C155.0,88.1 155.0,69.1 168.7,69.1 C182.3,69.1 182.3,69.1 196.0,69.1 C209.7,69.1 209.7,74.5 223.3,74.5 C237.0,74.5 237.0,90.8 250.7,90.8 C264.3,90.8 264.3,61.9 278.0,61.9 C291.7,61.9 291.7,51.1 305.3,51.1 C319.0,51.1 319.0,43.0 332.7,43.0 C346.3,43.0 346.3,82.7 360.0,82.7 C373.7,82.7 373.7,63.7 387.3,63.7 C401.0,63.7 401.0,80.0 414.7,80.0 C428.3,80.0 428.3,69.1 442.0,69.1 C455.7,69.1 455.7,63.7 469.3,63.7 C483.0,63.7 483.0,85.4 496.7,85.4 C510.3,85.4 510.3,85.4 524.0,85.4 C537.7,85.4 537.7,96.2 551.3,96.2 C565.0,96.2 565.0,77.3 578.7,77.3 C592.3,77.3 592.3,69.1 606.0,69.1 C619.7,69.1 619.7,85.4 633.3,85.4 C647.0,85.4 647.0,74.5 660.7,74.5 C674.3,74.5 674.3,90.8 688.0,90.8" fill="none" stroke="#e11d48" stroke-width="2" stroke-linecap="round"/>
+  <text x="32.0" y="144" text-anchor="middle" fill="#333" font-size="9">00:00</text><text x="196.0" y="144" text-anchor="middle" fill="#333" font-size="9">00:18</text><text x="360.0" y="144" text-anchor="middle" fill="#333" font-size="9">00:37</text><text x="524.0" y="144" text-anchor="middle" fill="#333" font-size="9">00:55</text><text x="688.0" y="144" text-anchor="middle" fill="#333" font-size="9">01:14</text>
 </svg>
-      <div class="tl-note">컷 전환 27개 | 자막 밀도 기반 감정 강도 추정</div>
+      <div class="tl-note">컷 전환 35개 | 자막 밀도 기반 감정 강도 추정</div>
     </div>
   </section>
 
   <!-- 06 컷 디테일 -->
   <section class="sec" id="cuts">
     <div class="sh"><div class="sn">06</div>컷 디테일</div>
-    <div class="cuts-summary">총 <strong>27컷</strong> · 75초 · 평균 2.8초/컷</div><div class="cut-row" onclick="vSeek(2.53)">
+    <div class="cuts-summary">총 <strong>35컷</strong> · 75초 · 평균 2.1초/컷</div><div class="cut-row" onclick="vSeek(1.87)">
   <span class="cn">컷01</span>
-  <span class="ct2">00:02</span>
-  <div class="cbar-w"><div class="cbar" style="width:60%"></div></div>
-  <span class="cd2">diff 48</span>
-</div><div class="cut-row" onclick="vSeek(3.37)">
+  <span class="ct2">00:01</span>
+  <div class="cbar-w"><div class="cbar" style="width:57%"></div></div>
+  <span class="cd2">diff 46</span>
+</div><div class="cut-row" onclick="vSeek(2.5)">
   <span class="cn">컷02</span>
-  <span class="ct2">00:03</span>
-  <div class="cbar-w"><div class="cbar" style="width:67%"></div></div>
-  <span class="cd2">diff 54</span>
-</div><div class="cut-row" onclick="vSeek(7.6)">
-  <span class="cn">컷03</span>
-  <span class="ct2">00:07</span>
-  <div class="cbar-w"><div class="cbar" style="width:62%"></div></div>
-  <span class="cd2">diff 50</span>
-</div><div class="cut-row" onclick="vSeek(10.33)">
-  <span class="cn">컷04</span>
-  <span class="ct2">00:10</span>
-  <div class="cbar-w"><div class="cbar" style="width:49%"></div></div>
-  <span class="cd2">diff 40</span>
-</div><div class="cut-row" onclick="vSeek(13.43)">
-  <span class="cn">컷05</span>
-  <span class="ct2">00:13</span>
-  <div class="cbar-w"><div class="cbar" style="width:61%"></div></div>
-  <span class="cd2">diff 49</span>
-</div><div class="cut-row" onclick="vSeek(17.77)">
-  <span class="cn">컷06</span>
-  <span class="ct2">00:17</span>
-  <div class="cbar-w"><div class="cbar" style="width:70%"></div></div>
-  <span class="cd2">diff 56</span>
-</div><div class="cut-row" onclick="vSeek(21.63)">
-  <span class="cn">컷07</span>
-  <span class="ct2">00:21</span>
-  <div class="cbar-w"><div class="cbar" style="width:63%"></div></div>
-  <span class="cd2">diff 50</span>
-</div><div class="cut-row" onclick="vSeek(22.6)">
-  <span class="cn">컷08</span>
-  <span class="ct2">00:22</span>
-  <div class="cbar-w"><div class="cbar" style="width:54%"></div></div>
-  <span class="cd2">diff 43</span>
-</div><div class="cut-row" onclick="vSeek(23.17)">
-  <span class="cn">컷09</span>
-  <span class="ct2">00:23</span>
-  <div class="cbar-w"><div class="cbar" style="width:62%"></div></div>
-  <span class="cd2">diff 50</span>
-</div><div class="cut-row" onclick="vSeek(28.8)">
-  <span class="cn">컷10</span>
-  <span class="ct2">00:28</span>
-  <div class="cbar-w"><div class="cbar" style="width:44%"></div></div>
-  <span class="cd2">diff 35</span>
-</div><div class="cut-row" onclick="vSeek(30.6)">
-  <span class="cn">컷11</span>
-  <span class="ct2">00:30</span>
-  <div class="cbar-w"><div class="cbar" style="width:71%"></div></div>
-  <span class="cd2">diff 57</span>
-</div><div class="cut-row" onclick="vSeek(31.87)">
-  <span class="cn">컷12</span>
-  <span class="ct2">00:31</span>
+  <span class="ct2">00:02</span>
   <div class="cbar-w"><div class="cbar" style="width:68%"></div></div>
   <span class="cd2">diff 55</span>
-</div><div class="cut-row" onclick="vSeek(33.27)">
-  <span class="cn">컷13</span>
-  <span class="ct2">00:33</span>
-  <div class="cbar-w"><div class="cbar" style="width:61%"></div></div>
-  <span class="cd2">diff 49</span>
-</div><div class="cut-row" onclick="vSeek(41.03)">
-  <span class="cn">컷14</span>
-  <span class="ct2">00:41</span>
-  <div class="cbar-w"><div class="cbar" style="width:66%"></div></div>
+</div><div class="cut-row" onclick="vSeek(4.03)">
+  <span class="cn">컷03</span>
+  <span class="ct2">00:04</span>
+  <div class="cbar-w"><div class="cbar" style="width:56%"></div></div>
+  <span class="cd2">diff 45</span>
+</div><div class="cut-row" onclick="vSeek(7.2)">
+  <span class="cn">컷04</span>
+  <span class="ct2">00:07</span>
+  <div class="cbar-w"><div class="cbar" style="width:41%"></div></div>
+  <span class="cd2">diff 33</span>
+</div><div class="cut-row" onclick="vSeek(9.2)">
+  <span class="cn">컷05</span>
+  <span class="ct2">00:09</span>
+  <div class="cbar-w"><div class="cbar" style="width:68%"></div></div>
+  <span class="cd2">diff 55</span>
+</div><div class="cut-row" onclick="vSeek(10.17)">
+  <span class="cn">컷06</span>
+  <span class="ct2">00:10</span>
+  <div class="cbar-w"><div class="cbar" style="width:55%"></div></div>
+  <span class="cd2">diff 44</span>
+</div><div class="cut-row" onclick="vSeek(11.9)">
+  <span class="cn">컷07</span>
+  <span class="ct2">00:11</span>
+  <div class="cbar-w"><div class="cbar" style="width:49%"></div></div>
+  <span class="cd2">diff 39</span>
+</div><div class="cut-row" onclick="vSeek(12.5)">
+  <span class="cn">컷08</span>
+  <span class="ct2">00:12</span>
+  <div class="cbar-w"><div class="cbar" style="width:67%"></div></div>
   <span class="cd2">diff 53</span>
-</div><div class="cut-row" onclick="vSeek(42.77)">
-  <span class="cn">컷15</span>
-  <span class="ct2">00:42</span>
-  <div class="cbar-w"><div class="cbar" style="width:86%"></div></div>
-  <span class="cd2">diff 69</span>
-</div><div class="cut-row" onclick="vSeek(43.93)">
-  <span class="cn">컷16</span>
-  <span class="ct2">00:43</span>
-  <div class="cbar-w"><div class="cbar" style="width:76%"></div></div>
-  <span class="cd2">diff 61</span>
-</div><div class="cut-row" onclick="vSeek(45.3)">
-  <span class="cn">컷17</span>
-  <span class="ct2">00:45</span>
-  <div class="cbar-w"><div class="cbar" style="width:75%"></div></div>
-  <span class="cd2">diff 60</span>
-</div><div class="cut-row" onclick="vSeek(46.53)">
-  <span class="cn">컷18</span>
-  <span class="ct2">00:46</span>
-  <div class="cbar-w"><div class="cbar" style="width:65%"></div></div>
-  <span class="cd2">diff 52</span>
-</div><div class="cut-row" onclick="vSeek(47.6)">
-  <span class="cn">컷19</span>
-  <span class="ct2">00:47</span>
+</div><div class="cut-row" onclick="vSeek(15.87)">
+  <span class="cn">컷09</span>
+  <span class="ct2">00:15</span>
   <div class="cbar-w"><div class="cbar" style="width:38%"></div></div>
   <span class="cd2">diff 31</span>
-</div><div class="cut-row" onclick="vSeek(49.93)">
+</div><div class="cut-row" onclick="vSeek(17.37)">
+  <span class="cn">컷10</span>
+  <span class="ct2">00:17</span>
+  <div class="cbar-w"><div class="cbar" style="width:60%"></div></div>
+  <span class="cd2">diff 48</span>
+</div><div class="cut-row" onclick="vSeek(18.1)">
+  <span class="cn">컷11</span>
+  <span class="ct2">00:18</span>
+  <div class="cbar-w"><div class="cbar" style="width:82%"></div></div>
+  <span class="cd2">diff 66</span>
+</div><div class="cut-row" onclick="vSeek(19.47)">
+  <span class="cn">컷12</span>
+  <span class="ct2">00:19</span>
+  <div class="cbar-w"><div class="cbar" style="width:50%"></div></div>
+  <span class="cd2">diff 40</span>
+</div><div class="cut-row" onclick="vSeek(21.97)">
+  <span class="cn">컷13</span>
+  <span class="ct2">00:21</span>
+  <div class="cbar-w"><div class="cbar" style="width:53%"></div></div>
+  <span class="cd2">diff 42</span>
+</div><div class="cut-row" onclick="vSeek(25.73)">
+  <span class="cn">컷14</span>
+  <span class="ct2">00:25</span>
+  <div class="cbar-w"><div class="cbar" style="width:40%"></div></div>
+  <span class="cd2">diff 32</span>
+</div><div class="cut-row" onclick="vSeek(27.7)">
+  <span class="cn">컷15</span>
+  <span class="ct2">00:27</span>
+  <div class="cbar-w"><div class="cbar" style="width:79%"></div></div>
+  <span class="cd2">diff 64</span>
+</div><div class="cut-row" onclick="vSeek(31.53)">
+  <span class="cn">컷16</span>
+  <span class="ct2">00:31</span>
+  <div class="cbar-w"><div class="cbar" style="width:66%"></div></div>
+  <span class="cd2">diff 53</span>
+</div><div class="cut-row" onclick="vSeek(32.2)">
+  <span class="cn">컷17</span>
+  <span class="ct2">00:32</span>
+  <div class="cbar-w"><div class="cbar" style="width:55%"></div></div>
+  <span class="cd2">diff 44</span>
+</div><div class="cut-row" onclick="vSeek(33.0)">
+  <span class="cn">컷18</span>
+  <span class="ct2">00:33</span>
+  <div class="cbar-w"><div class="cbar" style="width:66%"></div></div>
+  <span class="cd2">diff 53</span>
+</div><div class="cut-row" onclick="vSeek(35.63)">
+  <span class="cn">컷19</span>
+  <span class="ct2">00:35</span>
+  <div class="cbar-w"><div class="cbar" style="width:57%"></div></div>
+  <span class="cd2">diff 45</span>
+</div><div class="cut-row" onclick="vSeek(38.47)">
   <span class="cn">컷20</span>
-  <span class="ct2">00:49</span>
-  <div class="cbar-w"><div class="cbar" style="width:62%"></div></div>
-  <span class="cd2">diff 49</span>
+  <span class="ct2">00:38</span>
+  <div class="cbar-w"><div class="cbar" style="width:42%"></div></div>
+  <span class="cd2">diff 34</span>
 </div>
     <p style="font-size:11px;color:var(--t3);margin-top:8px">클릭하면 해당 구간으로 영상 이동</p>
   </section>
@@ -855,7 +930,7 @@ em{font-style:normal;color:var(--t2)}
     <div style="display:inline-block;padding:4px 13px;border-radius:20px;
          background:rgba(225,48,108,.15);color:var(--ac);border:1px solid rgba(225,48,108,.3);
          font-size:12px;font-weight:800;margin-bottom:14px">질문형 후킹</div>
-    <div style="background:var(--s2);border-left:3px solid var(--ac);padding:12px 16px;border-radius:0 var(--rs) var(--rs) 0;font-size:14px;line-height:1.7;margin-bottom:12px">"야 나 골반이 왼쪽으로 기운 같은데 뭘 해야 돼?"</div>
+    <div style="background:var(--s2);border-left:3px solid var(--ac);padding:12px 16px;border-radius:0 var(--rs) var(--rs) 0;font-size:14px;line-height:1.7;margin-bottom:12px">"야! 스쿼트 무게 치면 어떻게 해야 돼?"</div>
     <p style="font-size:13px;color:var(--t2);line-height:1.7">시청자의 궁금증을 즉시 자극해 영상 이탈을 막는 강력한 도입부.</p>
   </section>
 
@@ -863,17 +938,17 @@ em{font-style:normal;color:var(--t2)}
   <section class="sec" id="firstframe">
     <div class="sh"><div class="sn">🖼</div>첫 프레임 후킹 · 루프 설계</div>
     <div class="ff-wrap">
-  <div class="ff-img"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_000_0000s.jpg" alt="첫 프레임"></div>
+  <div class="ff-img"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_000_0000s.jpg" alt="첫 프레임"></div>
   <div class="ff-body">
     <div class="ff-block">
       <div class="ff-label">🖼 첫 프레임 (0초 — 스크롤 정지 지점)</div>
-      <p class="ff-text">야 나 골반이 왼쪽으로 기운 같은데 뭘 해야 돼?</p>
-      <p class="ff-ov">화면 자막: "야 나 골반이 왼쪽으로"</p>
+      <p class="ff-text">야! 스쿼트 무게 치면 어떻게 해야 돼?</p>
+      <p class="ff-ov">화면 자막: "MMI KPao"</p>
     </div>
     <div class="ff-block">
       <div class="ff-label">🔁 루프 설계 — 연결 강도: <strong style="color:var(--ac)">보통</strong></div>
-      <p class="ff-text">엔딩: "짝다리 아니 만약에 중립을 잡으면 중립 런지."</p>
-      <p class="ff-ov">정보 마무리형 — 엔딩에서 첫 장면으로의 직접 연결은 약함. 루프 후킹 보강 여지 있음</p>
+      <p class="ff-text">엔딩: "바로?"</p>
+      <p class="ff-ov">질문형 엔딩 (다시보기 유도) — 엔딩에서 첫 장면으로의 직접 연결은 약함. 루프 후킹 보강 여지 있음</p>
     </div>
   </div>
 </div>
@@ -881,156 +956,35 @@ em{font-style:normal;color:var(--t2)}
 
   <!-- 08 서사구조 -->
   <section class="sec" id="narrative">
-    <div class="sh"><div class="sn">08</div>서사구조</div>
+    <div class="sh"><div class="sn">📖</div>서사구조</div>
     <div class="narr-row" onclick="vSeek(0)"
   style="cursor:pointer" title="클릭하면 0:00–00:08 구간으로 이동">
   <div class="na">
     <div class="nat">발단 / 후킹</div>
     <div class="nrg">0:00–00:08</div>
   </div>
-  <p class="nd">야 나 골반이 왼쪽으로 기운 같은데 뭘 해야 돼? 짝다리. 응? 보통 어떤 근육 한 두개가 짧아가지고 골반이 기운다고 생각하는데 절대 아니야. 골반 주변에는 이미 수십 가지의 근육이 매덜렀기 때문에</p>
+  <p class="nd">야! 스쿼트 무게 치면 어떻게 해야 돼? 뇌이스를 뽑을 때 발이 너무 넓으면 꼭 걸을 때 좌우 중심이 너무 많아 바벨이 길고 이거 버티느라 벌써 힘을 다 빼는 거니까</p>
 </div><div class="narr-row" onclick="vSeek(8)"
   style="cursor:pointer" title="클릭하면 00:08–00:29 구간으로 이동">
   <div class="na">
     <div class="nat">문제 제기</div>
     <div class="nrg">00:08–00:29</div>
   </div>
-  <p class="nd">이게 기울어지면 하나가 아니라 이미 전체가 바뀐 거거든. 갑자기 허벅지에 마비키를 맞을 것도 아니고 멀쩡한 근육이 짧아진 이유가 없잖아. 즉 비제칭 이유는 보통 몸에 한쪽을 더 많이 쓰기 때문이고 그 시작이 바로 한</p>
+  <p class="nd">발을 좁게 쓰면 걸을 때 좌우 중심이 적으니까 달리던 칸칸 댄스를 주도 바벨이 안 기우니까 힘을 아껴 커트가 가능한 거야 어... 발이 좀... 일단 노이스턴 착을 아무리 잘해도 피부가 말랑거리니 원래 바벨이 흔들리</p>
 </div><div class="narr-row" onclick="vSeek(29)"
   style="cursor:pointer" title="클릭하면 00:29–00:53 구간으로 이동">
   <div class="na">
     <div class="nat">전개 / 설명</div>
     <div class="nrg">00:29–00:53</div>
   </div>
-  <p class="nd">오른쪽 어깨가 내려가면서 오른쪽 몸통이 짧아지는 거고 반대로 왼쪽 어깨는 올라오고 왼쪽 골반이 내려가면 왼쪽 몸통은 길어지는 거지. 이런 결과로 멀리서 보면 자연스럽게 골반이 왼쪽으로 기울게 되는 거야. 비제칭이 생</p>
+  <p class="nd">그만큼 스쿼트가 강해질 거야 다 알려줘! 제발 노이스턴 아래에 날 뒤에서 눌러서 쓰겨주면 당하는 백스코트는 내려가면서 팔꿈치가 뒤로 가면 날개뼈가 앞으로 길어지고 그만큼 상체가 쑥이 당하면서 무기가 앞으로 쏠려서 무</p>
 </div><div class="narr-row" onclick="vSeek(53)"
   style="cursor:pointer" title="클릭하면 00:53–01:14 구간으로 이동">
   <div class="na">
     <div class="nat">해결책 / CTA</div>
     <div class="nrg">00:53–01:14</div>
   </div>
-  <p class="nd">즉 스쿼트에서 이렇게 비제칭이 나더라도 한 발은 너무 잘 쓰고 한 발은 너무 못 쓰니까 잘 쓰는 쪽으로 골반의 비제칭이 일할 수 있는 거고 이걸 고칠 수 있는 게 바로 런지야. 아니 올바른 짝다리 그다음 런지야. 짝</p>
-</div>
-  </section>
-
-  <!-- 09 감정흐름 -->
-  <section class="sec" id="emotion">
-    <div class="sh"><div class="sn">09</div>감정흐름</div>
-    <div class="emo-row" data-t="0.0" title="클릭하면 00:00 구간으로 이동">
-  <div class="ebar" style="background:#f59e0b"></div>
-  <div style="flex:1">
-    <div class="et">호기심 유발</div>
-    <div class="er2">00:00–00:07</div>
-    <p class="ed">후킹이 시작되는 순간. &#x27;뭐지?&#x27; 하는 첫 집중.</p>
-  </div>
-  <div style="flex-shrink:0;font-size:11px;color:#f59e0b;padding-top:2px;opacity:.7">00:00 ▶</div>
-</div><div class="emo-row" data-t="7.5" title="클릭하면 00:07 구간으로 이동">
-  <div class="ebar" style="background:#e11d48"></div>
-  <div style="flex:1">
-    <div class="et">의문/불신</div>
-    <div class="er2">00:07–00:22</div>
-    <p class="ed">기존에 알던 것과 다른 정보에 &#x27;진짜?&#x27; 하는 인지 충돌.</p>
-  </div>
-  <div style="flex-shrink:0;font-size:11px;color:#e11d48;padding-top:2px;opacity:.7">00:07 ▶</div>
-</div><div class="emo-row" data-t="22.4" title="클릭하면 00:22 구간으로 이동">
-  <div class="ebar" style="background:#2563eb"></div>
-  <div style="flex:1">
-    <div class="et">이해/공감</div>
-    <div class="er2">00:22–00:41</div>
-    <p class="ed">설명이 이어지면서 &#x27;아, 맞네&#x27; 하는 납득 단계.</p>
-  </div>
-  <div style="flex-shrink:0;font-size:11px;color:#2563eb;padding-top:2px;opacity:.7">00:22 ▶</div>
-</div><div class="emo-row" data-t="41.2" title="클릭하면 00:41 구간으로 이동">
-  <div class="ebar" style="background:#8b5cf6"></div>
-  <div style="flex:1">
-    <div class="et">재미/몰입</div>
-    <div class="er2">00:41–00:58</div>
-    <p class="ed">시각화나 시연이 나오며 흥미와 이해가 동시에 오름.</p>
-  </div>
-  <div style="flex-shrink:0;font-size:11px;color:#8b5cf6;padding-top:2px;opacity:.7">00:41 ▶</div>
-</div><div class="emo-row" data-t="58.4" title="클릭하면 00:58 구간으로 이동">
-  <div class="ebar" style="background:#059669"></div>
-  <div style="flex:1">
-    <div class="et">실천 의지</div>
-    <div class="er2">00:58–01:14</div>
-    <p class="ed">&#x27;나도 해봐야겠다&#x27; 행동 욕구로 전환. 저장/공유 욕구 최고.</p>
-  </div>
-  <div style="flex-shrink:0;font-size:11px;color:#059669;padding-top:2px;opacity:.7">00:58 ▶</div>
-</div>
-  </section>
-
-  <!-- 10 톤·말투 -->
-  <section class="sec" id="tone">
-    <div class="sh"><div class="sn">10</div>톤 · 말투</div>
-    <div class="tone-row">
-  <div class="tone-title">반말 구어체</div>
-  <p class="tone-desc">친구가 설명해주는 것 같은 편안함. 전문가-시청자 거리감을 없앰.</p>
-</div><div class="tone-row">
-  <div class="tone-title">과장 + 유머</div>
-  <p class="tone-desc">&#x27;절대&#x27; 같은 과장 표현으로 지루함 방지, 기억에 남는 비유 사용.</p>
-</div><div class="tone-row">
-  <div class="tone-title">반복 키워드 강조</div>
-  <p class="tone-desc">&#x27;골반이&#x27; 등 핵심 단어 반복으로 기억 각인.</p>
-</div><div class="tone-row">
-  <div class="tone-title">직접 시연 + 실시간 설명</div>
-  <p class="tone-desc">몸/물체로 직접 보여주며 말하는 방식. 이해도 극대화.</p>
-</div>
-  </section>
-
-  <!-- 11 n가지 공식 -->
-  <section class="sec" id="formulas">
-    <div class="sh"><div class="sn">11</div>3가지 콘텐츠 공식</div>
-    <div class="fml-card">
-  <div class="fml-num">01</div>
-  <div>
-    <div class="fml-title">통념 부정 공식</div>
-    <div class="fml-pattern">[시청자의 흔한 오해 발화] → [단호한 부정] → [올바른 설명] → [해결책 제시]</div>
-    <p class="fml-why">가장 강력한 주목 장치. 시청자가 &#x27;내가 잘못 알고 있었나?&#x27; 하는 순간 집중도 최대.</p>
-  </div>
-</div><div class="fml-card">
-  <div class="fml-num">02</div>
-  <div>
-    <div class="fml-title">1단어 반전 공식</div>
-    <div class="fml-pattern">[공감 질문 (2초)] → [반직관 1단어 답변] → [&#x27;응?&#x27; 반응] → [이유 설명]</div>
-    <p class="fml-why">3초 안에 궁금증 폭발. 댓글에 &#x27;이거 진짜야?&#x27; &#x27;나도 이거 해봐야겠다&#x27; 유도.</p>
-  </div>
-</div><div class="fml-card">
-  <div class="fml-num">04</div>
-  <div>
-    <div class="fml-title">현장 스토리 공식</div>
-    <div class="fml-pattern">[일상 상황 설정] → [예상치 못한 사건 발생] → [반응/감정 공유] → [의미 부여]</div>
-    <p class="fml-why">브이로그+정보 혼합. 알고리즘은 완주율을 선호하고, 스토리는 끝을 보게 만듦.</p>
-  </div>
-</div>
-  </section>
-
-  <!-- 12 변환 가능한 아이디어 -->
-  <section class="sec" id="ideas">
-    <div class="sh"><div class="sn">12</div>변환 가능한 아이디어</div>
-    <p style="font-size:12px;color:var(--t3);margin-bottom:14px">이 영상의 공식을 다른 주제에 적용한 예시</p>
-    <div class="idea-card">
-  <div class="idea-domain">다이어트</div>
-  <div class="idea-hook">후킹: <em>"나 살이 안 빠지는데 뭘 먹어야 해? / 덜 먹어."</em></div>
-  <div class="idea-pat">패턴: <em>[시청자의 흔한 오해 발화] → [단호한 부정] → [올바른 설명] → [해결책 제시]</em></div>
-</div><div class="idea-card">
-  <div class="idea-domain">피부 관리</div>
-  <div class="idea-hook">후킹: <em>"나 여드름이 왜 자꾸 나는지 모르겠어 / 세안을 너무 열심히 해서야."</em></div>
-  <div class="idea-pat">패턴: <em>[시청자의 흔한 오해 발화] → [단호한 부정] → [올바른 설명] → [해결책 제시]</em></div>
-</div><div class="idea-card">
-  <div class="idea-domain">수면</div>
-  <div class="idea-hook">후킹: <em>"나 잠이 안 와서 힘든데 어떻게 해야 해? / 일찍 누워."</em></div>
-  <div class="idea-pat">패턴: <em>[시청자의 흔한 오해 발화] → [단호한 부정] → [올바른 설명] → [해결책 제시]</em></div>
-</div>
-  </section>
-
-  <!-- 13 콘텐츠 공식 -->
-  <section class="sec" id="formula">
-    <div class="sh"><div class="sn">13</div>콘텐츠 공식 (마스터)</div>
-    <div class="master-formula">
-  <div class="mf-label">핵심 패턴</div>
-  <div class="mf-pattern">[시청자의 흔한 오해 발화] → [단호한 부정] → [올바른 설명] → [해결책 제시]</div>
-  <div class="mf-label" style="margin-top:14px">왜 효과적인가</div>
-  <p class="mf-why">가장 강력한 주목 장치. 시청자가 &#x27;내가 잘못 알고 있었나?&#x27; 하는 순간 집중도 최대.</p>
+  <p class="nd">레아틴에 있어 스포츠처럼 순간 파워가 필요한 존목 퍼포먼스도 도움이 되고 한토텐션까지 들어가 있어서 에너지 대사까지 생겨주니까 금 본 부스터 노이스턴 운동 전의 목감은 확실히 달라 혹시 알 수 있어요? 어? 바로?</p>
 </div>
   </section>
 
@@ -1039,7 +993,7 @@ em{font-style:normal;color:var(--t2)}
 
 <script>
 const VIDEO = document.getElementById('main-video');
-const FRAMES = [{"time": 0, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_000_0000s.jpg", "text": "야 나 골반이 왼쪽으로 기운 같은데 뭘 해야 돼?"}, {"time": 2, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_001_0002s.jpg", "text": "야 나 골반이 왼쪽으로 기운 같은데 뭘 해야 돼?"}, {"time": 3, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_002_0003s.jpg", "text": "짝다리."}, {"time": 7, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_003_0007s.jpg", "text": "보통 어떤 근육 한 두개가 짧아가지고 골반이 기운다고 생각하는데 절대 아니야."}, {"time": 10, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_004_0010s.jpg", "text": "골반 주변에는 이미 수십 가지의 근육이 매덜렀기 때문에"}, {"time": 13, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_005_0013s.jpg", "text": "이게 기울어지면 하나가 아니라 이미 전체가 바뀐 거거든."}, {"time": 17, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_006_0017s.jpg", "text": "갑자기 허벅지에 마비키를 맞을 것도 아니고 멀쩡한 근육이 짧아진 이유가 없잖아."}, {"time": 21, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_007_0021s.jpg", "text": "그 시작이 바로 한쪽 체준 지지 짝다리야."}, {"time": 22, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_008_0022s.jpg", "text": "그 시작이 바로 한쪽 체준 지지 짝다리야."}, {"time": 23, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_009_0023s.jpg", "text": "그 시작이 바로 한쪽 체준 지지 짝다리야."}, {"time": 28, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_010_0028s.jpg", "text": "편한 쪽으로 몸의 모양이 점점 바뀌는 거지."}, {"time": 30, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_011_0030s.jpg", "text": "예를 들면 오른쪽으로 짝다리를 짚으면 오른쪽 골반이 올라오고"}, {"time": 31, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_012_0031s.jpg", "text": "예를 들면 오른쪽으로 짝다리를 짚으면 오른쪽 골반이 올라오고"}, {"time": 33, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_013_0033s.jpg", "text": "오른쪽 어깨가 내려가면서 오른쪽 몸통이 짧아지는 거고"}, {"time": 41, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_014_0041s.jpg", "text": "이런 결과로 멀리서 보면 자연스럽게 골반이 왼쪽으로 기울게 되는 거야."}, {"time": 42, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_015_0042s.jpg", "text": "이런 결과로 멀리서 보면 자연스럽게 골반이 왼쪽으로 기울게 되는 거야."}, {"time": 43, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_016_0043s.jpg", "text": "비제칭이 생기는 건데 이게 절대 나쁜 게 아니라 한 발로 체중을 이동했을 때 올바른 모양이고"}, {"time": 45, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_017_0045s.jpg", "text": "비제칭이 생기는 건데 이게 절대 나쁜 게 아니라 한 발로 체중을 이동했을 때 올바른 모양이고"}, {"time": 46, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_018_0046s.jpg", "text": "비제칭이 생기는 건데 이게 절대 나쁜 게 아니라 한 발로 체중을 이동했을 때 올바른 모양이고"}, {"time": 47, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_019_0047s.jpg", "text": "비제칭이 생기는 건데 이게 절대 나쁜 게 아니라 한 발로 체중을 이동했을 때 올바른 모양이고"}, {"time": 49, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_020_0049s.jpg", "text": "만약에 이 비제칭은 억지로 죽는 걸 잡아 버리면"}, {"time": 51, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_021_0051s.jpg", "text": "한 발이 아닌 양발 중심이 되어버려."}, {"time": 57, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_022_0057s.jpg", "text": "즉 스쿼트에서 이렇게 비제칭이 나더라도 한 발은 너무 잘 쓰고 한 발은 너무 못 쓰니까"}, {"time": 59, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_023_0059s.jpg", "text": "즉 스쿼트에서 이렇게 비제칭이 나더라도 한 발은 너무 잘 쓰고 한 발은 너무 못 쓰니까"}, {"time": 60, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_024_0060s.jpg", "text": "즉 스쿼트에서 이렇게 비제칭이 나더라도 한 발은 너무 잘 쓰고 한 발은 너무 못 쓰니까"}, {"time": 68, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_025_0068s.jpg", "text": ""}, {"time": 71, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_026_0071s.jpg", "text": "짝다리 런지."}, {"time": 73, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DXHTl9TkSyJ/storyboard/sb_027_0073s.jpg", "text": "짝다리 아니 만약에 중립을 잡으면 중립 런지."}];
+const FRAMES = [{"time": 0, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_000_0000s.jpg", "text": "야! 스쿼트 무게 치면 어떻게 해야 돼?"}, {"time": 1, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_001_0001s.jpg", "text": "야! 스쿼트 무게 치면 어떻게 해야 돼?"}, {"time": 2, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_002_0002s.jpg", "text": "뇌이스를 뽑을 때 발이 너무 넓으면"}, {"time": 4, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_003_0004s.jpg", "text": "뇌이스를 뽑을 때 발이 너무 넓으면"}, {"time": 7, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_004_0007s.jpg", "text": "바벨이 길고"}, {"time": 9, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_005_0009s.jpg", "text": "이거 버티느라 벌써 힘을 다 빼는 거니까"}, {"time": 10, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_006_0010s.jpg", "text": "발을 좁게 쓰면"}, {"time": 11, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_007_0011s.jpg", "text": "걸을 때 좌우 중심이 적으니까"}, {"time": 12, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_008_0012s.jpg", "text": "달리던 칸칸 댄스를 주도"}, {"time": 15, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_009_0015s.jpg", "text": "바벨이 안 기우니까 힘을 아껴"}, {"time": 17, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_010_0017s.jpg", "text": "어... 발이 좀..."}, {"time": 18, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_011_0018s.jpg", "text": "일단 노이스턴"}, {"time": 19, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_012_0019s.jpg", "text": "착을 아무리 잘해도"}, {"time": 21, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_013_0021s.jpg", "text": "피부가 말랑거리니 원래 바벨이 흔들리는데"}, {"time": 25, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_014_0025s.jpg", "text": "위에 피부부터 눌러서 아래에서 땡겨 고정해 버리면"}, {"time": 27, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_015_0027s.jpg", "text": "말랑한 피부까지 팅팅 고정시켜서"}, {"time": 31, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_016_0031s.jpg", "text": "그만큼 스쿼트가 강해질 거야"}, {"time": 32, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_017_0032s.jpg", "text": "다 알려줘!"}, {"time": 33, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_018_0033s.jpg", "text": "아래에 날 뒤에서 눌러서 쓰겨주면 당하는 백스코트는"}, {"time": 35, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_019_0035s.jpg", "text": "아래에 날 뒤에서 눌러서 쓰겨주면 당하는 백스코트는"}, {"time": 38, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_020_0038s.jpg", "text": "날개뼈가 앞으로 길어지고"}, {"time": 39, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_021_0039s.jpg", "text": "그만큼 상체가 쑥이 당하면서"}, {"time": 41, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_022_0041s.jpg", "text": "무기가 앞으로 쏠려서 무거워지니까"}, {"time": 44, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_023_0044s.jpg", "text": "날개뼈가 뒤로 길어지며"}, {"time": 46, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_024_0046s.jpg", "text": "상체가 숙여주신 힘을 뻗히는 만큼"}, {"time": 47, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_025_0047s.jpg", "text": "가벼워지는 거야"}, {"time": 47, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_026_0047s.jpg", "text": "가벼워지는 거야"}, {"time": 48, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_027_0048s.jpg", "text": "그냥 노이스턴..."}, {"time": 51, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_028_0051s.jpg", "text": "금 본이라고 불리는 부스터야"}, {"time": 60, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/sub_koo/av/DYg8hPXRqco/storyboard/sb_029_0060s.jpg", "text": "에너지 대사까지 생겨주니까"}];
 let sbActive = 0;
 
 // 비디오 시간 업데이트 → 프레임 동기화
