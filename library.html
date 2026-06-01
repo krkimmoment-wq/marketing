@@ -4,48 +4,75 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>모멘트핏 · 분석 라이브러리</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#070707;--s1:#111;--s2:#181818;--s3:#212121;--s4:#2a2a2a;
-  --br:#1f1f1f;--br2:#2c2c2c;--t1:#f0f0f0;--t2:#8c8c8c;--t3:#555;
-  --ac:#e1306c;--yt:#ff0000;--dc:#8b5cf6;--green:#059669;
-  --r:14px;--rs:10px;--ease:cubic-bezier(.4,0,.2,1);
+  --bg:#F2F4F8; --card:#fff;
+  --text:#191F28; --sub:#6B7684; --sub2:#8B95A1;
+  --line:#E8EBF0; --line2:#DFE3EA;
+  --blue:#3182F6; --dc:#8b5cf6;
+  --grad:linear-gradient(135deg,#3182F6 0%,#6C5CE7 100%);
+  --r:22px; --rs:16px;
+  --sh:0 4px 20px rgba(70,90,130,.08);
+  --sh-lg:0 14px 44px rgba(70,90,130,.16);
+  --ease:cubic-bezier(.34,1.2,.44,1);
 }
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Malgun Gothic',sans-serif;
-  background:var(--bg);color:var(--t1);line-height:1.5;font-size:14px;-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none}
-.wrap{max-width:880px;margin:0 auto;padding:44px 24px 80px}
-.hdr{margin-bottom:30px}
-.back{font-size:12px;color:var(--t3);display:inline-block;margin-bottom:14px}
-.back:hover{color:var(--t2)}
-.hdr h1{font-size:26px;font-weight:800;margin-bottom:6px}
-.hdr p{font-size:14px;color:var(--t2)}
-.tabs{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
-.tab{padding:9px 16px;border-radius:8px;background:var(--s2);border:1px solid var(--br2);
-  color:var(--t2);font-size:13px;font-weight:600;cursor:pointer;transition:.15s}
-.tab.on{background:var(--s4);color:var(--t1);border-color:#444}
-.tab .n{font-size:11px;color:var(--t3);margin-left:4px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
-.card{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);padding:18px;
-  display:flex;flex-direction:column;gap:10px;transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
-.card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.5)}
-.c-top{display:flex;align-items:center;gap:9px}
-.c-ico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;
-  font-size:16px;flex-shrink:0}
-.c-ico.ig{background:rgba(225,48,108,.15)}
-.c-ico.yt{background:rgba(255,0,0,.15)}
-.c-ico.dc{background:rgba(139,92,246,.15)}
-.c-type{font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.4px}
-.c-title{font-size:14px;font-weight:600;line-height:1.4;word-break:break-all;
+body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Malgun Gothic',sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.5;font-size:14px;
+  -webkit-font-smoothing:antialiased;position:relative;min-height:100vh}
+body::before{content:'';position:fixed;inset:-25%;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(circle at 22% 22%, rgba(49,130,246,.22), transparent 38%),
+    radial-gradient(circle at 80% 26%, rgba(139,92,246,.20), transparent 40%),
+    radial-gradient(circle at 60% 82%, rgba(83,200,255,.16), transparent 40%),
+    radial-gradient(circle at 14% 78%, rgba(255,120,200,.11), transparent 38%);
+  filter:blur(8px);animation:blob 22s ease-in-out infinite}
+@keyframes blob{0%,100%{transform:translate(0,0) scale(1) rotate(0deg)}
+  33%{transform:translate(2.5%,3%) scale(1.07) rotate(3deg)}
+  66%{transform:translate(-2.5%,-2%) scale(.95) rotate(-3deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+.wrap{max-width:920px;margin:0 auto;padding:56px 24px 90px}
+.hdr{margin-bottom:34px;animation:fadeUp .55s var(--ease) both}
+.back{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:var(--sub);
+  background:rgba(255,255,255,.7);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.6);
+  padding:8px 16px;border-radius:30px;box-shadow:var(--sh);margin-bottom:18px;transition:.2s var(--ease)}
+.back:hover{transform:translateY(-2px);box-shadow:var(--sh-lg)}
+.hdr h1{font-size:34px;font-weight:800;letter-spacing:-1.2px;margin-bottom:8px;line-height:1.22;
+  background:linear-gradient(115deg,#191F28 30%,#3182F6 70%,#6C5CE7 100%);-webkit-background-clip:text;
+  background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 4px 22px rgba(49,130,246,.2))}
+.hdr p{font-size:15px;color:var(--sub)}
+
+.tabs{display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;animation:fadeUp .6s var(--ease) both;animation-delay:.05s}
+.tab{padding:11px 18px;border-radius:14px;background:rgba(255,255,255,.66);backdrop-filter:blur(14px);
+  border:2px solid transparent;color:var(--sub);font-size:14px;font-weight:700;cursor:pointer;
+  transition:.2s var(--ease);box-shadow:var(--sh)}
+.tab:hover{transform:translateY(-2px)}
+.tab.on{background:#fff;color:var(--blue);border-color:var(--blue);box-shadow:0 4px 16px rgba(49,130,246,.2)}
+.tab .n{font-size:12px;color:var(--sub2);margin-left:5px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.card{background:rgba(255,255,255,.64);backdrop-filter:blur(22px) saturate(160%);
+  -webkit-backdrop-filter:blur(22px) saturate(160%);border:1px solid rgba(255,255,255,.7);
+  border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:11px;
+  box-shadow:var(--sh);transition:.2s var(--ease);animation:fadeUp .5s var(--ease) both}
+.card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg)}
+.c-top{display:flex;align-items:center;gap:10px}
+.c-ico{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0}
+.c-ico.ig{background:linear-gradient(135deg,rgba(225,48,108,.16),rgba(225,48,108,.08))}
+.c-ico.yt{background:linear-gradient(135deg,rgba(255,0,0,.16),rgba(255,0,0,.07))}
+.c-ico.dc{background:linear-gradient(135deg,rgba(139,92,246,.18),rgba(139,92,246,.08))}
+.c-type{font-size:11px;font-weight:800;color:var(--sub2);text-transform:uppercase;letter-spacing:.5px}
+.c-title{font-size:14px;font-weight:700;line-height:1.45;word-break:break-all;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.c-date{font-size:11px;color:var(--t3)}
-.c-link{margin-top:auto;text-align:center;padding:9px;border-radius:8px;background:var(--ac);
-  color:#fff;font-size:12px;font-weight:700;transition:opacity .15s}
-.c-link:hover{opacity:.88}
-.c-link.dc{background:var(--dc)}
-.empty{text-align:center;color:var(--t3);font-size:14px;padding:60px 0}
-.loading{text-align:center;color:var(--t3);padding:40px 0}
+.c-date{font-size:12px;color:var(--sub2)}
+.c-link{margin-top:auto;text-align:center;padding:11px;border-radius:13px;background:var(--grad);
+  color:#fff;font-size:13px;font-weight:700;transition:.2s var(--ease);box-shadow:0 4px 14px rgba(49,130,246,.26)}
+.c-link:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(108,92,231,.36)}
+.empty{text-align:center;color:var(--sub2);font-size:14px;padding:60px 0;grid-column:1/-1}
+.loading{text-align:center;color:var(--sub2);padding:50px 0;grid-column:1/-1}
 </style>
 </head>
 <body>
@@ -90,17 +117,17 @@ function render(){
   const arr = curTab==='all' ? DATA : DATA.filter(j=>j.platform===curTab);
   const grid = document.getElementById('grid');
   if(arr.length===0){ grid.innerHTML = '<div class="empty">아직 완료된 항목이 없습니다.</div>'; return; }
-  grid.innerHTML = arr.map(j=>{
+  grid.innerHTML = arr.map((j,i)=>{
     const [cls,ico,label] = META[j.platform] || ['','📄', j.platform];
     const title = esc(j.url);
     const date = new Date(j.created_at).toLocaleDateString('ko-KR');
     const linkTxt = j.platform==='discover' ? '발굴 결과 보기' : '리포트 보기';
-    return `<div class="card">
+    return `<div class="card" style="animation-delay:${(i*0.03).toFixed(2)}s">
       <div class="c-top"><div class="c-ico ${cls}">${ico}</div>
         <div><div class="c-type">${label}</div></div></div>
       <div class="c-title">${title}</div>
       <div class="c-date">${date}</div>
-      <a class="c-link ${j.platform==='discover'?'dc':''}" href="${esc(j.result_url)}" target="_blank">${linkTxt}</a>
+      <a class="c-link" href="${esc(j.result_url)}" target="_blank">${linkTxt}</a>
     </div>`;
   }).join('');
 }
@@ -109,7 +136,6 @@ async function load(){
   try{
     const r = await fetch(SUPA_REST + "?status=eq.done&order=created_at.desc&limit=200", { headers: H });
     DATA = (await r.json()).filter(j=>j.result_url);
-    // 카운트
     document.getElementById('n-all').textContent = DATA.length;
     ['instagram','youtube','discover'].forEach(p=>{
       document.getElementById('n-'+p).textContent = DATA.filter(j=>j.platform===p).length;
