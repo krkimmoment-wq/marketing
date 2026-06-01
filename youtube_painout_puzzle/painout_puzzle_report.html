@@ -4,24 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>퍼즐쌤ㅣ통증아웃 유튜브 숏츠 분석</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0a0a0a;--s1:#141414;--s2:#1c1c1c;--s3:#242424;--s4:#2c2c2c;
-  --br:#222;--br2:#303030;
-  --t1:#f1f1f1;--t2:#909090;--t3:#555;
+  --bg:#F2F4F8;--s1:#fff;--s2:#F2F4F8;--s3:#E8EBF0;--s4:#DFE3EA;
+  --br:#E8EBF0;--br2:#DFE3EA;
+  --t1:#191F28;--t2:#6B7684;--t3:#8B95A1;
   --ac:#ff0000;--ac2:#ff4e45;
   --yt:linear-gradient(135deg,#ff0000,#ff4e45);
-  --gold:#f5c518;--silver:#b0b8c8;--bronze:#cd7f32;
-  --r:14px;--rs:10px;--rxs:6px;
-  --ease:cubic-bezier(.4,0,.2,1);
+  --gold:#E6A700;--silver:#8B95A1;--bronze:#B5723A;
+  --r:18px;--rs:13px;--rxs:9px;
+  --ease:cubic-bezier(.34,1.2,.44,1);
 }
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Malgun Gothic',sans-serif;
-  background:var(--bg);color:var(--t1);line-height:1.5;font-size:14px;-webkit-font-smoothing:antialiased}
+body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Malgun Gothic',sans-serif;
+  background:var(--bg);color:var(--t1);line-height:1.5;font-size:14px;-webkit-font-smoothing:antialiased;
+  position:relative;min-height:100vh}
+body::before{content:'';position:fixed;inset:-25%;z-index:-1;pointer-events:none;
+  background:radial-gradient(circle at 22% 22%,rgba(49,130,246,.18),transparent 38%),
+  radial-gradient(circle at 80% 26%,rgba(139,92,246,.16),transparent 40%),
+  radial-gradient(circle at 60% 82%,rgba(83,200,255,.13),transparent 40%);
+  filter:blur(8px);animation:blob 22s ease-in-out infinite}
+@keyframes blob{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(2.5%,3%) scale(1.06)}66%{transform:translate(-2.5%,-2%) scale(.95)}}
 a{color:inherit;text-decoration:none}
 img,video{display:block;width:100%;height:100%;object-fit:cover}
 
-.hdr{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.88);
+.hdr{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.8);
   backdrop-filter:blur(20px);border-bottom:1px solid var(--br);height:54px;
   padding:0 32px;display:flex;align-items:center;justify-content:space-between}
 .hdr-l{display:flex;align-items:center;gap:10px}
@@ -154,7 +162,7 @@ footer{text-align:center;padding:36px 24px;color:var(--t3);font-size:11.5px;bord
 
 <header class="hdr">
   <div class="hdr-l"><div class="hdr-dot"></div><span class="hdr-t">유튜브 숏츠 벤치마크 리포트</span></div>
-  <span class="hdr-r">최근 6개월 기준 · 조회수 순 · 2026.05.29</span>
+  <span class="hdr-r">최근 6개월 기준 · 조회수 순 · 2026.06.01</span>
 </header>
 
 <main class="wrap">
@@ -237,7 +245,7 @@ footer{text-align:center;padding:36px 24px;color:var(--t3);font-size:11.5px;bord
 
 </main>
 
-<footer>퍼즐쌤ㅣ통증아웃 · 2026.05.29 생성 · 최근 6개월 숏츠 기준 · 조회수 순</footer>
+<footer>퍼즐쌤ㅣ통증아웃 · 2026.06.01 생성 · 최근 6개월 숏츠 기준 · 조회수 순</footer>
 
 </body>
 </html>
