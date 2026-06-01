@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>발굴: 허벅지 — 유튜브</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#F2F4F8;--card:#fff;--text:#191F28;--sub:#6B7684;--sub2:#8B95A1;
+--line2:#DFE3EA;--blue:#3182F6;--dc:#8b5cf6;
+--grad:linear-gradient(135deg,#3182F6 0%,#6C5CE7 100%);--r:18px;--rs:13px;
+--sh:0 4px 20px rgba(70,90,130,.08);--sh-lg:0 14px 44px rgba(70,90,130,.16);
+--ease:cubic-bezier(.34,1.2,.44,1)}
+body{font-family:'Pretendard',-apple-system,'Malgun Gothic',sans-serif;background:var(--bg);
+color:var(--text);line-height:1.5;font-size:14px;-webkit-font-smoothing:antialiased;position:relative;min-height:100vh}
+body::before{content:'';position:fixed;inset:-25%;z-index:-1;pointer-events:none;
+background:radial-gradient(circle at 22% 22%,rgba(49,130,246,.20),transparent 38%),
+radial-gradient(circle at 80% 26%,rgba(139,92,246,.18),transparent 40%),
+radial-gradient(circle at 60% 82%,rgba(83,200,255,.14),transparent 40%);
+filter:blur(8px);animation:blob 22s ease-in-out infinite}
+@keyframes blob{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(2.5%,3%) scale(1.06)}66%{transform:translate(-2.5%,-2%) scale(.95)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1000px;margin:0 auto;padding:48px 24px 80px}
+.hdr{margin-bottom:26px;animation:fadeUp .55s var(--ease) both}
+.hdr h1{font-size:30px;font-weight:800;margin-bottom:8px;letter-spacing:-1px;
+background:linear-gradient(115deg,#191F28 35%,#3182F6 85%);-webkit-background-clip:text;
+background-clip:text;-webkit-text-fill-color:transparent}
+.hdr h1 .kw{-webkit-text-fill-color:#6C5CE7}
+.hdr p{font-size:13.5px;color:var(--sub)}
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.sort-btn{padding:11px 18px;border-radius:13px;background:rgba(255,255,255,.7);backdrop-filter:blur(12px);
+border:2px solid transparent;color:var(--sub);font-size:13.5px;font-weight:700;cursor:pointer;
+transition:.2s var(--ease);box-shadow:var(--sh)}
+.sort-btn:hover{transform:translateY(-2px)}
+.sort-btn.on{background:#fff;color:var(--blue);border-color:var(--blue);box-shadow:0 4px 16px rgba(49,130,246,.2)}
+.cnt{margin-left:auto;font-size:12px;color:var(--sub2)}
+.flbl{font-size:12px;color:var(--sub2);font-weight:700}
+.filt-btn{padding:8px 14px;border-radius:11px;background:rgba(255,255,255,.66);backdrop-filter:blur(10px);
+border:2px solid transparent;color:var(--sub);font-size:12.5px;font-weight:700;cursor:pointer;transition:.18s;box-shadow:var(--sh)}
+.filt-btn.on{background:#fff;color:var(--text);border-color:var(--line2)}
+.typebadge{position:absolute;bottom:7px;left:7px;font-size:9px;font-weight:800;padding:3px 8px;
+border-radius:10px;color:#fff}
+.typebadge.shorts{background:#ff0000}
+.typebadge.video{background:#3182F6}
+.list{display:flex;flex-direction:column;gap:11px}
+.card{display:flex;gap:14px;background:rgba(255,255,255,.64);backdrop-filter:blur(22px) saturate(160%);
+-webkit-backdrop-filter:blur(22px) saturate(160%);border:1px solid rgba(255,255,255,.7);border-radius:var(--r);
+overflow:hidden;transition:.2s var(--ease);box-shadow:var(--sh);animation:fadeUp .5s var(--ease) both}
+.card:hover{transform:translateY(-3px);box-shadow:var(--sh-lg)}
+.rank{width:46px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+font-size:16px;font-weight:900;color:var(--sub2);background:rgba(242,244,248,.6)}
+.thumb{width:128px;flex-shrink:0;aspect-ratio:9/16;background:#E8EBF0;position:relative}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.thumb .dur{position:absolute;bottom:7px;right:7px;background:rgba(0,0,0,.78);color:#fff;
+font-size:10px;font-weight:600;padding:2px 7px;border-radius:6px}
+.body{flex:1;padding:16px 20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.title{font-size:14.5px;font-weight:700;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;
+-webkit-box-orient:vertical;overflow:hidden}
+.ch{font-size:12.5px;color:var(--sub2)}
+.kwtag{color:#6C5CE7;font-weight:700}
+.metrics{display:flex;gap:18px;flex-wrap:wrap;margin-top:auto}
+.m{display:flex;flex-direction:column;gap:2px}
+.m .l{font-size:10px;color:var(--sub2);text-transform:uppercase;letter-spacing:.4px;font-weight:600}
+.m .v{font-size:17px;font-weight:800;line-height:1}
+.m .v.ol{color:#6C5CE7}
+.m .v.vw{color:var(--blue)}
+.foot{display:flex;align-items:center;gap:8px;margin-top:6px}
+.date{font-size:11.5px;color:var(--sub2)}
+.btns{margin-left:auto;display:flex;gap:7px}
+.btn{padding:8px 14px;border-radius:11px;font-size:12.5px;font-weight:700;transition:.2s var(--ease);cursor:pointer;border:none}
+.btn-yt{background:#F2F4F8;color:var(--sub);font-family:inherit}
+.btn-yt:hover{background:#E8EBF0}
+.btn-an{background:var(--grad);color:#fff;font-family:inherit;box-shadow:0 4px 14px rgba(49,130,246,.26)}
+.btn-an:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(108,92,231,.36)}
+.olbadge{position:absolute;top:7px;left:7px;background:linear-gradient(135deg,#ff0844,#ff6b35);
+color:#fff;font-size:9px;font-weight:800;padding:3px 8px;border-radius:10px}
+@media(max-width:640px){.thumb{width:96px}.metrics{gap:12px}}
+</style></head>
+<body><div class="wrap">
+<div class="hdr">
+  <h1>🔍 발굴: <span class="kw">허벅지</span></h1>
+  <p>유튜브 51개 · 아웃라이어 = 조회수 ÷ 구독자 (구독자 적은데 터진 영상) · 2026.06.01</p>
+  <p style="font-size:12.5px;color:var(--sub2);margin-top:7px">💡 맘에 드는 채널의 <b style="color:var(--blue)">📊 이 채널 분석</b> 버튼을 누르면 분석 큐에 등록됩니다 → <a href="https://marketing-liard-eight-95.vercel.app/" target="_blank" style="color:#6C5CE7;font-weight:700">현황 페이지</a>에서 결과 확인</p>
+</div>
+<div class="toolbar">
+  <button class="sort-btn on" id="sb-ol" onclick="setSort('outlier')">🔥 아웃라이어 순</button>
+  <button class="sort-btn" id="sb-vw" onclick="setSort('views')">▶ 조회수 순</button>
+  <span class="cnt" id="cnt"></span>
+</div>
+<div class="toolbar">
+  <span class="flbl">유형</span>
+  <button class="filt-btn on" id="ft-all" onclick="setType('all')">전체</button>
+  <button class="filt-btn" id="ft-shorts" onclick="setType('shorts')">숏츠</button>
+  <button class="filt-btn" id="ft-video" onclick="setType('video')">일반영상</button>
+  <span class="flbl" style="margin-left:14px">기간</span>
+  <button class="filt-btn on" id="fp-all" onclick="setRecent(false)">전체</button>
+  <button class="filt-btn" id="fp-recent" onclick="setRecent(true)">최근 6개월</button>
+</div>
+<div class="list" id="list"></div>
+</div>
+<script>
+const VIDS = [{"title": "허벅지 안쪽살 빼는 딱 4동작 #흥둥이 #홈트추천 #집운동", "channel": "Shake twins", "channelUrl": "https://www.youtube.com/@shaketwins", "type": "shorts", "views": 497392, "subs": 1400000, "outlier": 0.4, "url": "https://www.youtube.com/shorts/du_kq-4Iznk", "thumb": "https://i.ytimg.com/vi/du_kq-4Iznk/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBlKGUwDw==&rs=AOn4CLBKl7-0FWWA99imJZYI0fETK8ZqYw", "dur": "0:07", "date": "2025-07-19", "matched": "허벅지"}, {"title": "운동한 남자보다 탄탄한 치어리더 허벅지", "channel": "피지컬갤러리", "channelUrl": "https://www.youtube.com/@%ED%94%BC%EC%A7%80%EC%BB%AC%EA%B0%A4%EB%9F%AC%EB%A6%AC", "type": "shorts", "views": 157861, "subs": 2990000, "outlier": 0.1, "url": "https://www.youtube.com/shorts/q0iLWAQTznw", "thumb": "https://i.ytimg.com/vi/q0iLWAQTznw/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYSyBLKGUwDw==&rs=AOn4CLDJWJ0aEXjfftU8DGV3geflY-kuXA", "dur": "0:24", "date": "2024-07-18", "matched": "허벅지"}, {"title": "허벅지 근육의 중요성 l 제발 이거라도 하세요 #운동 #건강 #허벅지", "channel": "건강전도사 정주호", "channelUrl": "https://www.youtube.com/@startrain3627", "type": "shorts", "views": 1011271, "subs": 170000, "outlier": 5.9, "url": "https://www.youtube.com/shorts/C7NGLlhZcic", "thumb": "https://i.ytimg.com/vi/C7NGLlhZcic/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4Ac4FgAKACooCDAgAEAEYFCATKH8wDw==&rs=AOn4CLA0TvRPS4BFYimt42b3HTIF6bYt4A", "dur": "0:59", "date": "2024-08-23", "matched": "허벅지"}, {"title": "허벅지 박수⁉️😱 Thigh clap challenge", "channel": "TEAM1LLUSION URE", "channelUrl": "https://www.youtube.com/@team1llusion", "type": "shorts", "views": 37417003, "subs": 11400000, "outlier": 3.3, "url": "https://www.youtube.com/shorts/MjXQrpFKXg8", "thumb": "https://i.ytimg.com/vi/MjXQrpFKXg8/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYciBJKDEwDw==&rs=AOn4CLCU-5wlS_dkxlsrNnBxxJzhGUbqbQ", "dur": "0:35", "date": "2025-04-10", "matched": "허벅지"}, {"title": "무릎 아플 땐 이거! 허벅지 앞 풀어주는 스트레칭. 대퇴사두근만 풀어도 무릎통증이 줄어들어요 #레그웰의원", "channel": "Legwell", "channelUrl": "https://www.youtube.com/@legwell", "type": "shorts", "views": 154066, "subs": 76400, "outlier": 2.0, "url": "https://www.youtube.com/shorts/IgkXAIXVetA", "thumb": "https://i.ytimg.com/vi/IgkXAIXVetA/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBlKGUwDw==&rs=AOn4CLCfaDGEjnA5zydlY6PEBS4H5qz4ZA", "dur": "0:28", "date": "2025-05-08", "matched": "허벅지"}, {"title": "단기간 허벅지 안쪽살 빼기 운동 (앉아서⭕ 초간단⭕)", "channel": "Thankyou BUBU", "channelUrl": "https://www.youtube.com/@thankyoububu", "type": "shorts", "views": 605765, "subs": 3190000, "outlier": 0.2, "url": "https://www.youtube.com/shorts/tfYNVt3cBOs", "thumb": "https://i.ytimg.com/vi/tfYNVt3cBOs/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBlKGUwDw==&rs=AOn4CLCicGno_hXxKj_PnueZXQEeTWFsfQ", "dur": "0:07", "date": "2025-06-22", "matched": "허벅지"}, {"title": "10초만해도 허벅지 불타는 바운싱 스쿼트", "channel": "Expert in sports performance training", "channelUrl": "https://www.youtube.com/@TV-np9yq", "type": "shorts", "views": 1518276, "subs": 157000, "outlier": 9.7, "url": "https://www.youtube.com/shorts/FZIQQA1MC5k", "thumb": "https://i.ytimg.com/vi/FZIQQA1MC5k/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYYiBiKGIwDw==&rs=AOn4CLBrVlybF5p5AKYxNTAzwYfCLI9ZuQ", "dur": "0:56", "date": "2024-01-04", "matched": "허벅지"}, {"title": "여자가 하체운동해도 허벅지 근육이 이정도밖에 안 생겨요", "channel": "제이제이살롱드핏", "channelUrl": "https://www.youtube.com/@JJsalondefit", "type": "shorts", "views": 16013350, "subs": 1150000, "outlier": 13.9, "url": "https://www.youtube.com/shorts/1cRflgUwVxQ", "thumb": "https://i.ytimg.com/vi/1cRflgUwVxQ/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AZQDgALQBYoCDAgAEAEYZSBZKE8wDw==&rs=AOn4CLAKu0F1AFPrr-8XwCd1nHDSZDRUJw", "dur": "0:05", "date": "2022-03-20", "matched": "허벅지"}, {"title": "관절 부담 없는 '1분' 하체 운동", "channel": "모멘트핏 록코치", "channelUrl": "https://www.youtube.com/@momentfit", "type": "shorts", "views": 619340, "subs": 1170000, "outlier": 0.5, "url": "https://www.youtube.com/shorts/Z8lypq-JAS4", "thumb": "https://i.ytimg.com/vi/Z8lypq-JAS4/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYYyBjKGMwDw==&rs=AOn4CLCPd4z__X3JRgDDBKT8Yhvoui4dpA", "dur": "0:49", "date": "2024-09-06", "matched": "허벅지"}, {"title": "똑 떨어진 허벅지! 어렵지 않아요💖 #홈트#허벅지#일자다리#체형교정", "channel": "이지은 다이어트 Jiny diet", "channelUrl": "https://www.youtube.com/@JinyKilogram", "type": "shorts", "views": 249128, "subs": 1610000, "outlier": 0.2, "url": "https://www.youtube.com/shorts/BvmVNMQxKxk", "thumb": "https://i.ytimg.com/vi/BvmVNMQxKxk/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYXyBfKF8wDw==&rs=AOn4CLAB05UgpRIeH99IXiLu2VwpQgaO2Q", "dur": "0:40", "date": "2025-02-25", "matched": "허벅지"}, {"title": "🔥허벅지+종아리 운동🔥일주일후기🔥", "channel": "위크열쩡-일주일 운동, 다이어트 후기", "channelUrl": "https://www.youtube.com/@%EC%9C%84%ED%81%AC%EC%97%B4%EC%A9%A1", "type": "shorts", "views": 5467333, "subs": 186000, "outlier": 29.4, "url": "https://www.youtube.com/shorts/UeNNZ85irgw", "thumb": "https://i.ytimg.com/vi/UeNNZ85irgw/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AZQDgALQBYoCDAgAEAEYZSBVKEIwDw==&rs=AOn4CLBiBKBPAhYLrs24mylkMw1QjpSGhQ", "dur": "0:09", "date": "2022-04-24", "matched": "허벅지"}, {"title": "허벅지 통증 한 번에 해결 #마디마디 #허벅지 운동 #shorts", "channel": "Dr. MadiMadi", "channelUrl": "https://www.youtube.com/@drmadimadi", "type": "shorts", "views": 7439, "subs": 269000, "outlier": 0.0, "url": "https://www.youtube.com/shorts/AHnDx1JewBo", "thumb": "https://i.ytimg.com/vi/AHnDx1JewBo/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYKSBJKH8wDw==&rs=AOn4CLBZMGoL7nOkIcET8bg9MNmspoZB3g", "dur": "0:15", "date": "2025-05-04", "matched": "허벅지"}, {"title": "허벅지살 빼고싶은 사람!! 일주일만 한번 해보세요🔥", "channel": "운동하는데이브", "channelUrl": "https://www.youtube.com/@ccs5347", "type": "shorts", "views": 1837841, "subs": 298000, "outlier": 6.2, "url": "https://www.youtube.com/shorts/r6zQRVbUyE8", "thumb": "https://i.ytimg.com/vi/r6zQRVbUyE8/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4Ac4FgAKACooCDAgAEAEYYiBiKGIwDw==&rs=AOn4CLDple-1okIVpZLrbRDAeGnc1dEFlg", "dur": "0:13", "date": "2023-06-28", "matched": "허벅지"}, {"title": "폼롤러 이렇게 사용해 보세요! 폼롤러로 허벅지 녹여주기", "channel": " 피지오스튜디오 PHYSIOSTUDIO", "channelUrl": "https://www.youtube.com/@physiostudio_2021", "type": "shorts", "views": 306814, "subs": 171000, "outlier": 1.8, "url": "https://www.youtube.com/shorts/Ywp63MvOF-w", "thumb": "https://i.ytimg.com/vi/Ywp63MvOF-w/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBlKGUwDw==&rs=AOn4CLB_QnRuVmAz8IQbxu2tryAkcTsxRw", "dur": "0:16", "date": "2025-03-28", "matched": "허벅지"}, {"title": "의자에 앉아 하루 5분! 허벅지 안쪽 탄력 운동. 허벅지 슬림해지고 다리부종 빠집니다 #레그웰의원", "channel": "Legwell", "channelUrl": "https://www.youtube.com/@legwell", "type": "shorts", "views": 2036514, "subs": 76400, "outlier": 26.7, "url": "https://www.youtube.com/shorts/c4LaUikpdW8", "thumb": "https://i.ytimg.com/vi/c4LaUikpdW8/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBlKGUwDw==&rs=AOn4CLCPojDLs4mzmsvQ9yQLANjgOHIkfw", "dur": "0:32", "date": "2025-03-27", "matched": "허벅지"}, {"title": "허벅지 사이 절교 당하고 싶은 사람만 보세요. #다이어트 #허벅지운동 #diet #dieta #gym #gymlife #운동 #운동하는여자 #오운완", "channel": "나는뷰미 I’M BM", "channelUrl": "https://www.youtube.com/@b_mm_k", "type": "shorts", "views": 2494271, "subs": 25200, "outlier": 99.0, "url": "https://www.youtube.com/shorts/7gqWTJ-Jjas", "thumb": "https://i.ytimg.com/vi/7gqWTJ-Jjas/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBYKEMwDw==&rs=AOn4CLC1GejvQg2vURUalcf6BbQXJVdq8Q", "dur": "0:47", "date": "2025-04-01", "matched": "허벅지"}, {"title": "이거 안하면 허벅지살 빼기 어렵습니다.", "channel": "Hey Maddy", "channelUrl": "https://www.youtube.com/@%EB%A9%94%EB%94%94%EC%8C%A4", "type": "shorts", "views": 415410, "subs": 618000, "outlier": 0.7, "url": "https://www.youtube.com/shorts/QrOINcEkbf8", "thumb": "https://i.ytimg.com/vi/QrOINcEkbf8/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBlKGUwDw==&rs=AOn4CLAKMvDY-h6oWaofTbdiSdDJnJ0lGA", "dur": "0:17", "date": "2023-12-31", "matched": "허벅지"}, {"title": "싸이클 선수의 개지리는 허벅지 근육ㄷㄷ", "channel": "일반인클라쓰 RONIE", "channelUrl": "https://www.youtube.com/@%EC%9D%BC%EB%B0%98%EC%9D%B8%ED%81%B4%EB%9D%BC%EC%93%B0RoniE", "type": "shorts", "views": 226724, "subs": 477000, "outlier": 0.5, "url": "https://www.youtube.com/shorts/mA5-lq4i5HQ", "thumb": "https://i.ytimg.com/vi/mA5-lq4i5HQ/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4Ac4FgAKACooCDAgAEAEYUSBMKGUwDw==&rs=AOn4CLBrxt8pDaeWwYwoF5OqFao9RVPdlg", "dur": "0:23", "date": "2023-10-16", "matched": "허벅지"}, {"title": "누워서 허벅지 근육 매일 키워주세요‼️", "channel": "슬로우 필라테스", "channelUrl": "https://www.youtube.com/@slow.pilates", "type": "shorts", "views": 52668, "subs": 55300, "outlier": 1.0, "url": "https://www.youtube.com/shorts/UiVwsOpR3Zk", "thumb": "https://i.ytimg.com/vi/UiVwsOpR3Zk/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYciBYKDYwDw==&rs=AOn4CLAlyNm-9PGlj4y9Ulqp0QmCBWZmaw", "dur": "0:34", "date": "2025-05-28", "matched": "허벅지"}, {"title": "의자에 앉아서 30초씩 해보세요! 허벅지 근육 생깁니다! 무릎관절에 부담없는 하체운동[내전근,햄스트링,대퇴사두근,다리운동] #쇼츠 #shorts", "channel": "함께해요 운동채널", "channelUrl": "https://www.youtube.com/@togetherexercise", "type": "shorts", "views": 1046080, "subs": 435000, "outlier": 2.4, "url": "https://www.youtube.com/shorts/CiTBUAV9JAA", "thumb": "https://i.ytimg.com/vi/CiTBUAV9JAA/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYTSBgKGUwDw==&rs=AOn4CLBU9JIcikc-qlSv9-9UrLesknBbLQ", "dur": "0:10", "date": "2023-08-11", "matched": "허벅지"}, {"title": "허벅지 돌려깎기를 7일동안 하면 생기는 일", "channel": "헬퀸 [Health Queen]", "channelUrl": "https://www.youtube.com/@%ED%97%AC%ED%80%B8", "type": "shorts", "views": 1916831, "subs": 337000, "outlier": 5.7, "url": "https://www.youtube.com/shorts/gnGyM8mvE4E", "thumb": "https://i.ytimg.com/vi/gnGyM8mvE4E/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBbKFAwDw==&rs=AOn4CLA00yxBU6-EQahLStJibv_EqjuFpw", "dur": "0:57", "date": "2023-01-25", "matched": "허벅지"}, {"title": "허벅지 안쪽살 빨리 빼는 운동 3가지", "channel": "Thankyou BUBU", "channelUrl": "https://www.youtube.com/@thankyoububu", "type": "video", "views": 21304115, "subs": 3190000, "outlier": 6.7, "url": "https://www.youtube.com/watch?v=Q70jQVPkMnc", "thumb": "https://i.ytimg.com/vi/Q70jQVPkMnc/maxresdefault.jpg", "dur": "5:26", "date": "2018-02-05", "matched": "허벅지"}, {"title": "허벅지 종아리 최고의 운동 BEST", "channel": "Thankyou BUBU", "channelUrl": "https://www.youtube.com/@thankyoububu", "type": "video", "views": 7573566, "subs": 3190000, "outlier": 2.4, "url": "https://www.youtube.com/watch?v=EDq180TqRIc", "thumb": "https://i.ytimg.com/vi/EDq180TqRIc/maxresdefault.jpg", "dur": "17:43", "date": "2019-10-27", "matched": "허벅지"}, {"title": "허벅지 안쪽살 제거! 내전근 강화운동 (2주만 해보세요! 효과 미쳤어요!)", "channel": "SOMIFIT", "channelUrl": "https://www.youtube.com/@somifit", "type": "video", "views": 16052603, "subs": 1140000, "outlier": 14.1, "url": "https://www.youtube.com/watch?v=8UNMmdc0Lzw", "thumb": "https://i.ytimg.com/vi/8UNMmdc0Lzw/maxresdefault.jpg", "dur": "11:25", "date": "2019-09-30", "matched": "허벅지"}, {"title": "앞벅지 볼록, 뒷벅지 셀룰라이트, 허벅지 안쪽살 모조리 불태우고🔥 [여리탄탄 일자 허벅지] 되는 7일 루틴", "channel": "이지은 다이어트 Jiny diet", "channelUrl": "https://www.youtube.com/@JinyKilogram", "type": "video", "views": 34636938, "subs": 1610000, "outlier": 21.5, "url": "https://www.youtube.com/watch?v=dpBYYEhdofI", "thumb": "https://i.ytimg.com/vi/dpBYYEhdofI/hqdefault.jpg", "dur": "20:28", "date": "2021-06-21", "matched": "허벅지"}, {"title": "[허벅지 근육 특집]누워서/앉아서 하니까 무릎이 안 아픈 '허벅지 근육 운동'(하루 16분)", "channel": "모스틱 자세연구소", "channelUrl": "https://www.youtube.com/@mostic_healthcare", "type": "video", "views": 203364, "subs": 513000, "outlier": 0.4, "url": "https://www.youtube.com/watch?v=5M-w_NxFz_U", "thumb": "https://i.ytimg.com/vi/5M-w_NxFz_U/maxresdefault.jpg", "dur": "16:31", "date": "2025-12-13", "matched": "허벅지"}, {"title": "하체비만 11자다리 최고의 운동 [하체 핵매운맛]", "channel": "Thankyou BUBU", "channelUrl": "https://www.youtube.com/@thankyoububu", "type": "video", "views": 14709221, "subs": 3190000, "outlier": 4.6, "url": "https://www.youtube.com/watch?v=NDsjmxTROEo", "thumb": "https://i.ytimg.com/vi/NDsjmxTROEo/maxresdefault.jpg", "dur": "14:53", "date": "2020-08-02", "matched": "허벅지"}, {"title": "허벅지살이 찌는 이유는?", "channel": "강하나 스트레칭_stretching", "channelUrl": "https://www.youtube.com/@one_stretching", "type": "video", "views": 2968504, "subs": 780000, "outlier": 3.8, "url": "https://www.youtube.com/watch?v=yxgNF0-ORSw", "thumb": "https://i.ytimg.com/vi/yxgNF0-ORSw/maxresdefault.jpg", "dur": "18:29", "date": "2021-11-01", "matched": "허벅지"}, {"title": "단 3분만에 허벅지 안쪽살 정리해드립니다", "channel": "에이핏 afit", "channelUrl": "https://www.youtube.com/@afit_", "type": "video", "views": 3910909, "subs": 873000, "outlier": 4.5, "url": "https://www.youtube.com/watch?v=3IZOf7KVJDw", "thumb": "https://i.ytimg.com/vi/3IZOf7KVJDw/maxresdefault.jpg", "dur": "3:30", "date": "2020-10-08", "matched": "허벅지"}, {"title": "허벅지 안쪽살 최고의 운동 [안쪽살 핵매운맛]", "channel": "Thankyou BUBU", "channelUrl": "https://www.youtube.com/@thankyoububu", "type": "video", "views": 7424921, "subs": 3190000, "outlier": 2.3, "url": "https://www.youtube.com/watch?v=Rto32IVy16M", "thumb": "https://i.ytimg.com/vi/Rto32IVy16M/maxresdefault.jpg", "dur": "11:38", "date": "2020-07-06", "matched": "허벅지"}, {"title": "5분! 누워서 허벅지살 돌려깎기 [하체 마라맛🔥]", "channel": "Thankyou BUBU", "channelUrl": "https://www.youtube.com/@thankyoububu", "type": "video", "views": 3045700, "subs": 3190000, "outlier": 1.0, "url": "https://www.youtube.com/watch?v=M8Rmq9_998g", "thumb": "https://i.ytimg.com/vi/M8Rmq9_998g/maxresdefault.jpg", "dur": "5:45", "date": "2024-02-20", "matched": "허벅지"}, {"title": "이거하면 ‘톡 튀어나온 허벅지 안쪽 맨 윗살’이 🔥무조건🔥 빠져요! (+허벅지 사이가 일자로 똑 떨어지는 7일 루틴)", "channel": "이지은 다이어트 Jiny diet", "channelUrl": "https://www.youtube.com/@JinyKilogram", "type": "video", "views": 4105155, "subs": 1610000, "outlier": 2.5, "url": "https://www.youtube.com/watch?v=3neRUAR5r1c", "thumb": "https://i.ytimg.com/vi/3neRUAR5r1c/maxresdefault.jpg", "dur": "17:37", "date": "2021-02-26", "matched": "허벅지"}, {"title": "누워서하는 슬림한 다리, 허벅지 안쪽살과 이별 운동🔥", "channel": "SOMIFIT", "channelUrl": "https://www.youtube.com/@somifit", "type": "video", "views": 3158418, "subs": 1140000, "outlier": 2.8, "url": "https://www.youtube.com/watch?v=IsPTuO-Qv8o", "thumb": "https://i.ytimg.com/vi/IsPTuO-Qv8o/maxresdefault.jpg", "dur": "12:14", "date": "2021-12-03", "matched": "허벅지"}, {"title": "※5분 안벅지 운동※ 누워서 허벅지 안쪽살 집중 공략!", "channel": "빵느", "channelUrl": "https://www.youtube.com/@bbangneu", "type": "video", "views": 309714, "subs": 727000, "outlier": 0.4, "url": "https://www.youtube.com/watch?v=RvUTjRPZ9a8", "thumb": "https://i.ytimg.com/vi/RvUTjRPZ9a8/maxresdefault.jpg", "dur": "5:55", "date": "2021-05-31", "matched": "허벅지"}, {"title": "허벅지 안쪽살 쉽게 빼기🔥 #홈트레이닝 #홈트추천 #허벅지살빼기 #허벅지운동 #허벅지안쪽살 #내전근", "channel": "령아홈트", "channelUrl": "https://www.youtube.com/@Ryeong_fit", "type": "shorts", "views": 272706, "subs": 83500, "outlier": 3.3, "url": "https://www.youtube.com/shorts/mopXqWdv_Ns", "thumb": "https://i.ytimg.com/vi/mopXqWdv_Ns/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBlKGUwDw==&rs=AOn4CLBxOcv-QQ9kQdMh6gMghaG-iQqPTg", "dur": "0:17", "date": "2024-11-29", "matched": "허벅지"}, {"title": "허벅지 셀룰라이트, 하체 붓기 싹 빼는 홈트레 스트레칭 #하체순환 #홈트 #홈트레이닝 #하체스트레칭 #허벅지 #셀룰라이트 #허벅지운동 #다이어트", "channel": "바띠 라이프", "channelUrl": "https://www.youtube.com/@body_theory", "type": "shorts", "views": 57406, "subs": 27500, "outlier": 2.1, "url": "https://www.youtube.com/shorts/5TdDiUno7ZM", "thumb": "https://i.ytimg.com/vi/5TdDiUno7ZM/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBYKE8wDw==&rs=AOn4CLCtdRcUjqsczGKO4WmxnaKATXR7VQ", "dur": "0:14", "date": "2024-03-08", "matched": "허벅지"}, {"title": "허벅지살 빼기! Y존 스트레칭! #안벅지살#하체부종#다이어트#홈트", "channel": "엘리핏", "channelUrl": "https://www.youtube.com/@elly_fit", "type": "shorts", "views": 1101559, "subs": 15800, "outlier": 69.7, "url": "https://www.youtube.com/shorts/A0H2-Gywblg", "thumb": "https://i.ytimg.com/vi/A0H2-Gywblg/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYfyATKCswDw==&rs=AOn4CLC6JZKlbRdAT0iFtuuqbSsROpbcOQ", "dur": "0:14", "date": "2024-10-28", "matched": "허벅지"}, {"title": "튀어나온 허벅지 고민된다면 #허벅지 #폼롤러 #홈트", "channel": "이엔비케어 히쌤", "channelUrl": "https://www.youtube.com/@enbcare", "type": "shorts", "views": 55119, "subs": 1920, "outlier": 28.7, "url": "https://www.youtube.com/shorts/mTwIAd_qUys", "thumb": "https://i.ytimg.com/vi/mTwIAd_qUys/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYciBXKD8wDw==&rs=AOn4CLDS6piGkauhXfawZTPKftOoqNN7_A", "dur": "0:22", "date": "2025-08-19", "matched": "허벅지"}, {"title": "70세가 넘으면 근육이 이렇게 됩니다,매년 8% 사라지는 허벅지 근육의 진실#70대 #80대", "channel": "후반전 항해사", "channelUrl": "https://www.youtube.com/@%ED%9B%84%EB%B0%98%EC%A0%84%ED%95%AD%ED%95%B4%EC%82%AC", "type": "shorts", "views": 18587, "subs": 1960, "outlier": 9.5, "url": "https://www.youtube.com/shorts/STcJb18xlJA", "thumb": "https://i.ytimg.com/vi/STcJb18xlJA/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYciBYKCgwDw==&rs=AOn4CLD8_5jaHQ4mMbdpIfCOdGvLf9vAnQ", "dur": "0:46", "date": "2025-09-19", "matched": "허벅지"}, {"title": "뱃살 허벅지살 동시에 빠지는 운동 #뱃살운동 #허벅지살빼는법 #허벅지운동 #하체운동 #오운완", "channel": "Allblanc TV", "channelUrl": "https://www.youtube.com/@AllblancTV", "type": "shorts", "views": 2554136, "subs": 4690000, "outlier": 0.5, "url": "https://www.youtube.com/shorts/XXNfnkZXPaM", "thumb": "https://i.ytimg.com/vi/XXNfnkZXPaM/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYVSBiKGUwDw==&rs=AOn4CLAkkngNtVWmVqr5NGG_jSx-qSpReg", "dur": "0:07", "date": "2024-08-26", "matched": "허벅지"}, {"title": "🔥찰싹붙은 허벅지 안쪽살 챌린지🔥빨리 빼고 싶으시다면 2주만 해보세요.(안벅지 제거/허벅지살)", "channel": "VitaminJINY", "channelUrl": "https://www.youtube.com/@vitaminjiny", "type": "video", "views": 11192801, "subs": 1300000, "outlier": 8.6, "url": "https://www.youtube.com/watch?v=xPdJIxBZM54", "thumb": "https://i.ytimg.com/vi/xPdJIxBZM54/maxresdefault.jpg", "dur": "16:13", "date": "2020-07-21", "matched": "허벅지"}, {"title": "💎허벅지 안쪽살💎 10분 만에 탈탈 털어버리는 운동👑 (2025)", "channel": "빵느", "channelUrl": "https://www.youtube.com/@bbangneu", "type": "video", "views": 56667, "subs": 727000, "outlier": 0.1, "url": "https://www.youtube.com/watch?v=WejbgBqOiAI", "thumb": "https://i.ytimg.com/vi/WejbgBqOiAI/maxresdefault.jpg", "dur": "10:31", "date": "2025-09-02", "matched": "허벅지"}, {"title": "누워서 허벅지살 안쪽살 빼는 동작 6가지", "channel": "Thankyou BUBU", "channelUrl": "https://www.youtube.com/@thankyoububu", "type": "shorts", "views": 2151981, "subs": 3190000, "outlier": 0.7, "url": "https://www.youtube.com/shorts/HCNKqiIBdJ8", "thumb": "https://i.ytimg.com/vi/HCNKqiIBdJ8/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYVSBWKGUwDw==&rs=AOn4CLDY9IDbJJDAFoPFDs06cyFs2jgT-A", "dur": "0:07", "date": "2025-05-21", "matched": "허벅지"}, {"title": "무릎 아플 땐 스쿼트보다 '이 운동' 해보세요! ★무릎에 무리없는 허벅지 운동 大공개★ (신세계서울병원 정형외과 정진화) #shorts", "channel": "의학채널 비온뒤", "channelUrl": "https://www.youtube.com/@aftertherainkr", "type": "shorts", "views": 3361611, "subs": 2020000, "outlier": 1.7, "url": "https://www.youtube.com/shorts/QMvZ9t_oGHc", "thumb": "https://i.ytimg.com/vi/QMvZ9t_oGHc/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4Ac4FgAKACooCDAgAEAEYZSBcKFowDw==&rs=AOn4CLD4lkw4-nX35jjeyKuHxPnQUZ9FGg", "dur": "1:00", "date": "2022-08-24", "matched": "허벅지"}, {"title": "하루 3분! 힘 안 들이고 허벅지 근육을 만드는 법?", "channel": "MBN Entertainment", "channelUrl": "https://www.youtube.com/@MBN_Entertainment", "type": "video", "views": 2828340, "subs": 2940000, "outlier": 1.0, "url": "https://www.youtube.com/watch?v=T-nd8xlxCEE", "thumb": "https://i.ytimg.com/vi/T-nd8xlxCEE/maxresdefault.jpg", "dur": "3:33", "date": "2018-05-25", "matched": "허벅지"}, {"title": "✅ 300만뷰를 달성한 여기를 풀어줘야 허벅지가 얇아집니다! 2탄🩷여러분도 해보세요👐🏻 #다이어트소통 #운동하는여자 #홈트 #얇은허벅지 #장요근스트레칭", "channel": "yoonjiet 윤지어트", "channelUrl": "https://www.youtube.com/@yoonjiet_", "type": "shorts", "views": 2054331, "subs": 113000, "outlier": 18.2, "url": "https://www.youtube.com/shorts/r4TW_sqTaEk", "thumb": "https://i.ytimg.com/vi/r4TW_sqTaEk/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBlKGUwDw==&rs=AOn4CLBGZ4b5_4KNdLicKyrxeatG8Lz9Hw", "dur": "0:16", "date": "2025-01-03", "matched": "허벅지"}, {"title": "하루 100번하면 뱃살 허벅지살 삭제되는 운동 #뱃살운동 #오운완 #허벅지운동", "channel": "Allblanc TV", "channelUrl": "https://www.youtube.com/@AllblancTV", "type": "shorts", "views": 3046024, "subs": 4690000, "outlier": 0.6, "url": "https://www.youtube.com/shorts/Q0q0u5Q3Q88", "thumb": "https://i.ytimg.com/vi/Q0q0u5Q3Q88/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYTyBaKGUwDw==&rs=AOn4CLA9pLY6ZovSsl7_7dR5XB1JzJggqg", "dur": "0:05", "date": "2024-06-03", "matched": "허벅지"}, {"title": "✅ 370만뷰를 달성한 여기를 풀어줘야 허벅지가 얇아집니다! 폼롤러편🩷 폼롤러 매트 5월 중순 2차 오픈합니다 필요하신 분들 알림 댓글 적어 주세요☺️", "channel": "yoonjiet 윤지어트", "channelUrl": "https://www.youtube.com/@yoonjiet_", "type": "shorts", "views": 1383933, "subs": 113000, "outlier": 12.2, "url": "https://www.youtube.com/shorts/6ur0MqHWRLs", "thumb": "https://i.ytimg.com/vi/6ur0MqHWRLs/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBlKGUwDw==&rs=AOn4CLCc_dRnnZuh2Wuy20vWrPAdwjpXmg", "dur": "0:16", "date": "2025-03-08", "matched": "허벅지"}, {"title": "다리 얇아지려면 이 3가지 동작 꼭 하세요‼️ #얇은다리 #일자다리 #다리라인 #허벅지살빼기 #허벅지운동", "channel": "령아홈트", "channelUrl": "https://www.youtube.com/@Ryeong_fit", "type": "shorts", "views": 849079, "subs": 83500, "outlier": 10.2, "url": "https://www.youtube.com/shorts/9XFtfDM3DOc", "thumb": "https://i.ytimg.com/vi/9XFtfDM3DOc/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYWyBbKFswDw==&rs=AOn4CLCD8_zA9ZVP6biVApnLwkc91-DooQ", "dur": "0:19", "date": "2025-02-07", "matched": "허벅지"}, {"title": "[생로병사의 비밀] 713회 핫클립👀 - 허벅지 근육의 🔎중요성과 걷기", "channel": "KBS 생로병사의 비밀", "channelUrl": "https://www.youtube.com/@KBS_healthykbs", "type": "video", "views": 122291, "subs": 856000, "outlier": 0.1, "url": "https://www.youtube.com/watch?v=-biaC49L6Wk", "thumb": "https://i.ytimg.com/vi/-biaC49L6Wk/maxresdefault.jpg", "dur": "1:11", "date": "2019-11-11", "matched": "허벅지"}, {"title": "[캐시] 안벅지 안쪽 허벅지운동 (앞뒤잡담삭제)", "channel": "동영상내가보는", "channelUrl": "https://www.youtube.com/@%EB%8F%99%EC%98%81%EC%83%81%EB%82%B4%EA%B0%80%EB%B3%B4%EB%8A%94-i5u", "type": "video", "views": 4298533, "subs": 11300, "outlier": 380.4, "url": "https://www.youtube.com/watch?v=6dy51T2nlJU", "thumb": "https://i.ytimg.com/vi/6dy51T2nlJU/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGFwgWChlMA8=&rs=AOn4CLB29HqlEWiF96grePRMShl74HvCgA", "dur": "3:14", "date": "2018-07-11", "matched": "허벅지"}];
+const MULTI = false;
+const SUPA_REST = "https://vnkvpvgnkevftfwltivs.supabase.co/rest/v1/jobs";
+const SUPA_KEY = "sb_publishable_QXcyJbDiHriUqIji3r7YDQ_YTfqc-vB";
+let sortKey = 'outlier', filtType = 'all', recentOnly = false;
+
+async function analyzeCh(url, btn){
+  if(!url){ alert('채널 주소가 없습니다.'); return; }
+  btn.disabled=true; const orig=btn.textContent; btn.textContent='요청 중…';
+  try{
+    const r=await fetch(SUPA_REST,{method:'POST',
+      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({platform:'youtube',url:url})});
+    if(r.ok){ btn.textContent='✓ 분석 요청됨'; btn.style.background='#059669'; }
+    else{ btn.textContent=orig; btn.disabled=false; alert('요청 실패'); }
+  }catch(e){ btn.textContent=orig; btn.disabled=false; alert('오류: '+e.message); }
+}
+function fmt(v){v=+v||0;if(v>=1e8)return (v/1e8).toFixed(1)+'억';if(v>=1e4)return (v/1e4).toFixed(1)+'만';if(v>=1e3)return (v/1e3).toFixed(1)+'천';return ''+v;}
+function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function setSort(k){
+  sortKey=k;
+  document.getElementById('sb-ol').classList.toggle('on',k==='outlier');
+  document.getElementById('sb-vw').classList.toggle('on',k==='views');
+  render();
+}
+function setType(t){
+  filtType=t;
+  ['all','shorts','video'].forEach(x=>document.getElementById('ft-'+x).classList.toggle('on',x===t));
+  render();
+}
+function setRecent(r){
+  recentOnly=r;
+  document.getElementById('fp-all').classList.toggle('on',!r);
+  document.getElementById('fp-recent').classList.toggle('on',r);
+  render();
+}
+function isRecent(dateStr){
+  if(!dateStr) return false;
+  const d=new Date(dateStr); if(isNaN(d)) return false;
+  return (Date.now()-d.getTime()) <= 183*24*3600*1000;  // 6개월
+}
+function render(){
+  let arr=VIDS.filter(v=>{
+    if(filtType!=='all' && v.type!==filtType) return false;
+    if(recentOnly && !isRecent(v.date)) return false;
+    return true;
+  });
+  arr.sort((a,b)=>b[sortKey]-a[sortKey]);
+  document.getElementById('cnt').textContent=arr.length+'개';
+  if(arr.length===0){document.getElementById('list').innerHTML='<p style="color:var(--t3);padding:30px;text-align:center">조건에 맞는 영상이 없습니다.</p>';return;}
+  document.getElementById('list').innerHTML=arr.map((v,i)=>{
+    const ol = v.outlier>=2 ? `<span class="olbadge">🔥${v.outlier}배</span>` : '';
+    const tb = `<span class="typebadge ${v.type}">${v.type==='shorts'?'Shorts':'영상'}</span>`;
+    return `<div class="card">
+      <div class="rank">#${i+1}</div>
+      <a class="thumb" href="${esc(v.url)}" target="_blank">
+        <img src="${esc(v.thumb)}" loading="lazy">${ol}${tb}
+        <span class="dur">${esc(v.dur)}</span>
+      </a>
+      <div class="body">
+        <div class="title">${esc(v.title)}</div>
+        <div class="ch">${esc(v.channel)}${(MULTI && v.matched)?` · <span class="kwtag">#${esc(v.matched)}</span>`:''}</div>
+        <div class="metrics">
+          <div class="m"><div class="l">조회수</div><div class="v vw">${fmt(v.views)}</div></div>
+          <div class="m"><div class="l">구독자</div><div class="v">${fmt(v.subs)}</div></div>
+          <div class="m"><div class="l">아웃라이어</div><div class="v ol">${v.outlier?v.outlier+'배':'-'}</div></div>
+        </div>
+        <div class="foot">
+          <span class="date">${esc(v.date)}</span>
+          <div class="btns">
+            <a class="btn btn-yt" href="${esc(v.url)}" target="_blank">유튜브 ↗</a>
+            <a class="btn btn-yt" href="${esc(v.channelUrl)}" target="_blank">채널 ↗</a>
+            <button class="btn btn-an" onclick="analyzeCh('${esc(v.channelUrl)}',this)">📊 이 채널 분석</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+render();
+</script>
+</body></html>
