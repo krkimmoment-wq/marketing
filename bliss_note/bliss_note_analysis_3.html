@@ -215,6 +215,12 @@ em{font-style:normal;color:var(--t2)}
   border-radius:var(--r);padding:16px 14px 10px}
 .tl-note{font-size:11px;color:var(--t3);margin-top:8px}
 
+/* ─ 핵심 키워드 ─ */
+.kw-wrap{display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+.kw-chip{display:inline-flex;align-items:center;gap:5px;background:var(--s2);
+  border:1px solid var(--br2);border-radius:20px;padding:7px 14px;color:var(--t1);line-height:1}
+.kw-chip b{color:var(--ac);font-size:11px}
+
 /* ─ 록코치 훅 변형 ─ */
 .rok-list{display:flex;flex-direction:column;gap:8px}
 .rok-item{display:flex;gap:12px;align-items:flex-start;
@@ -327,24 +333,17 @@ em{font-style:normal;color:var(--t2)}
     <div class="sb-title">헬스 기구는 어떤 택배로 어떻게 오는걸까?</div>
   </div>
   <a href="#storyboard" class="ni"><span class="nn">🎬</span>스토리보드</a>
-  <a href="#transcript" class="ni"><span class="nn">00</span>영상 대본</a>
+  <a href="#transcript" class="ni"><span class="nn">📝</span>영상 대본</a>
   <a href="#overlay" class="ni"><span class="nn">🔤</span>화면 자막</a>
-  <a href="#why" class="ni"><span class="nn">01</span>왜 터졌나</a>
-  <a href="#goals" class="ni"><span class="nn">02</span>목표</a>
-  <a href="#funnel" class="ni"><span class="nn">03</span>참여 깔때기</a>
+  <a href="#keywords" class="ni"><span class="nn">🔑</span>핵심 키워드</a>
+  <a href="#funnel" class="ni"><span class="nn">📊</span>참여 깔때기</a>
   <a href="#meta" class="ni"><span class="nn">⏱</span>길이·템포</a>
-  <a href="#audience" class="ni"><span class="nn">04</span>시청자</a>
   <a href="#comments" class="ni"><span class="nn">💬</span>댓글 반응</a>
-  <a href="#timeline" class="ni"><span class="nn">05</span>타임라인</a>
-  <a href="#cuts" class="ni"><span class="nn">06</span>컷 디테일</a>
-  <a href="#hook" class="ni"><span class="nn">07</span>3초 후킹</a>
+  <a href="#timeline" class="ni"><span class="nn">📈</span>타임라인</a>
+  <a href="#cuts" class="ni"><span class="nn">✂️</span>컷 디테일</a>
+  <a href="#hook" class="ni"><span class="nn">🎯</span>3초 후킹</a>
   <a href="#firstframe" class="ni"><span class="nn">🖼</span>첫프레임·루프</a>
-  <a href="#narrative" class="ni"><span class="nn">08</span>서사구조</a>
-  <a href="#emotion" class="ni"><span class="nn">09</span>감정흐름</a>
-  <a href="#tone" class="ni"><span class="nn">10</span>톤·말투</a>
-  <a href="#formulas" class="ni"><span class="nn">11</span>n가지 공식</a>
-  <a href="#ideas" class="ni"><span class="nn">12</span>변환 아이디어</a>
-  <a href="#formula" class="ni"><span class="nn">13</span>콘텐츠 공식</a>
+  <a href="#narrative" class="ni"><span class="nn">📖</span>서사구조</a>
 </nav>
 
 <main class="main">
@@ -449,7 +448,7 @@ em{font-style:normal;color:var(--t2)}
   <section class="sec" id="overlay">
     <div class="sh"><div class="sn">🔤</div>화면 자막 (텍스트 오버레이)</div>
     <p style="font-size:12px;color:var(--t3);margin-bottom:12px">
-  무음 시청(70%+) 대응 — 화면에 박힌 자막을 OCR로 추출. 총 9개 (클릭 시 영상 이동)</p>
+  무음 시청(70%+) 대응 — 화면에 박힌 자막을 OCR로 추출. 총 8개 (클릭 시 영상 이동)</p>
 <div class="ov-list"><div class="ov-row" onclick="vSeek(0.0)">
   <span class="ov-t">00:00</span>
   <span class="ov-x">매때</span>
@@ -468,9 +467,6 @@ em{font-style:normal;color:var(--t2)}
 </div><div class="ov-row" onclick="vSeek(12.0)">
   <span class="ov-t">00:12</span>
   <span class="ov-x">(사이버트럭 긴급출동)</span>
-</div><div class="ov-row" onclick="vSeek(14.2)">
-  <span class="ov-t">00:14</span>
-  <span class="ov-x">IDRI 693</span>
 </div><div class="ov-row" onclick="vSeek(16.04)">
   <span class="ov-t">00:16</span>
   <span class="ov-x">지계차 대박인데?</span>
@@ -480,31 +476,11 @@ em{font-style:normal;color:var(--t2)}
 </div></div>
   </section>
 
-  <!-- 01 왜 터졌나 -->
-  <section class="sec" id="why">
-    <div class="sh"><div class="sn">01</div>왜 터졌나</div>
-    <div class="card-h">
-  <div class="ci">📡</div>
-  <div><div class="ct">비팔로워 추천 도달</div><p class="cd">재생수(15.9만)가 팔로워 수(7.6만)의 209%. 인스타그램 탐색/추천 알고리즘에 의한 광범위한 비팔로워 배포.</p></div>
-</div><div class="card-h">
-  <div class="ci">⚡</div>
-  <div><div class="ct">질문형 후킹</div><p class="cd">첫 문장: &quot;이런 기구는 무슨 택배로 와요?&quot; — 시청자의 궁금증을 즉시 자극해 영상 이탈을 막는 강력한 도입부.</p></div>
-</div><div class="card-h">
-  <div class="ci">🎯</div>
-  <div><div class="ct">오프닝 질문 후킹</div><p class="cd">첫 3초 내 질문으로 시청자가 답을 보기 위해 영상을 계속 봄.</p></div>
-</div>
-  </section>
-
-  <!-- 02 목표 -->
-  <section class="sec" id="goals">
-    <div class="sh"><div class="sn">02</div>콘텐츠 목표</div>
-    <div class="card-h">
-  <div class="ci">📚</div>
-  <div><div class="ct">전문성 포지셔닝</div><p class="cd">해부학/운동역학/실전 경험을 통해 &#x27;이 채널은 다르다&#x27;는 신뢰 구축.</p></div>
-</div><div class="card-h">
-  <div class="ci">🔗</div>
-  <div><div class="ct">후속 콘텐츠 / 팔로우 유도</div><p class="cd">영상 내 미완성 질문이나 새로운 개념 제시로 다음 편 기대감 형성.</p></div>
-</div>
+  <!-- 핵심 키워드 (자막 빈출 주제어) -->
+  <section class="sec" id="keywords">
+    <div class="sh"><div class="sn">🔑</div>핵심 키워드</div>
+    <p style="font-size:12px;color:var(--t3);margin-bottom:14px">자막·캡션에서 가장 많이 나온 단어 — 이 영상의 핵심 주제 (크기=빈도)</p>
+    <div class="kw-wrap"><span class="kw-chip" style="font-size:20px">무슨<b>2</b></span><span class="kw-chip" style="font-size:20px">택배로<b>2</b></span><span class="kw-chip" style="font-size:20px">택배요<b>2</b></span><span class="kw-chip" style="font-size:16px">기구는<b>1</b></span><span class="kw-chip" style="font-size:16px">와요<b>1</b></span><span class="kw-chip" style="font-size:16px">대박이다<b>1</b></span><span class="kw-chip" style="font-size:16px">엘레메이소<b>1</b></span><span class="kw-chip" style="font-size:16px">왔습니다<b>1</b></span><span class="kw-chip" style="font-size:16px">온거야<b>1</b></span></div>
   </section>
 
   <!-- 03 참여 깔때기 -->
@@ -549,18 +525,6 @@ em{font-style:normal;color:var(--t2)}
     <div class="meta-v">2.4초/컷</div>
     <div class="meta-s">빠름 — 정보형 숏폼의 표준 편집 템포</div></div>
   </div>
-</div>
-  </section>
-
-  <!-- 04 시청자 -->
-  <section class="sec" id="audience">
-    <div class="sh"><div class="sn">04</div>시청자 분석</div>
-    <div class="card-h">
-  <div class="ci">🏋️</div>
-  <div><div class="ct">헬스/운동 관심층</div><div class="cd">피트니스를 이미 하고 있거나 시작하려는 2040대.</div></div>
-</div><div class="card-h">
-  <div class="ci">👥</div>
-  <div><div class="ct">부 타깃</div><div class="cd">PT 트레이너, 필라테스 강사 등 운동 전문가. 레퍼런스 &amp; 공유 목적.</div></div>
 </div>
   </section>
 
@@ -789,7 +753,7 @@ em{font-style:normal;color:var(--t2)}
 
   <!-- 08 서사구조 -->
   <section class="sec" id="narrative">
-    <div class="sh"><div class="sn">08</div>서사구조</div>
+    <div class="sh"><div class="sn">📖</div>서사구조</div>
     <div class="narr-row" onclick="vSeek(0)"
   style="cursor:pointer" title="클릭하면 0:00–00:06 구간으로 이동">
   <div class="na">
@@ -818,107 +782,6 @@ em{font-style:normal;color:var(--t2)}
     <div class="nrg">00:41–00:57</div>
   </div>
   <p class="nd">택배요? 이건 무슨 택배로 온거야?</p>
-</div>
-  </section>
-
-  <!-- 09 감정흐름 -->
-  <section class="sec" id="emotion">
-    <div class="sh"><div class="sn">09</div>감정흐름</div>
-    <div class="emo-row" data-t="0.0" title="클릭하면 00:00 구간으로 이동">
-  <div class="ebar" style="background:#f59e0b"></div>
-  <div style="flex:1">
-    <div class="et">호기심 유발</div>
-    <div class="er2">00:00–00:05</div>
-    <p class="ed">후킹이 시작되는 순간. &#x27;뭐지?&#x27; 하는 첫 집중.</p>
-  </div>
-  <div style="flex-shrink:0;font-size:11px;color:#f59e0b;padding-top:2px;opacity:.7">00:00 ▶</div>
-</div><div class="emo-row" data-t="5.8" title="클릭하면 00:05 구간으로 이동">
-  <div class="ebar" style="background:#e11d48"></div>
-  <div style="flex:1">
-    <div class="et">의문/불신</div>
-    <div class="er2">00:05–00:17</div>
-    <p class="ed">기존에 알던 것과 다른 정보에 &#x27;진짜?&#x27; 하는 인지 충돌.</p>
-  </div>
-  <div style="flex-shrink:0;font-size:11px;color:#e11d48;padding-top:2px;opacity:.7">00:05 ▶</div>
-</div><div class="emo-row" data-t="17.4" title="클릭하면 00:17 구간으로 이동">
-  <div class="ebar" style="background:#2563eb"></div>
-  <div style="flex:1">
-    <div class="et">이해/공감</div>
-    <div class="er2">00:17–00:31</div>
-    <p class="ed">설명이 이어지면서 &#x27;아, 맞네&#x27; 하는 납득 단계.</p>
-  </div>
-  <div style="flex-shrink:0;font-size:11px;color:#2563eb;padding-top:2px;opacity:.7">00:17 ▶</div>
-</div><div class="emo-row" data-t="31.9" title="클릭하면 00:31 구간으로 이동">
-  <div class="ebar" style="background:#8b5cf6"></div>
-  <div style="flex:1">
-    <div class="et">재미/몰입</div>
-    <div class="er2">00:31–00:45</div>
-    <p class="ed">시각화나 시연이 나오며 흥미와 이해가 동시에 오름.</p>
-  </div>
-  <div style="flex-shrink:0;font-size:11px;color:#8b5cf6;padding-top:2px;opacity:.7">00:31 ▶</div>
-</div><div class="emo-row" data-t="45.2" title="클릭하면 00:45 구간으로 이동">
-  <div class="ebar" style="background:#059669"></div>
-  <div style="flex:1">
-    <div class="et">실천 의지</div>
-    <div class="er2">00:45–00:57</div>
-    <p class="ed">&#x27;나도 해봐야겠다&#x27; 행동 욕구로 전환. 저장/공유 욕구 최고.</p>
-  </div>
-  <div style="flex-shrink:0;font-size:11px;color:#059669;padding-top:2px;opacity:.7">00:45 ▶</div>
-</div>
-  </section>
-
-  <!-- 10 톤·말투 -->
-  <section class="sec" id="tone">
-    <div class="sh"><div class="sn">10</div>톤 · 말투</div>
-    <div class="tone-row">
-  <div class="tone-title">반말/존댓말 혼용</div>
-  <p class="tone-desc">상황에 따라 유연하게 전환. 친근함과 전문성 균형.</p>
-</div><div class="tone-row">
-  <div class="tone-title">직접 시연 + 실시간 설명</div>
-  <p class="tone-desc">몸/물체로 직접 보여주며 말하는 방식. 이해도 극대화.</p>
-</div>
-  </section>
-
-  <!-- 11 n가지 공식 -->
-  <section class="sec" id="formulas">
-    <div class="sh"><div class="sn">11</div>1가지 콘텐츠 공식</div>
-    <div class="fml-card">
-  <div class="fml-num">01</div>
-  <div>
-    <div class="fml-title">정보 전달 공식</div>
-    <div class="fml-pattern">[공감 상황 설정] → [핵심 정보 전달] → [시각 시연] → [실천 유도]</div>
-    <p class="fml-why">기본 정보 전달 구조. 시각화와 실천 가능성이 바이럴 결정 요인.</p>
-  </div>
-</div>
-  </section>
-
-  <!-- 12 변환 가능한 아이디어 -->
-  <section class="sec" id="ideas">
-    <div class="sh"><div class="sn">12</div>변환 가능한 아이디어</div>
-    <p style="font-size:12px;color:var(--t3);margin-bottom:14px">이 영상의 공식을 다른 주제에 적용한 예시</p>
-    <div class="idea-card">
-  <div class="idea-domain">다이어트</div>
-  <div class="idea-hook">후킹: <em>"나 살이 안 빠지는데 뭘 먹어야 해? / 덜 먹어."</em></div>
-  <div class="idea-pat">패턴: <em>[공감 상황 설정] → [핵심 정보 전달] → [시각 시연] → [실천 유도]</em></div>
-</div><div class="idea-card">
-  <div class="idea-domain">피부 관리</div>
-  <div class="idea-hook">후킹: <em>"나 여드름이 왜 자꾸 나는지 모르겠어 / 세안을 너무 열심히 해서야."</em></div>
-  <div class="idea-pat">패턴: <em>[공감 상황 설정] → [핵심 정보 전달] → [시각 시연] → [실천 유도]</em></div>
-</div><div class="idea-card">
-  <div class="idea-domain">수면</div>
-  <div class="idea-hook">후킹: <em>"나 잠이 안 와서 힘든데 어떻게 해야 해? / 일찍 누워."</em></div>
-  <div class="idea-pat">패턴: <em>[공감 상황 설정] → [핵심 정보 전달] → [시각 시연] → [실천 유도]</em></div>
-</div>
-  </section>
-
-  <!-- 13 콘텐츠 공식 -->
-  <section class="sec" id="formula">
-    <div class="sh"><div class="sn">13</div>콘텐츠 공식 (마스터)</div>
-    <div class="master-formula">
-  <div class="mf-label">핵심 패턴</div>
-  <div class="mf-pattern">[공감 상황 설정] → [핵심 정보 전달] → [시각 시연] → [실천 유도]</div>
-  <div class="mf-label" style="margin-top:14px">왜 효과적인가</div>
-  <p class="mf-why">기본 정보 전달 구조. 시각화와 실천 가능성이 바이럴 결정 요인.</p>
 </div>
   </section>
 

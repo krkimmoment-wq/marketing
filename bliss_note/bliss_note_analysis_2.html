@@ -215,6 +215,12 @@ em{font-style:normal;color:var(--t2)}
   border-radius:var(--r);padding:16px 14px 10px}
 .tl-note{font-size:11px;color:var(--t3);margin-top:8px}
 
+/* ─ 핵심 키워드 ─ */
+.kw-wrap{display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+.kw-chip{display:inline-flex;align-items:center;gap:5px;background:var(--s2);
+  border:1px solid var(--br2);border-radius:20px;padding:7px 14px;color:var(--t1);line-height:1}
+.kw-chip b{color:var(--ac);font-size:11px}
+
 /* ─ 록코치 훅 변형 ─ */
 .rok-list{display:flex;flex-direction:column;gap:8px}
 .rok-item{display:flex;gap:12px;align-items:flex-start;
@@ -327,24 +333,17 @@ em{font-style:normal;color:var(--t2)}
     <div class="sb-title">툭 튀어나온 어깨, 사실 가슴이 문제일 수도 있습니다</div>
   </div>
   <a href="#storyboard" class="ni"><span class="nn">🎬</span>스토리보드</a>
-  <a href="#transcript" class="ni"><span class="nn">00</span>영상 대본</a>
+  <a href="#transcript" class="ni"><span class="nn">📝</span>영상 대본</a>
   <a href="#overlay" class="ni"><span class="nn">🔤</span>화면 자막</a>
-  <a href="#why" class="ni"><span class="nn">01</span>왜 터졌나</a>
-  <a href="#goals" class="ni"><span class="nn">02</span>목표</a>
-  <a href="#funnel" class="ni"><span class="nn">03</span>참여 깔때기</a>
+  <a href="#keywords" class="ni"><span class="nn">🔑</span>핵심 키워드</a>
+  <a href="#funnel" class="ni"><span class="nn">📊</span>참여 깔때기</a>
   <a href="#meta" class="ni"><span class="nn">⏱</span>길이·템포</a>
-  <a href="#audience" class="ni"><span class="nn">04</span>시청자</a>
   <a href="#comments" class="ni"><span class="nn">💬</span>댓글 반응</a>
-  <a href="#timeline" class="ni"><span class="nn">05</span>타임라인</a>
-  <a href="#cuts" class="ni"><span class="nn">06</span>컷 디테일</a>
-  <a href="#hook" class="ni"><span class="nn">07</span>3초 후킹</a>
+  <a href="#timeline" class="ni"><span class="nn">📈</span>타임라인</a>
+  <a href="#cuts" class="ni"><span class="nn">✂️</span>컷 디테일</a>
+  <a href="#hook" class="ni"><span class="nn">🎯</span>3초 후킹</a>
   <a href="#firstframe" class="ni"><span class="nn">🖼</span>첫프레임·루프</a>
-  <a href="#narrative" class="ni"><span class="nn">08</span>서사구조</a>
-  <a href="#emotion" class="ni"><span class="nn">09</span>감정흐름</a>
-  <a href="#tone" class="ni"><span class="nn">10</span>톤·말투</a>
-  <a href="#formulas" class="ni"><span class="nn">11</span>n가지 공식</a>
-  <a href="#ideas" class="ni"><span class="nn">12</span>변환 아이디어</a>
-  <a href="#formula" class="ni"><span class="nn">13</span>콘텐츠 공식</a>
+  <a href="#narrative" class="ni"><span class="nn">📖</span>서사구조</a>
 </nav>
 
 <main class="main">
@@ -533,7 +532,7 @@ em{font-style:normal;color:var(--t2)}
   <section class="sec" id="overlay">
     <div class="sh"><div class="sn">🔤</div>화면 자막 (텍스트 오버레이)</div>
     <p style="font-size:12px;color:var(--t3);margin-bottom:12px">
-  무음 시청(70%+) 대응 — 화면에 박힌 자막을 OCR로 추출. 총 18개 (클릭 시 영상 이동)</p>
+  무음 시청(70%+) 대응 — 화면에 박힌 자막을 OCR로 추출. 총 15개 (클릭 시 영상 이동)</p>
 <div class="ov-list"><div class="ov-row" onclick="vSeek(0.0)">
   <span class="ov-t">00:00</span>
   <span class="ov-x">가슴 운동등운동할때 erior Humera</span>
@@ -555,12 +554,6 @@ em{font-style:normal;color:var(--t2)}
 </div><div class="ov-row" onclick="vSeek(20.19)">
   <span class="ov-t">00:20</span>
   <span class="ov-x">스위치가꺼지면</span>
-</div><div class="ov-row" onclick="vSeek(23.3)">
-  <span class="ov-t">00:23</span>
-  <span class="ov-x">Suprasplnatus Muscle Clavlcle Scapula Infrasplnatus Muscle Humerus IInnr Milscle 회전근개라고불리는</span>
-</div><div class="ov-row" onclick="vSeek(26.51)">
-  <span class="ov-t">00:26</span>
-  <span class="ov-x">Complete Anatomy</span>
 </div><div class="ov-row" onclick="vSeek(31.3)">
   <span class="ov-t">00:31</span>
   <span class="ov-x">그래서어깨가 회전해야할 동작에서 erior Humera</span>
@@ -573,9 +566,6 @@ em{font-style:normal;color:var(--t2)}
 </div><div class="ov-row" onclick="vSeek(38.77)">
   <span class="ov-t">00:38</span>
   <span class="ov-x">IU 지금바로알아보조</span>
-</div><div class="ov-row" onclick="vSeek(43.04)">
-  <span class="ov-t">00:43</span>
-  <span class="ov-x">IIEIITHIII</span>
 </div><div class="ov-row" onclick="vSeek(47.34)">
   <span class="ov-t">00:47</span>
   <span class="ov-x">너무많이 뒤로가게 되면</span>
@@ -591,34 +581,11 @@ em{font-style:normal;color:var(--t2)}
 </div></div>
   </section>
 
-  <!-- 01 왜 터졌나 -->
-  <section class="sec" id="why">
-    <div class="sh"><div class="sn">01</div>왜 터졌나</div>
-    <div class="card-h">
-  <div class="ci">📡</div>
-  <div><div class="ct">비팔로워 추천 도달</div><p class="cd">재생수(17.8만)가 팔로워 수(7.6만)의 234%. 인스타그램 탐색/추천 알고리즘에 의한 광범위한 비팔로워 배포.</p></div>
-</div><div class="card-h">
-  <div class="ci">🔥</div>
-  <div><div class="ct">참여율 3.9% — 업계 평균 3× 초과</div><p class="cd">좋아요+댓글(2.9천) / 팔로워(7.6만) = 3.9%. 높은 참여율은 알고리즘 가속 배포를 유발.</p></div>
-</div><div class="card-h">
-  <div class="ci">⚡</div>
-  <div><div class="ct">질문형 후킹</div><p class="cd">첫 문장: &quot;가슴 운동 등 운동할 때 툭 튀어나오는 어깨?&quot; — 시청자의 궁금증을 즉시 자극해 영상 이탈을 막는 강력한 도입부.</p></div>
-</div><div class="card-h">
-  <div class="ci">🎯</div>
-  <div><div class="ct">오프닝 질문 후킹</div><p class="cd">첫 3초 내 질문으로 시청자가 답을 보기 위해 영상을 계속 봄.</p></div>
-</div>
-  </section>
-
-  <!-- 02 목표 -->
-  <section class="sec" id="goals">
-    <div class="sh"><div class="sn">02</div>콘텐츠 목표</div>
-    <div class="card-h">
-  <div class="ci">📚</div>
-  <div><div class="ct">전문성 포지셔닝</div><p class="cd">해부학/운동역학/실전 경험을 통해 &#x27;이 채널은 다르다&#x27;는 신뢰 구축.</p></div>
-</div><div class="card-h">
-  <div class="ci">🔗</div>
-  <div><div class="ct">후속 콘텐츠 / 팔로우 유도</div><p class="cd">영상 내 미완성 질문이나 새로운 개념 제시로 다음 편 기대감 형성.</p></div>
-</div>
+  <!-- 핵심 키워드 (자막 빈출 주제어) -->
+  <section class="sec" id="keywords">
+    <div class="sh"><div class="sn">🔑</div>핵심 키워드</div>
+    <p style="font-size:12px;color:var(--t3);margin-bottom:14px">자막·캡션에서 가장 많이 나온 단어 — 이 영상의 핵심 주제 (크기=빈도)</p>
+    <div class="kw-wrap"><span class="kw-chip" style="font-size:20px">어깨가<b>4</b></span><span class="kw-chip" style="font-size:18px">운동<b>3</b></span><span class="kw-chip" style="font-size:18px">어깨<b>3</b></span><span class="kw-chip" style="font-size:18px">회전<b>3</b></span><span class="kw-chip" style="font-size:16px">가슴<b>2</b></span><span class="kw-chip" style="font-size:16px">어깨에<b>2</b></span><span class="kw-chip" style="font-size:16px">상각근<b>2</b></span><span class="kw-chip" style="font-size:16px">속근육<b>2</b></span><span class="kw-chip" style="font-size:16px">팔을<b>2</b></span><span class="kw-chip" style="font-size:16px">스위치가<b>2</b></span><span class="kw-chip" style="font-size:16px">꺼지면<b>2</b></span><span class="kw-chip" style="font-size:16px">앞으로<b>2</b></span><span class="kw-chip" style="font-size:16px">프로밴드를<b>2</b></span><span class="kw-chip" style="font-size:16px">뒤로<b>2</b></span></div>
   </section>
 
   <!-- 03 참여 깔때기 -->
@@ -663,21 +630,6 @@ em{font-style:normal;color:var(--t2)}
     <div class="meta-v">3.5초/컷</div>
     <div class="meta-s">느림 — 한 장면을 길게 유지. 화자 매력이나 내용에 의존</div></div>
   </div>
-</div>
-  </section>
-
-  <!-- 04 시청자 -->
-  <section class="sec" id="audience">
-    <div class="sh"><div class="sn">04</div>시청자 분석</div>
-    <div class="card-h">
-  <div class="ci">🏋️</div>
-  <div><div class="ct">헬스/운동 관심층</div><div class="cd">피트니스를 이미 하고 있거나 시작하려는 2040대.</div></div>
-</div><div class="card-h">
-  <div class="ci">🩺</div>
-  <div><div class="ct">신체 불균형 고민층</div><div class="cd">자세 교정, 부상 예방에 관심 있는 직장인/헬스인.</div></div>
-</div><div class="card-h">
-  <div class="ci">👥</div>
-  <div><div class="ct">부 타깃</div><div class="cd">PT 트레이너, 필라테스 강사 등 운동 전문가. 레퍼런스 &amp; 공유 목적.</div></div>
 </div>
   </section>
 
@@ -896,7 +848,7 @@ em{font-style:normal;color:var(--t2)}
 
   <!-- 08 서사구조 -->
   <section class="sec" id="narrative">
-    <div class="sh"><div class="sn">08</div>서사구조</div>
+    <div class="sh"><div class="sn">📖</div>서사구조</div>
     <div class="narr-row" onclick="vSeek(0)"
   style="cursor:pointer" title="클릭하면 0:00–00:07 구간으로 이동">
   <div class="na">
@@ -925,107 +877,6 @@ em{font-style:normal;color:var(--t2)}
     <div class="nrg">00:45–01:03</div>
   </div>
   <p class="nd">어깨가 또 앞으로 툭 튀어나갑니다. 불쾌한 느낌이 들지 않는 적당한 강도에서 팔을 앞뒤로 살짝살짝 움직여줍니다. 한쪽 팔 당 딱 1분만 해보세요. 그럼 놀랍게도 어깨가 한껏 가벼워진게 느껴지실거예요. 그럼 성공. 운</p>
-</div>
-  </section>
-
-  <!-- 09 감정흐름 -->
-  <section class="sec" id="emotion">
-    <div class="sh"><div class="sn">09</div>감정흐름</div>
-    <div class="emo-row" data-t="0.0" title="클릭하면 00:00 구간으로 이동">
-  <div class="ebar" style="background:#f59e0b"></div>
-  <div style="flex:1">
-    <div class="et">호기심 유발</div>
-    <div class="er2">00:00–00:06</div>
-    <p class="ed">후킹이 시작되는 순간. &#x27;뭐지?&#x27; 하는 첫 집중.</p>
-  </div>
-  <div style="flex-shrink:0;font-size:11px;color:#f59e0b;padding-top:2px;opacity:.7">00:00 ▶</div>
-</div><div class="emo-row" data-t="6.4" title="클릭하면 00:06 구간으로 이동">
-  <div class="ebar" style="background:#e11d48"></div>
-  <div style="flex:1">
-    <div class="et">의문/불신</div>
-    <div class="er2">00:06–00:19</div>
-    <p class="ed">기존에 알던 것과 다른 정보에 &#x27;진짜?&#x27; 하는 인지 충돌.</p>
-  </div>
-  <div style="flex-shrink:0;font-size:11px;color:#e11d48;padding-top:2px;opacity:.7">00:06 ▶</div>
-</div><div class="emo-row" data-t="19.1" title="클릭하면 00:19 구간으로 이동">
-  <div class="ebar" style="background:#2563eb"></div>
-  <div style="flex:1">
-    <div class="et">이해/공감</div>
-    <div class="er2">00:19–00:34</div>
-    <p class="ed">설명이 이어지면서 &#x27;아, 맞네&#x27; 하는 납득 단계.</p>
-  </div>
-  <div style="flex-shrink:0;font-size:11px;color:#2563eb;padding-top:2px;opacity:.7">00:19 ▶</div>
-</div><div class="emo-row" data-t="34.9" title="클릭하면 00:34 구간으로 이동">
-  <div class="ebar" style="background:#8b5cf6"></div>
-  <div style="flex:1">
-    <div class="et">재미/몰입</div>
-    <div class="er2">00:34–00:49</div>
-    <p class="ed">시각화나 시연이 나오며 흥미와 이해가 동시에 오름.</p>
-  </div>
-  <div style="flex-shrink:0;font-size:11px;color:#8b5cf6;padding-top:2px;opacity:.7">00:34 ▶</div>
-</div><div class="emo-row" data-t="49.6" title="클릭하면 00:49 구간으로 이동">
-  <div class="ebar" style="background:#059669"></div>
-  <div style="flex:1">
-    <div class="et">실천 의지</div>
-    <div class="er2">00:49–01:03</div>
-    <p class="ed">&#x27;나도 해봐야겠다&#x27; 행동 욕구로 전환. 저장/공유 욕구 최고.</p>
-  </div>
-  <div style="flex-shrink:0;font-size:11px;color:#059669;padding-top:2px;opacity:.7">00:49 ▶</div>
-</div>
-  </section>
-
-  <!-- 10 톤·말투 -->
-  <section class="sec" id="tone">
-    <div class="sh"><div class="sn">10</div>톤 · 말투</div>
-    <div class="tone-row">
-  <div class="tone-title">존댓말 중심</div>
-  <p class="tone-desc">신뢰와 전문성을 유지하면서 친근감 있는 설명.</p>
-</div><div class="tone-row">
-  <div class="tone-title">반복 키워드 강조</div>
-  <p class="tone-desc">&#x27;어깨가&#x27; 등 핵심 단어 반복으로 기억 각인.</p>
-</div>
-  </section>
-
-  <!-- 11 n가지 공식 -->
-  <section class="sec" id="formulas">
-    <div class="sh"><div class="sn">11</div>1가지 콘텐츠 공식</div>
-    <div class="fml-card">
-  <div class="fml-num">04</div>
-  <div>
-    <div class="fml-title">현장 스토리 공식</div>
-    <div class="fml-pattern">[일상 상황 설정] → [예상치 못한 사건 발생] → [반응/감정 공유] → [의미 부여]</div>
-    <p class="fml-why">브이로그+정보 혼합. 알고리즘은 완주율을 선호하고, 스토리는 끝을 보게 만듦.</p>
-  </div>
-</div>
-  </section>
-
-  <!-- 12 변환 가능한 아이디어 -->
-  <section class="sec" id="ideas">
-    <div class="sh"><div class="sn">12</div>변환 가능한 아이디어</div>
-    <p style="font-size:12px;color:var(--t3);margin-bottom:14px">이 영상의 공식을 다른 주제에 적용한 예시</p>
-    <div class="idea-card">
-  <div class="idea-domain">다이어트</div>
-  <div class="idea-hook">후킹: <em>"나 살이 안 빠지는데 뭘 먹어야 해? / 덜 먹어."</em></div>
-  <div class="idea-pat">패턴: <em>[일상 상황 설정] → [예상치 못한 사건 발생] → [반응/감정 공유] → [의미 부여]</em></div>
-</div><div class="idea-card">
-  <div class="idea-domain">피부 관리</div>
-  <div class="idea-hook">후킹: <em>"나 여드름이 왜 자꾸 나는지 모르겠어 / 세안을 너무 열심히 해서야."</em></div>
-  <div class="idea-pat">패턴: <em>[일상 상황 설정] → [예상치 못한 사건 발생] → [반응/감정 공유] → [의미 부여]</em></div>
-</div><div class="idea-card">
-  <div class="idea-domain">수면</div>
-  <div class="idea-hook">후킹: <em>"나 잠이 안 와서 힘든데 어떻게 해야 해? / 일찍 누워."</em></div>
-  <div class="idea-pat">패턴: <em>[일상 상황 설정] → [예상치 못한 사건 발생] → [반응/감정 공유] → [의미 부여]</em></div>
-</div>
-  </section>
-
-  <!-- 13 콘텐츠 공식 -->
-  <section class="sec" id="formula">
-    <div class="sh"><div class="sn">13</div>콘텐츠 공식 (마스터)</div>
-    <div class="master-formula">
-  <div class="mf-label">핵심 패턴</div>
-  <div class="mf-pattern">[일상 상황 설정] → [예상치 못한 사건 발생] → [반응/감정 공유] → [의미 부여]</div>
-  <div class="mf-label" style="margin-top:14px">왜 효과적인가</div>
-  <p class="mf-why">브이로그+정보 혼합. 알고리즘은 완주율을 선호하고, 스토리는 끝을 보게 만듦.</p>
 </div>
   </section>
 
