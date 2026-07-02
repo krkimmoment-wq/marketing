@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TOP 3 분석 — @UCBgYVJPLjqXcBcWPT_fDJcA</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070707;--s1:#0f0f0f;--s2:#161616;--s3:#1e1e1e;--s4:#272727;
+  --br:#1e1e1e;--br2:#2c2c2c;
+  --t1:#f0f0f0;--t2:#8c8c8c;--t3:#4a4a4a;
+  --ac:#e1306c;--r:12px;--rs:8px;--rxs:5px;
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Malgun Gothic',sans-serif;
+  background:var(--bg);color:var(--t1);line-height:1.5;font-size:14px;
+  -webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+em{font-style:normal;color:var(--t2)}
+
+/* ─ Layout ─ */
+.layout{display:flex;min-height:100vh}
+.sidebar{
+  width:200px;flex-shrink:0;
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+  background:var(--s1);border-right:1px solid var(--br);
+  display:flex;flex-direction:column;padding:18px 0;
+}
+.sb-top{padding:0 16px 16px;border-bottom:1px solid var(--br);margin-bottom:8px}
+.sb-back{font-size:11px;color:var(--t3);display:block;margin-bottom:8px}
+.sb-back:hover{color:var(--t2)}
+.sb-rank{font-size:11px;color:var(--ac);font-weight:700;margin-bottom:2px}
+.sb-title{font-size:12px;font-weight:700;line-height:1.4}
+.ni{display:flex;align-items:center;gap:8px;padding:7px 16px;
+  font-size:12px;color:var(--t2);border-left:2px solid transparent;
+  transition:all .15s var(--ease);cursor:pointer}
+.ni:hover,.ni.active{color:var(--t1);background:var(--s2);border-left-color:var(--ac)}
+.nn{width:18px;height:18px;border-radius:4px;background:var(--s3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:800;color:var(--t3);flex-shrink:0}
+
+.main{flex:1;min-width:0;padding:32px 40px 80px;max-width:860px}
+
+/* ─ Page header ─ */
+.ph{margin-bottom:28px}
+.ph h1{font-size:20px;font-weight:800;margin-bottom:6px}
+.pm{display:flex;gap:8px;flex-wrap:wrap;font-size:12px;color:var(--t3)}
+.er-b{padding:2px 10px;border-radius:20px;font-size:11px;font-weight:700;
+  background:rgba(225,48,108,.15);color:var(--ac);border:1px solid rgba(225,48,108,.3)}
+.top-nav{display:flex;gap:10px;margin-bottom:12px;font-size:12px}
+.nav-prev,.nav-next{color:var(--t3);border:1px solid var(--br2);
+  padding:4px 12px;border-radius:var(--rxs);transition:color .15s}
+.nav-prev:hover,.nav-next:hover{color:var(--t1)}
+
+/* ─ Metrics ─ */
+.mr{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px}
+.mc{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);padding:14px 16px}
+.ml{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px}
+.mv{font-size:20px;font-weight:800;line-height:1}
+.ms{font-size:11px;color:var(--t3);margin-top:3px}
+
+/* ─ Storyboard Player ─ */
+.sb-player{
+  background:var(--s1);border:1px solid var(--br);border-radius:var(--r);
+  overflow:hidden;margin-bottom:28px;
+}
+.sb-player-inner{display:flex;gap:0;min-height:400px}
+.sb-video-col{
+  width:260px;flex-shrink:0;
+  background:#000;display:flex;flex-direction:column;
+}
+.sb-video-col video{
+  width:100%;flex:1;object-fit:contain;
+  min-height:360px;
+}
+.sb-progress{height:3px;background:var(--s4)}
+.sb-progress-fill{height:100%;background:var(--ac);transition:width .1s linear;width:0}
+.sb-right{flex:1;display:flex;flex-direction:column;padding:16px;min-width:0}
+.sb-current-text{
+  font-size:13px;color:var(--t1);line-height:1.6;
+  min-height:48px;margin-bottom:12px;
+  background:var(--s2);border-radius:var(--rs);padding:10px 12px;
+}
+.sb-filmstrip-wrap{
+  overflow-x:auto;margin-bottom:12px;
+  /* 스크롤바 스타일 */
+  scrollbar-width:thin;scrollbar-color:var(--s4) transparent;
+}
+.sb-filmstrip-wrap::-webkit-scrollbar{height:4px}
+.sb-filmstrip-wrap::-webkit-scrollbar-track{background:transparent}
+.sb-filmstrip-wrap::-webkit-scrollbar-thumb{background:var(--s4);border-radius:2px}
+.sb-filmstrip{display:flex;gap:6px;padding:2px}
+.sbf{
+  flex-shrink:0;width:68px;
+  background:var(--s3);border-radius:var(--rxs);
+  overflow:hidden;cursor:pointer;
+  border:2px solid transparent;
+  transition:border-color .15s,opacity .15s;
+  opacity:.6;
+}
+.sbf:hover{opacity:.85}
+.sbf.sbf-active{border-color:var(--ac);opacity:1}
+.sbf img{width:68px;height:121px;object-fit:cover;display:block}
+.sbf-t{text-align:center;font-size:9px;color:var(--t3);padding:2px 0}
+.sb-ctrl{display:flex;align-items:center;gap:8px}
+.sb-btn{
+  background:var(--s3);border:1px solid var(--br2);border-radius:var(--rxs);
+  color:var(--t2);font-size:13px;padding:6px 14px;cursor:pointer;
+  transition:background .15s,color .15s;
+}
+.sb-btn:hover{background:var(--s4);color:var(--t1)}
+.sb-btn.play{background:var(--ac);color:#fff;border-color:transparent;padding:6px 20px}
+.sb-btn.play:hover{opacity:.85}
+.sb-frame-info{font-size:11px;color:var(--t3);margin-left:auto}
+
+/* ─ Sections ─ */
+.sec{margin-bottom:44px}
+.sh{font-size:16px;font-weight:700;margin-bottom:16px;
+  padding-bottom:12px;border-bottom:1px solid var(--br);
+  display:flex;align-items:center;gap:8px}
+.sn{width:24px;height:24px;border-radius:5px;background:var(--s2);
+  border:1px solid var(--br2);display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:800;color:var(--t3);flex-shrink:0}
+
+/* ─ Transcript ─ */
+.tr-legend{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.tr-leg-item{font-size:10px;padding:2px 8px;border-radius:10px;border:1px solid}
+.tr-row{display:flex;align-items:flex-start;gap:8px;
+  padding:7px 10px;border-radius:var(--rxs);cursor:pointer;transition:background .15s}
+.tr-row:hover{background:var(--s2)}
+.tr-t{width:32px;font-size:11px;color:var(--t3);font-family:monospace;flex-shrink:0;padding-top:1px}
+.tr-a{font-size:9px;font-weight:800;padding:2px 6px;border-radius:10px;
+  flex-shrink:0;border:1px solid;margin-top:2px;letter-spacing:.3px;white-space:nowrap}
+.tr-x{font-size:13px;color:var(--t2);line-height:1.6}
+
+/* ─ Shared card ─ */
+.card-h{display:flex;gap:12px;padding:14px;
+  background:var(--s1);border:1px solid var(--br);border-radius:var(--r);
+  margin-bottom:8px}
+.ci{font-size:20px;flex-shrink:0;width:32px;text-align:center;margin-top:2px}
+.ct{font-size:14px;font-weight:700;margin-bottom:4px}
+.cd{font-size:13px;color:var(--t2);line-height:1.65}
+
+/* ─ Funnel ─ */
+.funnel-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--br)}
+.fl{width:52px;font-size:12px;color:var(--t2);flex-shrink:0}
+.fb{flex:1;height:8px;background:var(--s3);border-radius:4px;overflow:hidden}
+.fbar{height:100%;border-radius:4px}
+.fv{width:52px;text-align:right;font-size:14px;font-weight:700;flex-shrink:0}
+.fp{width:42px;text-align:right;font-size:12px;flex-shrink:0}
+
+/* ─ Cuts ─ */
+.cuts-summary{font-size:13px;color:var(--t2);margin-bottom:12px}
+.cut-row{display:flex;align-items:center;gap:10px;
+  padding:8px 12px;background:var(--s1);border:1px solid var(--br);
+  border-radius:var(--rxs);margin-bottom:5px;cursor:pointer;transition:background .15s}
+.cut-row:hover{background:var(--s2)}
+.cn{width:36px;font-size:10px;font-weight:700;color:var(--t3);flex-shrink:0}
+.ct2{width:36px;font-size:11px;color:var(--ac);font-family:monospace;flex-shrink:0}
+.cbar-w{flex:1;height:5px;background:var(--s3);border-radius:3px;overflow:hidden}
+.cbar{height:100%;background:var(--ac);border-radius:3px}
+.cd2{width:50px;font-size:11px;color:var(--t3);text-align:right;flex-shrink:0}
+
+/* ─ Narrative ─ */
+.narr-row{display:flex;gap:16px;padding:12px 0;border-bottom:1px solid var(--br)}
+.na{width:100px;flex-shrink:0}
+.nat{font-size:12px;font-weight:700}
+.nrg{font-size:11px;color:var(--t3);font-family:monospace;margin-top:1px}
+.nd{font-size:13px;color:var(--t2);line-height:1.6}
+
+/* ─ Emotion flow ─ */
+.emo-row{display:flex;gap:12px;padding:12px;
+  background:var(--s1);border:1px solid var(--br);border-radius:var(--r);margin-bottom:8px}
+.ebar{width:4px;flex-shrink:0;border-radius:2px;min-height:40px}
+.et{font-size:13px;font-weight:700;margin-bottom:2px}
+.er2{font-size:11px;color:var(--t3);font-family:monospace;margin-bottom:5px}
+.ed{font-size:13px;color:var(--t2);line-height:1.6}
+
+/* ─ Tone ─ */
+.tone-row{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);
+  padding:14px 16px;margin-bottom:8px}
+.tone-title{font-size:14px;font-weight:700;margin-bottom:5px}
+.tone-desc{font-size:13px;color:var(--t2);line-height:1.65}
+
+/* ─ Formulas ─ */
+.fml-card{display:flex;gap:14px;background:var(--s1);border:1px solid var(--br);
+  border-radius:var(--r);padding:16px;margin-bottom:10px}
+.fml-num{width:28px;height:28px;border-radius:6px;background:var(--ac);
+  color:#fff;font-size:11px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.fml-title{font-size:14px;font-weight:700;margin-bottom:5px}
+.fml-pattern{font-size:12px;color:var(--ac);background:rgba(225,48,108,.1);
+  border-radius:var(--rxs);padding:6px 10px;margin-bottom:8px;line-height:1.6}
+.fml-why{font-size:13px;color:var(--t2);line-height:1.65}
+
+/* ─ Ideas ─ */
+.idea-card{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);
+  padding:14px 16px;margin-bottom:8px}
+.idea-domain{font-size:11px;font-weight:800;color:var(--ac);
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.idea-hook,.idea-pat{font-size:13px;color:var(--t2);line-height:1.65;margin-bottom:4px}
+.idea-hook em,.idea-pat em{color:var(--t1)}
+
+/* ─ Master formula ─ */
+.master-formula{background:var(--s2);border:1px solid var(--br2);
+  border-radius:var(--r);padding:20px 22px}
+.mf-label{font-size:10px;color:var(--t3);text-transform:uppercase;
+  letter-spacing:.5px;margin-bottom:6px}
+.mf-pattern{font-size:14px;color:var(--ac);line-height:1.7;margin-bottom:4px}
+.mf-why{font-size:13px;color:var(--t2);line-height:1.7}
+
+/* ─ Timeline ─ */
+.tl-wrap{background:var(--s1);border:1px solid var(--br);
+  border-radius:var(--r);padding:16px 14px 10px}
+.tl-note{font-size:11px;color:var(--t3);margin-top:8px}
+
+/* ─ 핵심 키워드 ─ */
+.kw-wrap{display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+.kw-chip{display:inline-flex;align-items:center;gap:5px;background:var(--s2);
+  border:1px solid var(--br2);border-radius:20px;padding:7px 14px;color:var(--t1);line-height:1}
+.kw-chip b{color:var(--ac);font-size:11px}
+
+/* ─ 록코치 훅 변형 ─ */
+.rok-list{display:flex;flex-direction:column;gap:8px}
+.rok-item{display:flex;gap:12px;align-items:flex-start;
+  background:var(--s1);border:1px solid var(--br);border-left:3px solid var(--ac);
+  border-radius:var(--rs);padding:14px 16px}
+.rok-num{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--ac);
+  color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.rok-text{font-size:14px;color:var(--t1);line-height:1.65}
+
+/* ─ Overlay (화면 자막) ─ */
+.ov-list{display:flex;flex-direction:column;gap:4px}
+.ov-row{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;
+  background:var(--s1);border:1px solid var(--br);border-radius:var(--rxs);
+  cursor:pointer;transition:background .15s}
+.ov-row:hover{background:var(--s2)}
+.ov-t{font-size:11px;color:#a78bfa;font-family:monospace;flex-shrink:0;padding-top:1px;width:36px}
+.ov-x{font-size:13px;color:var(--t1);line-height:1.5;font-weight:500}
+
+/* ─ First frame · Loop ─ */
+.ff-wrap{display:flex;gap:20px}
+.ff-img{width:160px;flex-shrink:0;border-radius:var(--r);overflow:hidden;
+  border:1px solid var(--br2);background:#000}
+.ff-img img{width:100%;aspect-ratio:9/16;object-fit:cover;display:block}
+.ff-body{flex:1;display:flex;flex-direction:column;gap:14px;min-width:0}
+.ff-block{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);padding:16px}
+.ff-label{font-size:12px;font-weight:700;color:var(--t1);margin-bottom:8px}
+.ff-text{font-size:14px;color:var(--t1);line-height:1.6;margin-bottom:6px}
+.ff-ov{font-size:12px;color:var(--t2);line-height:1.6}
+
+/* ─ Meta (길이·템포) ─ */
+.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.meta-card{display:flex;gap:14px;background:var(--s1);border:1px solid var(--br);
+  border-radius:var(--r);padding:18px}
+.meta-ico{font-size:24px;flex-shrink:0}
+.meta-l{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px}
+.meta-v{font-size:20px;font-weight:800;margin-bottom:4px}
+.meta-s{font-size:12px;color:var(--t2);line-height:1.55}
+
+/* ─ Comments ─ */
+.cmt-list{display:flex;flex-direction:column;gap:8px}
+.cmt-row{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);padding:12px 14px}
+.cmt-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.cmt-user{font-size:12px;font-weight:700;color:#60c8ff}
+.cmt-likes{font-size:11px;color:#ff4d6e}
+.cmt-text{font-size:13px;color:var(--t2);line-height:1.6}
+
+/* ─ Floating Mini Player (스크롤 추적) ─ */
+.sb-video-col{position:relative;transition:none}
+.sb-video-col.floating{
+  position:fixed;
+  right:28px;bottom:28px;
+  width:420px;
+  z-index:300;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 12px 40px rgba(0,0,0,.7);
+  border:1px solid var(--br2);
+  animation:floatIn .25s var(--ease);
+}
+@keyframes floatIn{from{opacity:0;transform:translateY(20px) scale(.9)}to{opacity:1;transform:none}}
+.sb-video-col.floating video{min-height:0;height:auto;aspect-ratio:9/16;max-height:85vh}
+.float-bar{
+  display:none;
+  position:absolute;top:0;left:0;right:0;z-index:2;
+  padding:6px 8px;
+  background:linear-gradient(180deg,rgba(0,0,0,.75),transparent);
+  align-items:center;justify-content:space-between;
+}
+.sb-video-col.floating .float-bar{display:flex}
+.float-label{font-size:10px;color:#fff;font-weight:700;opacity:.9;cursor:pointer}
+.float-label:hover{opacity:1}
+.float-close{
+  width:22px;height:22px;border-radius:50%;
+  background:rgba(0,0,0,.6);border:none;color:#fff;
+  font-size:13px;cursor:pointer;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+}
+.float-close:hover{background:rgba(0,0,0,.85)}
+/* 플로팅 중 원래 자리에 빈 공간 유지 (레이아웃 안정) */
+.sb-video-placeholder{display:none}
+.sb-player.is-floating .sb-video-placeholder{
+  display:block;width:260px;flex-shrink:0;
+  background:var(--s2);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--t3);font-size:12px;text-align:center;padding:20px;
+}
+@media(max-width:768px){
+  .sb-video-col.floating{width:240px;right:12px;bottom:12px}
+  .sb-player.is-floating .sb-video-placeholder{display:none}
+}
+
+@media(max-width:768px){
+  .sidebar{display:none}
+  .main{padding:20px 14px 60px}
+  .sb-player-inner{flex-direction:column}
+  .sb-video-col{width:100%}
+  .mr{grid-template-columns:repeat(2,1fr)}
+  .ff-wrap{flex-direction:column}
+  .ff-img{width:100%;max-width:200px}
+  .meta-grid{grid-template-columns:1fr}
+}
+
+/* ─ 방향 A: 도메인 비종속 태그 + 록코치 렌즈 (라이트 카드) ─ */
+.lite-sec{background:#F2F4F8;border:1px solid #E5E8EB;border-radius:14px;padding:20px 22px;margin-bottom:28px;color:#191F28}
+.lite-h{font-size:15px;font-weight:800;color:#191F28;margin-bottom:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tag-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tag-card{background:#fff;border:1px solid #E5E8EB;border-radius:10px;padding:12px 14px}
+.tag-l{font-size:10px;color:#8B95A1;text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px}
+.tag-v{font-size:15px;font-weight:800;color:#191F28;line-height:1.2}
+.tag-sub{font-size:11px;color:#4E5968;margin-top:4px;line-height:1.5}
+.tag-sub b{color:#191F28}
+.tag-trig{display:inline-block;background:#EAF2FF;color:#3182F6;border-radius:12px;padding:3px 10px;font-size:11px;font-weight:700;margin:2px 2px 0 0}
+.tag-none{color:#8B95A1;font-size:12px}
+.hs-bar{display:flex;gap:3px;margin-top:6px}
+.hs-dot{width:12px;height:6px;border-radius:3px;background:#E5E8EB}
+.hs-dot.on{background:#3182F6}
+.lens-badge{display:inline-block;background:#FFF0F3;color:#e11d48;border-radius:10px;padding:2px 10px;font-size:10px;font-weight:800}
+.lens-na{color:#4E5968;font-size:13px;line-height:1.7;background:#fff;border:1px solid #E5E8EB;border-radius:8px;padding:14px 16px}
+.lens-na b{color:#191F28}
+.rok-lite{background:#fff;border:1px solid #E5E8EB;border-left:3px solid #e11d48;border-radius:8px;padding:12px 14px;margin-bottom:8px;font-size:13px;color:#333;line-height:1.65}
+/* Proven Hooks 적재 후보 */
+.ph-wrap{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px;padding:12px 14px;background:#fff;border:1px solid #E5E8EB;border-radius:10px}
+.ph-wrap.ph-on{border-color:#3182F6;background:#F4F8FF}
+.ph-badge{background:#3182F6;color:#fff;border-radius:8px;padding:4px 12px;font-size:12px;font-weight:800}
+.ph-no{background:#E5E8EB;color:#8B95A1;border-radius:8px;padding:4px 12px;font-size:12px;font-weight:700}
+.ph-meta{font-size:12px;color:#4E5968}
+.ph-btn{margin-left:auto;background:#191F28;color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer}
+.ph-btn:hover{background:#3182F6}
+.ph-btn:disabled{opacity:.6;cursor:default}
+@media(max-width:768px){.tag-grid{grid-template-columns:1fr}.ph-btn{margin-left:0}}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="sidebar">
+  <div class="sb-top">
+    <a href="UCBgYVJPLjqXcBcWPT_fDJcA_report.html" class="sb-back">← 개요 리포트</a>
+    <div class="sb-rank">TOP 3</div>
+    <div class="sb-title">혜리가 자기 얘기하는걸 엿듣게 된 신민아 ft 혈자리 #귀지압패치#귀침 #붓기관리</div>
+  </div>
+  <a href="#tags" class="ni"><span class="nn">🏷</span>크리에이티브 태그</a>
+  <a href="#storyboard" class="ni"><span class="nn">🎬</span>스토리보드</a>
+  <a href="#transcript" class="ni"><span class="nn">📝</span>영상 대본</a>
+  <a href="#overlay" class="ni"><span class="nn">🔤</span>화면 자막</a>
+  <a href="#keywords" class="ni"><span class="nn">🔑</span>핵심 키워드</a>
+  <a href="#funnel" class="ni"><span class="nn">📊</span>참여 깔때기</a>
+  <a href="#meta" class="ni"><span class="nn">⏱</span>길이·템포</a>
+  <a href="#timeline" class="ni"><span class="nn">📈</span>타임라인</a>
+  <a href="#cuts" class="ni"><span class="nn">✂️</span>컷 디테일</a>
+  <a href="#hook" class="ni"><span class="nn">🎯</span>3초 후킹</a>
+  <a href="#firstframe" class="ni"><span class="nn">🖼</span>첫프레임·루프</a>
+  <a href="#narrative" class="ni"><span class="nn">📖</span>서사구조</a>
+  <a href="#rok-lens" class="ni"><span class="nn">🎯</span>록코치 렌즈</a>
+</nav>
+
+<main class="main">
+  <div class="top-nav"><a href="UCBgYVJPLjqXcBcWPT_fDJcA_analysis_2.html" class="nav-prev">◄ TOP 2</a></div>
+
+  <div class="ph">
+    <h1>로컬튜브㉿ <span style="font-size:15px;color:var(--t3);font-weight:600">· TOP 3 숏츠 분석</span></h1>
+    <div class="pm">
+      <span>구독자 4.6만</span><span>|</span>
+      <span>2026-02-03</span><span>|</span>
+      <span>77초</span><span>|</span>
+      <a href="https://www.youtube.com/shorts/6v79uLTXoY4" target="_blank" rel="noopener">유튜브 원본↗</a>
+      <span class="er-b">참여율 121.4%</span>
+    </div>
+  </div>
+
+  <div class="mr">
+    <div class="mc"><div class="ml">조회수</div><div class="mv">486.2만</div>
+      <div class="ms">구독자의 10479%</div></div>
+    <div class="mc"><div class="ml">좋아요</div><div class="mv">5.6만</div></div>
+    <div class="mc"><div class="ml">댓글</div><div class="mv">336</div></div>
+    <div class="mc"><div class="ml">구독자</div><div class="mv">4.6만</div></div>
+  </div>
+
+  <!-- ★ 스토리보드 슬라이드 플레이어 ★ -->
+  <section class="sec" id="storyboard">
+    <div class="sh"><div class="sn">🎬</div>스토리보드 플레이어</div>
+    <div class="sb-player" id="sb-player">
+      <div class="sb-player-inner">
+        <div class="sb-video-col" id="sb-video-col">
+          <div class="float-bar">
+            <span class="float-label" onclick="scrollToStoryboard()">↑ 스토리보드</span>
+            <button class="float-close" onclick="closeFloat()" title="고정 해제">✕</button>
+          </div>
+          <video id="main-video"
+            src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/media/6v79uLTXoY4.mp4"
+            poster="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/media/6v79uLTXoY4_thumb.jpg"
+            controls preload="metadata" playsinline>
+          </video>
+          <div class="sb-progress"><div class="sb-progress-fill" id="sb-prog"></div></div>
+        </div>
+        <div class="sb-video-placeholder">🎬<br>영상이 우측 하단에<br>고정되어 따라갑니다</div>
+        <div class="sb-right">
+          <div class="sb-current-text" id="sb-text">▶ 재생하거나 프레임을 클릭하면 해당 구간으로 이동합니다.</div>
+          <div class="sb-filmstrip-wrap">
+            <div class="sb-filmstrip" id="sb-filmstrip">
+              <div class="sbf sbf-active" data-i="0" data-t="0" onclick="sbSeek(0)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_000_0000s.jpg" loading="lazy"><div class="sbf-t">00:00</div></div><div class="sbf" data-i="1" data-t="11" onclick="sbSeek(11)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_001_0011s.jpg" loading="lazy"><div class="sbf-t">00:11</div></div><div class="sbf" data-i="2" data-t="13" onclick="sbSeek(13)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_002_0013s.jpg" loading="lazy"><div class="sbf-t">00:13</div></div><div class="sbf" data-i="3" data-t="15" onclick="sbSeek(15)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_003_0015s.jpg" loading="lazy"><div class="sbf-t">00:15</div></div><div class="sbf" data-i="4" data-t="16" onclick="sbSeek(16)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_004_0016s.jpg" loading="lazy"><div class="sbf-t">00:16</div></div><div class="sbf" data-i="5" data-t="19" onclick="sbSeek(19)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_005_0019s.jpg" loading="lazy"><div class="sbf-t">00:19</div></div><div class="sbf" data-i="6" data-t="20" onclick="sbSeek(20)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_006_0020s.jpg" loading="lazy"><div class="sbf-t">00:20</div></div><div class="sbf" data-i="7" data-t="23" onclick="sbSeek(23)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_007_0023s.jpg" loading="lazy"><div class="sbf-t">00:23</div></div><div class="sbf" data-i="8" data-t="23" onclick="sbSeek(23)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_008_0023s.jpg" loading="lazy"><div class="sbf-t">00:23</div></div><div class="sbf" data-i="9" data-t="26" onclick="sbSeek(26)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_009_0026s.jpg" loading="lazy"><div class="sbf-t">00:26</div></div><div class="sbf" data-i="10" data-t="29" onclick="sbSeek(29)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_010_0029s.jpg" loading="lazy"><div class="sbf-t">00:29</div></div><div class="sbf" data-i="11" data-t="30" onclick="sbSeek(30)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_011_0030s.jpg" loading="lazy"><div class="sbf-t">00:30</div></div><div class="sbf" data-i="12" data-t="36" onclick="sbSeek(36)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_012_0036s.jpg" loading="lazy"><div class="sbf-t">00:36</div></div><div class="sbf" data-i="13" data-t="38" onclick="sbSeek(38)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_013_0038s.jpg" loading="lazy"><div class="sbf-t">00:38</div></div><div class="sbf" data-i="14" data-t="39" onclick="sbSeek(39)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_014_0039s.jpg" loading="lazy"><div class="sbf-t">00:39</div></div><div class="sbf" data-i="15" data-t="41" onclick="sbSeek(41)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_015_0041s.jpg" loading="lazy"><div class="sbf-t">00:41</div></div><div class="sbf" data-i="16" data-t="46" onclick="sbSeek(46)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_016_0046s.jpg" loading="lazy"><div class="sbf-t">00:46</div></div><div class="sbf" data-i="17" data-t="52" onclick="sbSeek(52)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_017_0052s.jpg" loading="lazy"><div class="sbf-t">00:52</div></div><div class="sbf" data-i="18" data-t="55" onclick="sbSeek(55)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_018_0055s.jpg" loading="lazy"><div class="sbf-t">00:55</div></div><div class="sbf" data-i="19" data-t="61" onclick="sbSeek(61)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_019_0061s.jpg" loading="lazy"><div class="sbf-t">01:01</div></div><div class="sbf" data-i="20" data-t="63" onclick="sbSeek(63)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_020_0063s.jpg" loading="lazy"><div class="sbf-t">01:03</div></div><div class="sbf" data-i="21" data-t="65" onclick="sbSeek(65)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_021_0065s.jpg" loading="lazy"><div class="sbf-t">01:05</div></div><div class="sbf" data-i="22" data-t="66" onclick="sbSeek(66)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_022_0066s.jpg" loading="lazy"><div class="sbf-t">01:06</div></div><div class="sbf" data-i="23" data-t="68" onclick="sbSeek(68)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_023_0068s.jpg" loading="lazy"><div class="sbf-t">01:08</div></div><div class="sbf" data-i="24" data-t="71" onclick="sbSeek(71)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_024_0071s.jpg" loading="lazy"><div class="sbf-t">01:11</div></div><div class="sbf" data-i="25" data-t="74" onclick="sbSeek(74)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_025_0074s.jpg" loading="lazy"><div class="sbf-t">01:14</div></div><div class="sbf" data-i="26" data-t="75" onclick="sbSeek(75)"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_026_0075s.jpg" loading="lazy"><div class="sbf-t">01:15</div></div>
+            </div>
+          </div>
+          <div class="sb-ctrl">
+            <button class="sb-btn" onclick="sbPrev()">◄</button>
+            <button class="sb-btn play" id="sb-play" onclick="sbToggle()">▶</button>
+            <button class="sb-btn" onclick="sbNext()">►</button>
+            <span class="sb-frame-info" id="sb-fi">0 / 27</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ★ 방향 A: 도메인 비종속 크리에이티브 태그 (상단·라이트) ★ -->
+  <section class="sec lite-sec" id="tags">
+    <div class="lite-h">🏷 크리에이티브 태그 <span style="font-size:11px;color:#8B95A1;font-weight:600">· 도메인 무관 자동 분석</span></div>
+<div class="tag-grid">
+  <div class="tag-card"><div class="tag-l">후크 유형</div>
+    <div class="tag-v">정보/선언형 후킹</div>
+    <div class="tag-sub">마케팅: <b>Statement</b> — 선언형 — 명확한 주제 제시</div></div>
+  <div class="tag-card"><div class="tag-l">후크 강도</div>
+    <div class="tag-v">2 / 10</div><div class="hs-bar"><span class="hs-dot on"></span><span class="hs-dot on"></span><span class="hs-dot"></span><span class="hs-dot"></span><span class="hs-dot"></span><span class="hs-dot"></span><span class="hs-dot"></span><span class="hs-dot"></span><span class="hs-dot"></span><span class="hs-dot"></span></div></div>
+  <div class="tag-card"><div class="tag-l">CTA</div>
+    <div class="tag-v">없음</div>
+    <div class="tag-sub">없음</div></div>
+  <div class="tag-card"><div class="tag-l">감정 트리거</div>
+    <div style="margin-top:4px"><span class="tag-trig">호기심</span></div></div>
+  <div class="tag-card"><div class="tag-l">말속도 (WPM)</div>
+    <div class="tag-v">138</div><div class="tag-sub">표준</div></div>
+  <div class="tag-card"><div class="tag-l">서사 구조</div>
+    <div class="tag-v">Other</div>
+    <div class="tag-sub">AIDA·PAS·Story-Lesson 미해당 (정보 전달형)</div></div>
+</div>
+    <div class="ph-wrap"><span class="ph-no">적재 기준 미달</span><span class="ph-meta">아웃라이어 104.8x / 강도 2/10 (기준: 2x AND 7)</span></div>
+  </section>
+
+  <!-- 00 영상 대본 -->
+  <section class="sec" id="transcript">
+    <div class="sh"><div class="sn">00</div>영상 대본 (Whisper 전사)</div>
+    <div class="tr-legend">
+      <span class="tr-leg-item" style="color:#e11d48;border-color:#e11d4840;background:#e11d4812">후킹</span>
+      <span class="tr-leg-item" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b12">문제</span>
+      <span class="tr-leg-item" style="color:#2563eb;border-color:#2563eb40;background:#2563eb12">전개</span>
+      <span class="tr-leg-item" style="color:#059669;border-color:#05966940;background:#05966912">CTA</span>
+    </div>
+    <div class="tr-row" data-t="0.0" onclick="vSeek(0.0)">
+  <span class="tr-t">00:00</span>
+  <span class="tr-a" style="color:#e11d48;border-color:#e11d4840;background:#e11d4816">후킹</span>
+  <span class="tr-x">화장실에 봤었는데</span>
+</div><div class="tr-row" data-t="1.78" onclick="vSeek(1.78)">
+  <span class="tr-t">00:01</span>
+  <span class="tr-a" style="color:#e11d48;border-color:#e11d4840;background:#e11d4816">후킹</span>
+  <span class="tr-x">케레 씨가 제 얘기를 하는 거를 찾았어요</span>
+</div><div class="tr-row" data-t="5.06" onclick="vSeek(5.06)">
+  <span class="tr-t">00:05</span>
+  <span class="tr-a" style="color:#e11d48;border-color:#e11d4840;background:#e11d4816">후킹</span>
+  <span class="tr-x">제가 뭐라고 그랬어요?</span>
+</div><div class="tr-row" data-t="7.52" onclick="vSeek(7.52)">
+  <span class="tr-t">00:07</span>
+  <span class="tr-a" style="color:#e11d48;border-color:#e11d4840;background:#e11d4816">후킹</span>
+  <span class="tr-x">화장실에</span>
+</div><div class="tr-row" data-t="8.16" onclick="vSeek(8.16)">
+  <span class="tr-t">00:08</span>
+  <span class="tr-a" style="color:#e11d48;border-color:#e11d4840;background:#e11d4816">후킹</span>
+  <span class="tr-x">11년 전 화장실에서의 일에 당황하는 혜리</span>
+</div><div class="tr-row" data-t="9.88" onclick="vSeek(9.88)">
+  <span class="tr-t">00:09</span>
+  <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
+  <span class="tr-x">화장실 칸에 있었어요</span>
+</div><div class="tr-row" data-t="11.6" onclick="vSeek(11.6)">
+  <span class="tr-t">00:11</span>
+  <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
+  <span class="tr-x">땀이! 땀이 막 났어요</span>
+</div><div class="tr-row" data-t="13.08" onclick="vSeek(13.08)">
+  <span class="tr-t">00:13</span>
+  <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
+  <span class="tr-x">제가 뭐라고 했어요?</span>
+</div><div class="tr-row" data-t="14.58" onclick="vSeek(14.58)">
+  <span class="tr-t">00:14</span>
+  <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
+  <span class="tr-x">뭐라고 했어요?</span>
+</div><div class="tr-row" data-t="15.4" onclick="vSeek(15.4)">
+  <span class="tr-t">00:15</span>
+  <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
+  <span class="tr-x">제가 이 분 얘기하기 좀 그런데</span>
+</div><div class="tr-row" data-t="16.76" onclick="vSeek(16.76)">
+  <span class="tr-t">00:16</span>
+  <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
+  <span class="tr-x">뭐라고 있는지 얘기해 주시면 돼요?</span>
+</div><div class="tr-row" data-t="18.88" onclick="vSeek(18.88)">
+  <span class="tr-t">00:18</span>
+  <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
+  <span class="tr-x">제가?</span>
+</div><div class="tr-row" data-t="19.36" onclick="vSeek(19.36)">
+  <span class="tr-t">00:19</span>
+  <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
+  <span class="tr-x">아, 못하겠어요</span>
+</div><div class="tr-row" data-t="20.74" onclick="vSeek(20.74)">
+  <span class="tr-t">00:20</span>
+  <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
+  <span class="tr-x">근데 너무 드라마에 한 장면 같지 않아요?</span>
+</div><div class="tr-row" data-t="23.06" onclick="vSeek(23.06)">
+  <span class="tr-t">00:23</span>
+  <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
+  <span class="tr-x">선배님 안에 계시고</span>
+</div><div class="tr-row" data-t="23.82" onclick="vSeek(23.82)">
+  <span class="tr-t">00:23</span>
+  <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
+  <span class="tr-x">야 나 신민아 봤는데</span>
+</div><div class="tr-row" data-t="25.02" onclick="vSeek(25.02)">
+  <span class="tr-t">00:25</span>
+  <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
+  <span class="tr-x">아!</span>
+</div><div class="tr-row" data-t="25.42" onclick="vSeek(25.42)">
+  <span class="tr-t">00:25</span>
+  <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
+  <span class="tr-x">왜 습관이에요?</span>
+</div><div class="tr-row" data-t="26.7" onclick="vSeek(26.7)">
+  <span class="tr-t">00:26</span>
+  <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
+  <span class="tr-x">그렇게 했어요?</span>
+</div><div class="tr-row" data-t="28.04" onclick="vSeek(28.04)">
+  <span class="tr-t">00:28</span>
+  <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
+  <span class="tr-x">제가 말을 못하는 이유가</span>
+</div><div class="tr-row" data-t="29.36" onclick="vSeek(29.36)">
+  <span class="tr-t">00:29</span>
+  <span class="tr-a" style="color:#f59e0b;border-color:#f59e0b40;background:#f59e0b16">문제</span>
+  <span class="tr-x">내가 분명히 그렇게 했을 거 같아요</span>
+</div><div class="tr-row" data-t="30.9" onclick="vSeek(30.9)">
+  <span class="tr-t">00:30</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">제가 데뷔하고 처음으로 충격을 받은 순간이었거든요</span>
+</div><div class="tr-row" data-t="34.12" onclick="vSeek(34.12)">
+  <span class="tr-t">00:34</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">실물 봤을 때 누가 제일 예뻤어? 하면</span>
+</div><div class="tr-row" data-t="35.68" onclick="vSeek(35.68)">
+  <span class="tr-t">00:35</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">저 무조건 선배님</span>
+</div><div class="tr-row" data-t="36.7" onclick="vSeek(36.7)">
+  <span class="tr-t">00:36</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">진짜?</span>
+</div><div class="tr-row" data-t="37.56" onclick="vSeek(37.56)">
+  <span class="tr-t">00:37</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">그리고 작품할 때 유독 살이 잘 찐다는 두 사람</span>
+</div><div class="tr-row" data-t="39.44" onclick="vSeek(39.44)">
+  <span class="tr-t">00:39</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">근데 작품할 때는 스태프 받으면 찌고</span>
+</div><div class="tr-row" data-t="41.86" onclick="vSeek(41.86)">
+  <span class="tr-t">00:41</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">그래서 저는 작품에 스트레스 받잖아요</span>
+</div><div class="tr-row" data-t="43.74" onclick="vSeek(43.74)">
+  <span class="tr-t">00:43</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">그래서 계속 모어서</span>
+</div><div class="tr-row" data-t="44.7" onclick="vSeek(44.7)">
+  <span class="tr-t">00:44</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">1일당 16일항</span>
+</div><div class="tr-row" data-t="45.94" onclick="vSeek(45.94)">
+  <span class="tr-t">00:45</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">오 저불래</span>
+</div><div class="tr-row" data-t="46.7" onclick="vSeek(46.7)">
+  <span class="tr-t">00:46</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">내 스타일이 또 다르죠</span>
+</div><div class="tr-row" data-t="48.2" onclick="vSeek(48.2)">
+  <span class="tr-t">00:48</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">남들은 이렇게 쪼빠지는데 저는</span>
+</div><div class="tr-row" data-t="49.84" onclick="vSeek(49.84)">
+  <span class="tr-t">00:49</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">이렇게 있나?</span>
+</div><div class="tr-row" data-t="51.1" onclick="vSeek(51.1)">
+  <span class="tr-t">00:51</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">오! 잘 보여요</span>
+</div><div class="tr-row" data-t="52.26" onclick="vSeek(52.26)">
+  <span class="tr-t">00:52</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">그래서 최근에 이걸 시작했다는데</span>
+</div><div class="tr-row" data-t="53.66" onclick="vSeek(53.66)">
+  <span class="tr-t">00:53</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">이거 했거든요</span>
+</div><div class="tr-row" data-t="54.48" onclick="vSeek(54.48)">
+  <span class="tr-t">00:54</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">이거 해보셨어요?</span>
+</div><div class="tr-row" data-t="55.4" onclick="vSeek(55.4)">
+  <span class="tr-t">00:55</span>
+  <span class="tr-a" style="color:#2563eb;border-color:#2563eb40;background:#2563eb16">전개</span>
+  <span class="tr-x">아 나는 그래서</span>
+</div><div class="tr-row" data-t="56.28" onclick="vSeek(56.28)">
+  <span class="tr-t">00:56</span>
+  <span class="tr-a" style="color:#059669;border-color:#05966940;background:#05966916">CTA</span>
+  <span class="tr-x">문신이 있어</span>
+</div><div class="tr-row" data-t="58.08" onclick="vSeek(58.08)">
+  <span class="tr-t">00:58</span>
+  <span class="tr-a" style="color:#059669;border-color:#05966940;background:#05966916">CTA</span>
+  <span class="tr-x">뒤에 무슨 문신을 했을까?</span>
+</div><div class="tr-row" data-t="60.66" onclick="vSeek(60.66)">
+  <span class="tr-t">01:00</span>
+  <span class="tr-a" style="color:#059669;border-color:#05966940;background:#05966916">CTA</span>
+  <span class="tr-x">그렇구나</span>
+</div><div class="tr-row" data-t="61.02" onclick="vSeek(61.02)">
+  <span class="tr-t">01:01</span>
+  <span class="tr-a" style="color:#059669;border-color:#05966940;background:#05966916">CTA</span>
+  <span class="tr-x">어떻게 뭐해요?</span>
+</div><div class="tr-row" data-t="61.96" onclick="vSeek(61.96)">
+  <span class="tr-t">01:01</span>
+  <span class="tr-a" style="color:#059669;border-color:#05966940;background:#05966916">CTA</span>
+  <span class="tr-x">이게 그 이침</span>
+</div><div class="tr-row" data-t="63.6" onclick="vSeek(63.6)">
+  <span class="tr-t">01:03</span>
+  <span class="tr-a" style="color:#059669;border-color:#05966940;background:#05966916">CTA</span>
+  <span class="tr-x">붓기를</span>
+</div><div class="tr-row" data-t="64.62" onclick="vSeek(64.62)">
+  <span class="tr-t">01:04</span>
+  <span class="tr-a" style="color:#059669;border-color:#05966940;background:#05966916">CTA</span>
+  <span class="tr-x">붓기랑 배칭을 잡아준대요</span>
+</div><div class="tr-row" data-t="66.4" onclick="vSeek(66.4)">
+  <span class="tr-t">01:06</span>
+  <span class="tr-a" style="color:#059669;border-color:#05966940;background:#05966916">CTA</span>
+  <span class="tr-x">오 신기하다</span>
+</div><div class="tr-row" data-t="67.74" onclick="vSeek(67.74)">
+  <span class="tr-t">01:07</span>
+  <span class="tr-a" style="color:#059669;border-color:#05966940;background:#05966916">CTA</span>
+  <span class="tr-x">이거를 블랙핑크 지수 씨한테 추천을 받아가지고 간 거예요</span>
+</div><div class="tr-row" data-t="71.04" onclick="vSeek(71.04)">
+  <span class="tr-t">01:11</span>
+  <span class="tr-a" style="color:#059669;border-color:#05966940;background:#05966916">CTA</span>
+  <span class="tr-x">그 살이 쫙 이렇게 올라간다 진짜</span>
+</div><div class="tr-row" data-t="72.96" onclick="vSeek(72.96)">
+  <span class="tr-t">01:12</span>
+  <span class="tr-a" style="color:#059669;border-color:#05966940;background:#05966916">CTA</span>
+  <span class="tr-x">립뷰티 쫙 뵙림</span>
+</div><div class="tr-row" data-t="74.4" onclick="vSeek(74.4)">
+  <span class="tr-t">01:14</span>
+  <span class="tr-a" style="color:#059669;border-color:#05966940;background:#05966916">CTA</span>
+  <span class="tr-x">어디예요?</span>
+</div>
+  </section>
+
+  <!-- 화면 자막 (OCR) -->
+  <section class="sec" id="overlay">
+    <div class="sh"><div class="sn">🔤</div>화면 자막 (텍스트 오버레이)</div>
+    <p style="font-size:12px;color:var(--t3);margin-bottom:12px">
+  무음 시청(70%+) 대응 — 화면에 박힌 자막을 OCR로 추출. 총 22개 (클릭 시 영상 이동)</p>
+<div class="ov-list"><div class="ov-row" onclick="vSeek(0.0)">
+  <span class="ov-t">00:00</span>
+  <span class="ov-x">엿들게 된 신민아 #신민이#혜리 화장실에</span>
+</div><div class="ov-row" onclick="vSeek(5.79)">
+  <span class="ov-t">00:05</span>
+  <span class="ov-x">엿들게 된 신민아 #신멘이#혜리 (중은 얘기?) 뭐라고</span>
+</div><div class="ov-row" onclick="vSeek(12.34)">
+  <span class="ov-t">00:12</span>
+  <span class="ov-x">엿들게 된 신민아 #신민이#혜리 빠지</span>
+</div><div class="ov-row" onclick="vSeek(14.3)">
+  <span class="ov-t">00:14</span>
+  <span class="ov-x">엿들게 된 신민아 #신멘이#혜리 (긴장 ) 화장실 칸에서 제가 뭐라고 햇어요? 줄저: 혜리</span>
+</div><div class="ov-row" onclick="vSeek(16.19)">
+  <span class="ov-t">00:16</span>
+  <span class="ov-x">엿들게 된 신민아 #신멘이#혜리</span>
+</div><div class="ov-row" onclick="vSeek(18.02)">
+  <span class="ov-t">00:18</span>
+  <span class="ov-x">엿들게 된 신민아</span>
+</div><div class="ov-row" onclick="vSeek(20.04)">
+  <span class="ov-t">00:20</span>
+  <span class="ov-x">엿들게 된 신민아 (대체 키 못하켓 .</span>
+</div><div class="ov-row" onclick="vSeek(21.96)">
+  <span class="ov-t">00:21</span>
+  <span class="ov-x">엿들게 된 신민아 #신민이#혜리</span>
+</div><div class="ov-row" onclick="vSeek(23.43)">
+  <span class="ov-t">00:23</span>
+  <span class="ov-x">#신민이#혜리 #1 선배님 안에 계시고</span>
+</div><div class="ov-row" onclick="vSeek(25.2)">
+  <span class="ov-t">00:25</span>
+  <span class="ov-x">엿게 된 신민아 XV}</span>
+</div><div class="ov-row" onclick="vSeek(28.19)">
+  <span class="ov-t">00:28</span>
+  <span class="ov-x">엿들게 된 신민아 ((코크크크크))</span>
+</div><div class="ov-row" onclick="vSeek(30.35)">
+  <span class="ov-t">00:30</span>
+  <span class="ov-x">엿들게 된 신민아 내가} 분명히 허리</span>
+</div><div class="ov-row" onclick="vSeek(37.61)">
+  <span class="ov-t">00:37</span>
+  <span class="ov-x">엿들게 된 신민아 그리고 작품합때</span>
+</div><div class="ov-row" onclick="vSeek(40.69)">
+  <span class="ov-t">00:40</span>
+  <span class="ov-x">엿들게 된 신민아 #신멘이#혜리 근데 작품할 때는</span>
+</div><div class="ov-row" onclick="vSeek(44.05)">
+  <span class="ov-t">00:44</span>
+  <span class="ov-x">#신민이#혜리 계속</span>
+</div><div class="ov-row" onclick="vSeek(49.2)">
+  <span class="ov-t">00:49</span>
+  <span class="ov-x">엿들게 된 신민아 #신멘이#혜리 쪽 빠지늄데 줄저: 허리</span>
+</div><div class="ov-row" onclick="vSeek(58.61)">
+  <span class="ov-t">00:58</span>
+  <span class="ov-x">엿게 된 신민아 #신멘이#혜리 뛰에 무슨</span>
+</div><div class="ov-row" onclick="vSeek(62.75)">
+  <span class="ov-t">01:02</span>
+  <span class="ov-x">#신민이#혜리</span>
+</div><div class="ov-row" onclick="vSeek(67.28)">
+  <span class="ov-t">01:07</span>
+  <span class="ov-x">엿들게 된 신민아 #신멘이#예리 신기하다 허리</span>
+</div><div class="ov-row" onclick="vSeek(72.9)">
+  <span class="ov-t">01:12</span>
+  <span class="ov-x">&#x27;신민의#혜리 아; 진짜?</span>
+</div><div class="ov-row" onclick="vSeek(75.27)">
+  <span class="ov-t">01:15</span>
+  <span class="ov-x">엿들게 된 신민아 어디 줄저; 테리</span>
+</div><div class="ov-row" onclick="vSeek(76.53)">
+  <span class="ov-t">01:16</span>
+  <span class="ov-x">엿들게 된 신민아 (영업왕 혜리키</span>
+</div></div>
+  </section>
+
+  <!-- 핵심 키워드 (자막 빈출 주제어) -->
+  <section class="sec" id="keywords">
+    <div class="sh"><div class="sn">🔑</div>핵심 키워드</div>
+    <p style="font-size:12px;color:var(--t3);margin-bottom:14px">자막에서 가장 많이 나온 단어 — 이 영상의 핵심 주제 (크기=빈도)</p>
+    <div class="kw-wrap"><span class="kw-chip" style="font-size:20px">제가<b>6</b></span><span class="kw-chip" style="font-size:17px">뭐라고<b>4</b></span><span class="kw-chip" style="font-size:16px">했어요<b>3</b></span><span class="kw-chip" style="font-size:15px">화장실에<b>2</b></span><span class="kw-chip" style="font-size:15px">땀이<b>2</b></span><span class="kw-chip" style="font-size:15px">선배님<b>2</b></span><span class="kw-chip" style="font-size:15px">그렇게<b>2</b></span><span class="kw-chip" style="font-size:15px">작품할<b>2</b></span><span class="kw-chip" style="font-size:15px">살이<b>2</b></span><span class="kw-chip" style="font-size:15px">저는<b>2</b></span><span class="kw-chip" style="font-size:13px">봤었는데<b>1</b></span><span class="kw-chip" style="font-size:13px">케레<b>1</b></span><span class="kw-chip" style="font-size:13px">씨가<b>1</b></span><span class="kw-chip" style="font-size:13px">얘기를<b>1</b></span></div>
+  </section>
+
+  <!-- 03 참여 깔때기 -->
+  <section class="sec" id="funnel">
+    <div class="sh"><div class="sn">03</div>참여 깔때기</div>
+    <div class="funnel-row">
+  <div class="fl">재생수</div>
+  <div class="fb"><div class="fbar" style="width:100%;background:#a855f7"></div></div>
+  <div class="fv">486.2만</div>
+  <div class="fp" style="color:#a855f7">100.0%</div>
+</div><div class="funnel-row">
+  <div class="fl">조회수</div>
+  <div class="fb"><div class="fbar" style="width:49%;background:#3b82f6"></div></div>
+  <div class="fv">N/A</div>
+  <div class="fp" style="color:#3b82f6">49.0%</div>
+</div><div class="funnel-row">
+  <div class="fl">좋아요</div>
+  <div class="fb"><div class="fbar" style="width:1%;background:#e11d48"></div></div>
+  <div class="fv">5.6만</div>
+  <div class="fp" style="color:#e11d48">1.2%</div>
+</div><div class="funnel-row">
+  <div class="fl">댓글</div>
+  <div class="fb"><div class="fbar" style="width:0%;background:#f59e0b"></div></div>
+  <div class="fv">336</div>
+  <div class="fp" style="color:#f59e0b">0.0%</div>
+</div>
+  </section>
+
+  <!-- 길이·템포 -->
+  <section class="sec" id="meta">
+    <div class="sh"><div class="sn">⏱</div>영상 길이 · 편집 템포</div>
+    <div class="meta-grid">
+  <div class="meta-card">
+    <div class="meta-ico">⏱</div>
+    <div><div class="meta-l">영상 길이</div>
+    <div class="meta-v">77초</div>
+    <div class="meta-s">60~90초 — 정보형 숏폼. 후킹·리텐션 설계가 완주율을 좌우.</div></div>
+  </div>
+  <div class="meta-card">
+    <div class="meta-ico">✂️</div>
+    <div><div class="meta-l">편집 템포</div>
+    <div class="meta-v">3.0초/컷</div>
+    <div class="meta-s">빠름 — 정보형 숏폼의 표준 편집 템포</div></div>
+  </div>
+</div>
+  </section>
+
+  <!-- 05 타임라인 -->
+  <section class="sec" id="timeline">
+    <div class="sh"><div class="sn">05</div>감정 타임라인</div>
+    <div class="tl-wrap">
+      <svg viewBox="0 0 720 150" style="width:100%;max-width:720px;display:block">
+  <defs><linearGradient id="tg720" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#e11d48" stop-opacity=".3"/>
+    <stop offset="100%" stop-color="#e11d48" stop-opacity="0"/>
+  </linearGradient></defs>
+  <rect x="32.0" y="24" width="78.7" height="102" fill="#e11d48" opacity=".07"/><rect x="110.7" y="24" width="183.7" height="102" fill="#f59e0b" opacity=".07"/><rect x="294.4" y="24" width="209.9" height="102" fill="#2563eb" opacity=".07"/><rect x="504.3" y="24" width="183.7" height="102" fill="#059669" opacity=".07"/><line x1="130.3" y1="24" x2="130.3" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="143.3" y1="24" x2="143.3" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="163.7" y1="24" x2="163.7" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="175.4" y1="24" x2="175.4" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="194.9" y1="24" x2="194.9" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="209.6" y1="24" x2="209.6" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="227.7" y1="24" x2="227.7" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="234.5" y1="24" x2="234.5" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="257.8" y1="24" x2="257.8" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="285.2" y1="24" x2="285.2" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="294.6" y1="24" x2="294.6" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="344.1" y1="24" x2="344.1" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="359.2" y1="24" x2="359.2" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="367.4" y1="24" x2="367.4" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="388.0" y1="24" x2="388.0" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="424.6" y1="24" x2="424.6" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="475.6" y1="24" x2="475.6" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="502.2" y1="24" x2="502.2" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="558.0" y1="24" x2="558.0" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="572.4" y1="24" x2="572.4" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="587.5" y1="24" x2="587.5" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="597.1" y1="24" x2="597.1" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="610.4" y1="24" x2="610.4" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="636.4" y1="24" x2="636.4" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="666.5" y1="24" x2="666.5" y2="126" stroke="#2a2a2a" stroke-width="1"/><line x1="676.7" y1="24" x2="676.7" y2="126" stroke="#2a2a2a" stroke-width="1"/>
+  <path d="M32.0,32.5 C45.7,32.5 45.7,54.4 59.3,54.4 C73.0,54.4 73.0,82.3 86.7,82.3 C100.3,82.3 100.3,67.7 114.0,67.7 C127.7,67.7 127.7,53.1 141.3,53.1 C155.0,53.1 155.0,60.4 168.7,60.4 C182.3,60.4 182.3,42.2 196.0,42.2 C209.7,42.2 209.7,53.1 223.3,53.1 C237.0,53.1 237.0,75.0 250.7,75.0 C264.3,75.0 264.3,32.5 278.0,32.5 C291.7,32.5 291.7,47.1 305.3,47.1 C319.0,47.1 319.0,28.9 332.7,28.9 C346.3,28.9 346.3,24.0 360.0,24.0 C373.7,24.0 373.7,75.0 387.3,75.0 C401.0,75.0 401.0,67.7 414.7,67.7 C428.3,67.7 428.3,78.6 442.0,78.6 C455.7,78.6 455.7,60.4 469.3,60.4 C483.0,60.4 483.0,67.7 496.7,67.7 C510.3,67.7 510.3,85.9 524.0,85.9 C537.7,85.9 537.7,96.9 551.3,96.9 C565.0,96.9 565.0,53.1 578.7,53.1 C592.3,53.1 592.3,42.2 606.0,42.2 C619.7,42.2 619.7,71.4 633.3,71.4 C647.0,71.4 647.0,38.6 660.7,38.6 C674.3,38.6 674.3,53.1 688.0,53.1 L688.0,126 L32.0,126 Z" fill="url(#tg720)"/>
+  <path d="M32.0,32.5 C45.7,32.5 45.7,54.4 59.3,54.4 C73.0,54.4 73.0,82.3 86.7,82.3 C100.3,82.3 100.3,67.7 114.0,67.7 C127.7,67.7 127.7,53.1 141.3,53.1 C155.0,53.1 155.0,60.4 168.7,60.4 C182.3,60.4 182.3,42.2 196.0,42.2 C209.7,42.2 209.7,53.1 223.3,53.1 C237.0,53.1 237.0,75.0 250.7,75.0 C264.3,75.0 264.3,32.5 278.0,32.5 C291.7,32.5 291.7,47.1 305.3,47.1 C319.0,47.1 319.0,28.9 332.7,28.9 C346.3,28.9 346.3,24.0 360.0,24.0 C373.7,24.0 373.7,75.0 387.3,75.0 C401.0,75.0 401.0,67.7 414.7,67.7 C428.3,67.7 428.3,78.6 442.0,78.6 C455.7,78.6 455.7,60.4 469.3,60.4 C483.0,60.4 483.0,67.7 496.7,67.7 C510.3,67.7 510.3,85.9 524.0,85.9 C537.7,85.9 537.7,96.9 551.3,96.9 C565.0,96.9 565.0,53.1 578.7,53.1 C592.3,53.1 592.3,42.2 606.0,42.2 C619.7,42.2 619.7,71.4 633.3,71.4 C647.0,71.4 647.0,38.6 660.7,38.6 C674.3,38.6 674.3,53.1 688.0,53.1" fill="none" stroke="#e11d48" stroke-width="2" stroke-linecap="round"/>
+  <text x="32.0" y="144" text-anchor="middle" fill="#333" font-size="9">00:00</text><text x="196.0" y="144" text-anchor="middle" fill="#333" font-size="9">00:19</text><text x="360.0" y="144" text-anchor="middle" fill="#333" font-size="9">00:38</text><text x="524.0" y="144" text-anchor="middle" fill="#333" font-size="9">00:57</text><text x="688.0" y="144" text-anchor="middle" fill="#333" font-size="9">01:17</text>
+</svg>
+      <div class="tl-note">컷 전환 26개 | 자막 밀도 기반 감정 강도 추정</div>
+    </div>
+  </section>
+
+  <!-- 06 컷 디테일 -->
+  <section class="sec" id="cuts">
+    <div class="sh"><div class="sn">06</div>컷 디테일</div>
+    <div class="cuts-summary">총 <strong>26컷</strong> · 77초 · 평균 3.0초/컷</div><div class="cut-row" onclick="vSeek(11.57)">
+  <span class="cn">컷01</span>
+  <span class="ct2">00:11</span>
+  <div class="cbar-w"><div class="cbar" style="width:44%"></div></div>
+  <span class="cd2">diff 35</span>
+</div><div class="cut-row" onclick="vSeek(13.1)">
+  <span class="cn">컷02</span>
+  <span class="ct2">00:13</span>
+  <div class="cbar-w"><div class="cbar" style="width:49%"></div></div>
+  <span class="cd2">diff 40</span>
+</div><div class="cut-row" onclick="vSeek(15.5)">
+  <span class="cn">컷03</span>
+  <span class="ct2">00:15</span>
+  <div class="cbar-w"><div class="cbar" style="width:38%"></div></div>
+  <span class="cd2">diff 30</span>
+</div><div class="cut-row" onclick="vSeek(16.87)">
+  <span class="cn">컷04</span>
+  <span class="ct2">00:16</span>
+  <div class="cbar-w"><div class="cbar" style="width:47%"></div></div>
+  <span class="cd2">diff 38</span>
+</div><div class="cut-row" onclick="vSeek(19.17)">
+  <span class="cn">컷05</span>
+  <span class="ct2">00:19</span>
+  <div class="cbar-w"><div class="cbar" style="width:43%"></div></div>
+  <span class="cd2">diff 34</span>
+</div><div class="cut-row" onclick="vSeek(20.9)">
+  <span class="cn">컷06</span>
+  <span class="ct2">00:20</span>
+  <div class="cbar-w"><div class="cbar" style="width:45%"></div></div>
+  <span class="cd2">diff 36</span>
+</div><div class="cut-row" onclick="vSeek(23.03)">
+  <span class="cn">컷07</span>
+  <span class="ct2">00:23</span>
+  <div class="cbar-w"><div class="cbar" style="width:43%"></div></div>
+  <span class="cd2">diff 35</span>
+</div><div class="cut-row" onclick="vSeek(23.83)">
+  <span class="cn">컷08</span>
+  <span class="ct2">00:23</span>
+  <div class="cbar-w"><div class="cbar" style="width:42%"></div></div>
+  <span class="cd2">diff 33</span>
+</div><div class="cut-row" onclick="vSeek(26.57)">
+  <span class="cn">컷09</span>
+  <span class="ct2">00:26</span>
+  <div class="cbar-w"><div class="cbar" style="width:72%"></div></div>
+  <span class="cd2">diff 57</span>
+</div><div class="cut-row" onclick="vSeek(29.8)">
+  <span class="cn">컷10</span>
+  <span class="ct2">00:29</span>
+  <div class="cbar-w"><div class="cbar" style="width:46%"></div></div>
+  <span class="cd2">diff 37</span>
+</div><div class="cut-row" onclick="vSeek(30.9)">
+  <span class="cn">컷11</span>
+  <span class="ct2">00:30</span>
+  <div class="cbar-w"><div class="cbar" style="width:40%"></div></div>
+  <span class="cd2">diff 32</span>
+</div><div class="cut-row" onclick="vSeek(36.73)">
+  <span class="cn">컷12</span>
+  <span class="ct2">00:36</span>
+  <div class="cbar-w"><div class="cbar" style="width:47%"></div></div>
+  <span class="cd2">diff 38</span>
+</div><div class="cut-row" onclick="vSeek(38.5)">
+  <span class="cn">컷13</span>
+  <span class="ct2">00:38</span>
+  <div class="cbar-w"><div class="cbar" style="width:45%"></div></div>
+  <span class="cd2">diff 36</span>
+</div><div class="cut-row" onclick="vSeek(39.47)">
+  <span class="cn">컷14</span>
+  <span class="ct2">00:39</span>
+  <div class="cbar-w"><div class="cbar" style="width:48%"></div></div>
+  <span class="cd2">diff 39</span>
+</div><div class="cut-row" onclick="vSeek(41.9)">
+  <span class="cn">컷15</span>
+  <span class="ct2">00:41</span>
+  <div class="cbar-w"><div class="cbar" style="width:46%"></div></div>
+  <span class="cd2">diff 37</span>
+</div><div class="cut-row" onclick="vSeek(46.2)">
+  <span class="cn">컷16</span>
+  <span class="ct2">00:46</span>
+  <div class="cbar-w"><div class="cbar" style="width:43%"></div></div>
+  <span class="cd2">diff 35</span>
+</div><div class="cut-row" onclick="vSeek(52.2)">
+  <span class="cn">컷17</span>
+  <span class="ct2">00:52</span>
+  <div class="cbar-w"><div class="cbar" style="width:45%"></div></div>
+  <span class="cd2">diff 36</span>
+</div><div class="cut-row" onclick="vSeek(55.33)">
+  <span class="cn">컷18</span>
+  <span class="ct2">00:55</span>
+  <div class="cbar-w"><div class="cbar" style="width:49%"></div></div>
+  <span class="cd2">diff 40</span>
+</div><div class="cut-row" onclick="vSeek(61.9)">
+  <span class="cn">컷19</span>
+  <span class="ct2">01:01</span>
+  <div class="cbar-w"><div class="cbar" style="width:51%"></div></div>
+  <span class="cd2">diff 41</span>
+</div><div class="cut-row" onclick="vSeek(63.6)">
+  <span class="cn">컷20</span>
+  <span class="ct2">01:03</span>
+  <div class="cbar-w"><div class="cbar" style="width:50%"></div></div>
+  <span class="cd2">diff 40</span>
+</div>
+    <p style="font-size:11px;color:var(--t3);margin-top:8px">클릭하면 해당 구간으로 영상 이동</p>
+  </section>
+
+  <!-- 07 3초 후킹 -->
+  <section class="sec" id="hook">
+    <div class="sh"><div class="sn">07</div>3초 후킹 분석</div>
+    <div style="display:inline-block;padding:4px 13px;border-radius:20px;
+         background:rgba(225,48,108,.15);color:var(--ac);border:1px solid rgba(225,48,108,.3);
+         font-size:12px;font-weight:800;margin-bottom:14px">정보/선언형 후킹</div>
+    <div style="background:var(--s2);border-left:3px solid var(--ac);padding:12px 16px;border-radius:0 var(--rs) var(--rs) 0;font-size:14px;line-height:1.7;margin-bottom:12px">"화장실에 봤었는데"</div>
+    <p style="font-size:13px;color:var(--t2);line-height:1.7">명확한 주제 제시로 타겟 시청자를 빠르게 유입.</p>
+  </section>
+
+  <!-- 첫 프레임 · 루프 -->
+  <section class="sec" id="firstframe">
+    <div class="sh"><div class="sn">🖼</div>첫 프레임 후킹 · 루프 설계</div>
+    <div class="ff-wrap">
+  <div class="ff-img"><img src="https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_000_0000s.jpg" alt="첫 프레임"></div>
+  <div class="ff-body">
+    <div class="ff-block">
+      <div class="ff-label">🖼 첫 프레임 (0초 — 스크롤 정지 지점)</div>
+      <p class="ff-text">화장실에 봤었는데</p>
+      <p class="ff-ov">화면 자막: "엿들게 된 신민아 #신민이#혜리 화장실에"</p>
+    </div>
+    <div class="ff-block">
+      <div class="ff-label">🔁 루프 설계 — 연결 강도: <strong style="color:var(--ac)">보통</strong></div>
+      <p class="ff-text">엔딩: "어디예요?"</p>
+      <p class="ff-ov">질문형 엔딩 (다시보기 유도) — 엔딩에서 첫 장면으로의 직접 연결은 약함. 루프 후킹 보강 여지 있음</p>
+    </div>
+  </div>
+</div>
+  </section>
+
+  <!-- 08 서사구조 -->
+  <section class="sec" id="narrative">
+    <div class="sh"><div class="sn">📖</div>서사구조</div>
+    <div class="narr-row" onclick="vSeek(0)"
+  style="cursor:pointer" title="클릭하면 0:00–00:09 구간으로 이동">
+  <div class="na">
+    <div class="nat">발단 / 후킹</div>
+    <div class="nrg">0:00–00:09</div>
+  </div>
+  <p class="nd">화장실에 봤었는데 케레 씨가 제 얘기를 하는 거를 찾았어요 제가 뭐라고 그랬어요? 화장실에 11년 전 화장실에서의 일에 당황하는 혜리</p>
+</div><div class="narr-row" onclick="vSeek(9)"
+  style="cursor:pointer" title="클릭하면 00:09–00:30 구간으로 이동">
+  <div class="na">
+    <div class="nat">문제 제기</div>
+    <div class="nrg">00:09–00:30</div>
+  </div>
+  <p class="nd">화장실 칸에 있었어요 땀이! 땀이 막 났어요 제가 뭐라고 했어요? 뭐라고 했어요? 제가 이 분 얘기하기 좀 그런데 뭐라고 있는지 얘기해 주시면 돼요? 제가? 아, 못하겠어요 근데 너무 드라마에 한 장면 같지 않아요?</p>
+</div><div class="narr-row" onclick="vSeek(30)"
+  style="cursor:pointer" title="클릭하면 00:30–00:55 구간으로 이동">
+  <div class="na">
+    <div class="nat">전개 / 설명</div>
+    <div class="nrg">00:30–00:55</div>
+  </div>
+  <p class="nd">제가 데뷔하고 처음으로 충격을 받은 순간이었거든요 실물 봤을 때 누가 제일 예뻤어? 하면 저 무조건 선배님 진짜? 그리고 작품할 때 유독 살이 잘 찐다는 두 사람 근데 작품할 때는 스태프 받으면 찌고 그래서 저는 작</p>
+</div><div class="narr-row" onclick="vSeek(55)"
+  style="cursor:pointer" title="클릭하면 00:55–01:17 구간으로 이동">
+  <div class="na">
+    <div class="nat">해결책 / CTA</div>
+    <div class="nrg">00:55–01:17</div>
+  </div>
+  <p class="nd">문신이 있어 뒤에 무슨 문신을 했을까? 그렇구나 어떻게 뭐해요? 이게 그 이침 붓기를 붓기랑 배칭을 잡아준대요 오 신기하다 이거를 블랙핑크 지수 씨한테 추천을 받아가지고 간 거예요 그 살이 쫙 이렇게 올라간다 진짜 </p>
+</div>
+  </section>
+
+  <!-- ★ 방향 A: 록코치 렌즈 (하단·라이트·옵션) ★ -->
+  <section class="sec lite-sec" id="rok-lens">
+    <div class="lite-h">🎯 록코치 렌즈 <span class="lens-badge">다이어트 특화 · 옵션</span></div>
+<p class="lens-na">이 영상은 다이어트/운동 도메인이 아니어서 <b>록코치 렌즈는 해당 없음</b>입니다.<br>
+도메인 비종속 태그(상단)를 레퍼런스로 활용하세요. (다이어트 관련 신호 1개 — 기준 2개 미만)</p>
+  </section>
+
+</main>
+</div>
+
+<script>
+// ── 방향 C': Proven Hooks 원클릭 적재 ──
+const PH_KEY = "sb_publishable_QXcyJbDiHriUqIji3r7YDQ_YTfqc-vB";
+const PH_REST = "https://vnkvpvgnkevftfwltivs.supabase.co/rest/v1/proven_hooks";
+const HOOK_REC = {"video_source": "youtube", "video_url": "https://www.youtube.com/shorts/6v79uLTXoY4", "video_key": "6v79uLTXoY4", "hook_text": "화장실에 봤었는데", "hook_type_structural": "정보/선언형 후킹", "hook_type_advertiser": "Statement", "cta_detected": false, "cta_text": "", "emotional_triggers": ["curiosity"], "hook_strength": 2, "narrative_structure": "Other", "wpm": 138, "outlier_ratio": 104.8, "view_count": 4862473, "subscriber_count": 46400, "diet_lens_active": false, "rok_hook_variations": null};
+async function saveHook() {
+  const btn = document.getElementById('ph-btn');
+  if (!btn) return;
+  btn.disabled = true; btn.textContent = '적재 중…';
+  try {
+    const chk = await fetch(PH_REST + '?video_key=eq.' + encodeURIComponent(HOOK_REC.video_key) + '&select=hook_id',
+      { headers: { apikey: PH_KEY, Authorization: 'Bearer ' + PH_KEY } });
+    const ex = await chk.json();
+    if (Array.isArray(ex) && ex.length) { btn.textContent = '✅ 이미 적재됨'; return; }
+    const r = await fetch(PH_REST, { method: 'POST',
+      headers: { apikey: PH_KEY, Authorization: 'Bearer ' + PH_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body: JSON.stringify(HOOK_REC) });
+    if (r.ok) { btn.textContent = '✅ 적재 완료 (검토 대기)'; }
+    else { btn.textContent = '❌ 실패 ' + r.status; btn.disabled = false; }
+  } catch (e) { btn.textContent = '❌ 오류'; btn.disabled = false; }
+}
+
+const VIDEO = document.getElementById('main-video');
+const FRAMES = [{"time": 0, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_000_0000s.jpg", "text": "화장실에 봤었는데"}, {"time": 11, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_001_0011s.jpg", "text": "화장실 칸에 있었어요"}, {"time": 13, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_002_0013s.jpg", "text": "땀이! 땀이 막 났어요"}, {"time": 15, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_003_0015s.jpg", "text": "뭐라고 했어요?"}, {"time": 16, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_004_0016s.jpg", "text": "제가 이 분 얘기하기 좀 그런데"}, {"time": 19, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_005_0019s.jpg", "text": ""}, {"time": 20, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_006_0020s.jpg", "text": "아, 못하겠어요"}, {"time": 23, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_007_0023s.jpg", "text": ""}, {"time": 23, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_008_0023s.jpg", "text": ""}, {"time": 26, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_009_0026s.jpg", "text": "왜 습관이에요?"}, {"time": 29, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_010_0029s.jpg", "text": "제가 말을 못하는 이유가"}, {"time": 30, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_011_0030s.jpg", "text": "내가 분명히 그렇게 했을 거 같아요"}, {"time": 36, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_012_0036s.jpg", "text": "저 무조건 선배님"}, {"time": 38, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_013_0038s.jpg", "text": "그리고 작품할 때 유독 살이 잘 찐다는 두 사람"}, {"time": 39, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_014_0039s.jpg", "text": "그리고 작품할 때 유독 살이 잘 찐다는 두 사람"}, {"time": 41, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_015_0041s.jpg", "text": "근데 작품할 때는 스태프 받으면 찌고"}, {"time": 46, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_016_0046s.jpg", "text": "오 저불래"}, {"time": 52, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_017_0052s.jpg", "text": "오! 잘 보여요"}, {"time": 55, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_018_0055s.jpg", "text": "이거 해보셨어요?"}, {"time": 61, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_019_0061s.jpg", "text": "그렇구나"}, {"time": 63, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_020_0063s.jpg", "text": "이게 그 이침"}, {"time": 65, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_021_0065s.jpg", "text": "붓기랑 배칭을 잡아준대요"}, {"time": 66, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_022_0066s.jpg", "text": "붓기랑 배칭을 잡아준대요"}, {"time": 68, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_023_0068s.jpg", "text": "이거를 블랙핑크 지수 씨한테 추천을 받아가지고 간 거예요"}, {"time": 71, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_024_0071s.jpg", "text": "이거를 블랙핑크 지수 씨한테 추천을 받아가지고 간 거예요"}, {"time": 74, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_025_0074s.jpg", "text": "립뷰티 쫙 뵙림"}, {"time": 75, "src": "https://vnkvpvgnkevftfwltivs.supabase.co/storage/v1/object/public/marketing/youtube_UCBgYVJPLjqXcBcWPT_fDJcA/av/6v79uLTXoY4/storyboard/sb_026_0075s.jpg", "text": "어디예요?"}];
+let sbActive = 0;
+
+// 비디오 시간 업데이트 → 프레임 동기화
+VIDEO.addEventListener('timeupdate', () => {
+  const t = VIDEO.currentTime;
+  // 현재 프레임 찾기
+  let fi = 0;
+  for (let i = FRAMES.length - 1; i >= 0; i--) {
+    if (FRAMES[i].time <= t) { fi = i; break; }
+  }
+  if (fi !== sbActive) setActiveFrame(fi);
+
+  // 프로그레스 바
+  if (VIDEO.duration) {
+    document.getElementById('sb-prog').style.width = (t / VIDEO.duration * 100) + '%';
+  }
+
+  // 현재 자막
+  const txt = FRAMES[fi] ? FRAMES[fi].text : '';
+  const el  = document.getElementById('sb-text');
+  if (txt && el.dataset.last !== txt) {
+    el.textContent = txt;
+    el.dataset.last = txt;
+  }
+});
+
+VIDEO.addEventListener('play', () => { document.getElementById('sb-play').textContent = '⏸'; });
+VIDEO.addEventListener('pause', () => { document.getElementById('sb-play').textContent = '▶'; });
+
+function setActiveFrame(i) {
+  sbActive = i;
+  document.querySelectorAll('.sbf').forEach((f, j) => f.classList.toggle('sbf-active', j === i));
+  document.getElementById('sb-fi').textContent = (i+1) + ' / ' + FRAMES.length;
+  // 페이지 스크롤 없이 필름스트립 내부만 수평 스크롤
+  const wrap = document.querySelector('.sb-filmstrip-wrap');
+  const strip = document.getElementById('sb-filmstrip');
+  const frameEl = strip.querySelectorAll('.sbf')[i];
+  if (frameEl && wrap) {
+    const target = frameEl.offsetLeft - wrap.offsetWidth / 2 + frameEl.offsetWidth / 2;
+    wrap.scrollTo({ left: target, behavior: 'smooth' });
+  }
+}
+
+function sbSeek(t) {
+  VIDEO.currentTime = t;
+  VIDEO.play().catch(()=>{});
+}
+
+function sbPrev() {
+  if (sbActive > 0) { sbActive--; sbSeek(FRAMES[sbActive].time); }
+}
+function sbNext() {
+  if (sbActive < FRAMES.length-1) { sbActive++; sbSeek(FRAMES[sbActive].time); }
+}
+function sbToggle() {
+  VIDEO.paused ? VIDEO.play().catch(()=>{}) : VIDEO.pause();
+}
+
+// 대본/컷/서사 클릭 시 이동 — 페이지 스크롤 없이 시간만 이동
+function vSeek(t) {
+  VIDEO.currentTime = t;
+  VIDEO.play().catch(()=>{});
+}
+
+// ── 타임라인 SVG 클릭 → 영상 이동 ──────────────────────────
+const tlSvg = document.querySelector('.tl-wrap svg');
+if (tlSvg) {
+  tlSvg.style.cursor = 'crosshair';
+  tlSvg.addEventListener('click', function(e) {
+    const rect = this.getBoundingClientRect();
+    const relX = e.clientX - rect.left;
+    const pct  = Math.max(0, Math.min(1, relX / rect.width));
+    if (VIDEO.duration) {
+      VIDEO.currentTime = pct * VIDEO.duration;
+      VIDEO.play().catch(()=>{});
+    }
+  });
+}
+
+// ── 감정흐름 카드 클릭 → 해당 구간 이동 ───────────────────
+document.querySelectorAll('.emo-row[data-t]').forEach(row => {
+  row.style.cursor = 'pointer';
+  row.addEventListener('click', () => vSeek(parseFloat(row.dataset.t)));
+});
+
+// 사이드바 활성화
+const navLinks = document.querySelectorAll('.ni[href^="#"]');
+const sections = document.querySelectorAll('.sec');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(n => n.classList.remove('active'));
+      const a = document.querySelector('.ni[href="#' + entry.target.id + '"]');
+      if (a) a.classList.add('active');
+    }
+  });
+}, {threshold: 0.25});
+sections.forEach(s => obs.observe(s));
+
+// ── 플로팅 미니플레이어 (스크롤 추적) ──────────────────────
+const VCOL    = document.getElementById('sb-video-col');
+const PLAYER  = document.getElementById('sb-player');
+const SBSEC   = document.getElementById('storyboard');
+let floatDisabled = false;   // 사용자가 ✕로 끄면 true
+
+const floatObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    // 스토리보드 섹션이 화면에서 거의 벗어났을 때만 플로팅
+    if (!entry.isIntersecting && !floatDisabled) {
+      VCOL.classList.add('floating');
+      PLAYER.classList.add('is-floating');
+    } else {
+      VCOL.classList.remove('floating');
+      PLAYER.classList.remove('is-floating');
+    }
+  });
+}, { threshold: 0, rootMargin: '-80px 0px 0px 0px' });
+floatObs.observe(SBSEC);
+
+// ✕ 버튼: 플로팅 해제 (스크롤 올려 스토리보드 다시 보이면 재활성화)
+function closeFloat() {
+  floatDisabled = true;
+  VCOL.classList.remove('floating');
+  PLAYER.classList.remove('is-floating');
+}
+// 스토리보드 섹션이 다시 보이면 플로팅 재활성화 허용
+const reEnableObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => { if (entry.isIntersecting) floatDisabled = false; });
+}, { threshold: 0.3 });
+reEnableObs.observe(SBSEC);
+
+// 플로팅 라벨 클릭 → 스토리보드로 부드럽게 복귀
+function scrollToStoryboard() {
+  SBSEC.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+</body>
+</html>
